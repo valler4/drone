@@ -1,0 +1,164 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    background: url('../images/img.avif') no-repeat center center fixed;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "Segoe UI", Tahoma, Arial, sans-serif;
+    padding: 20px;
+}
+
+.auth-box {
+    width: 100%;
+    max-width: 650px; /* كبرنا العرض سنة عشان الصفين في الريجستر يبقوا مرتاحين */
+    display: flex;
+    flex-direction: column;
+}
+
+form {
+    background: transparent;
+    padding: 40px;
+
+    border-radius: 24px;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+
+    display: grid;
+    /* بيقسم عمودين قد بعض */
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    align-items: start;
+}
+
+/* عناصر لازم تفرش العرض كله (السطر كامل) */
+form header,
+form h2,
+form button,
+form footer,
+form .p-4.bg-error\/10,
+.remember {
+    grid-column: span 2;
+}
+
+form h2 {
+    text-align: center;
+    color: #f0f0f0;
+    margin-bottom: 10px;
+    font-size: 32px;
+    font-weight: 900;
+    letter-spacing: -1px;
+}
+
+/* تنسيق الـ Inputs بنفس ألوانك */
+input:not([type="checkbox"]) {
+    padding: 14px 18px;
+    border-radius: 15px;
+    border: 1px solid rgba(0, 0, 0, 0.1) !important;
+    background: rgba(255, 255, 255, 0.774) !important;
+    color: #333 !important;
+    font-size: 15px;
+    transition: all 0.3s ease;
+    width: 100%;
+}
+
+input::placeholder {
+    color: #554f4fb0 !important;
+    opacity: 1;
+}
+
+input:focus {
+    outline: none;
+    background: rgb(255, 255, 255) !important; /* بيفتح شوية لما تضغط عليه عشان تشوف أحسن */
+    border-color: rgba(255, 255, 255, 0.5) !important;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+    transform: translateY(-3px);
+}
+
+/* الزرار */
+button {
+    margin-top: 15px;
+    background: #ffffffcc;
+    color: #000;
+    border: none;
+    padding: 16px;
+    border-radius: 15px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+button:hover {
+    transform: translateY(-2px);
+    background: #000000;
+    color: #ffffff;
+}
+
+/* اللينكات تحت */
+.links-box {
+    text-align: center;
+    font-size: 13px;
+    color: #eee6e6; /* خليناه أبيض عشان يبان فوق الصورة */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    margin-top: 20px;
+}
+
+.links-box a {
+    color: #ffffffc7;
+    text-decoration: none;
+    font-weight: 800;
+    border-bottom: 1px dashed rgba(0, 0, 0, 0.521);
+}
+
+/* الـ Remember Me في اللوجين */
+.remember {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: rgb(223, 221, 221);
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.remember input {
+    width: 18px !important;
+    height: 18px !important;
+    cursor: pointer;
+}
+
+.text-error, .error-text, span {
+    color: #fa0000b9;
+    font-size: 10px;
+    font-weight: 800;
+    text-transform: uppercase;
+    margin-top: 4px;
+}
+
+/* حماية للموبايل: لو الشاشة صغيرة يقلب كله صف واحد */
+@media (max-width: 500px) {
+    form {
+        grid-template-columns: 1fr;
+    }
+    form header, form h2, form button, form footer, .remember {
+        grid-column: span 1;
+    }
+    form > div, form > input {
+        grid-column: span 1;
+    }
+}
+/* لما يتم الضغط على الحقل، الإيموجي اللي بعده يتحرك بنفس المقدار */
+input:focus + span {
+    transform: translatey(calc(-50% - 3px)) !important;
+}
+
