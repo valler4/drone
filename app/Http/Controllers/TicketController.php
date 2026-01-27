@@ -30,7 +30,7 @@ class TicketController extends Controller
     {
         $ticketdata = $request->validated();
         $ticket = $request->user()->tickets()->create($ticketdata);
-        $this->logActivity('create ticket', "id: {$request->user()->id} created a new ticket id: {$ticket->id}");
+        $this->logActivity('create ticket',"created a new ticket", "id: {$request->user()->id} created a new ticket id: {$ticket->id}");
 
         return redirect()->route('tickets.index')->with('success', 'ticket created successfully');
     }
@@ -38,22 +38,20 @@ class TicketController extends Controller
     public function show(Ticket $ticket): View
     {
         $this->authorize('view', $ticket);
-
         return view('tickets.show', compact('ticket'));
     }
 
     public function edit(Ticket $ticket): View
     {
-        $this->authorize('view', $ticket);
-
+        $this->authorize('update', $ticket);
         return view('tickets.edit', compact('ticket'));
     }
 
     public function update(TicketRequest $request, Ticket $ticket): RedirectResponse
     {
-        $this->authorize('view', $ticket);
+        $this->authorize('update', $ticket);
         $ticket->update($request->validated());
-        $this->logActivity('update ticket', "id: {$request->user()->id} updated a ticket id: {$ticket->id}");
+        $this->logActivity('update ticket',"ticket {$ticket->id} updated successfully", "id: {$request->user()->id} updated a ticket id: {$ticket->id}");
 
         return redirect()->route('tickets.index')->with('success', 'ticket updated successfully');
     }
@@ -62,7 +60,7 @@ class TicketController extends Controller
     {
         $this->authorize('view', $ticket);
         $ticket->delete();
-        $this->logActivity('delete ticket', "id: {$request->user()->id} deleted a ticket id: {$ticket->id}");
+        $this->logActivity('delete ticket',"ticket {$ticket->id} deleted successfully", "id: {$request->user()->id} deleted a ticket id: {$ticket->id}");
 
         return redirect()->route('tickets.index')->with('success', 'ticket deleted successfully');
     }
@@ -71,7 +69,7 @@ class TicketController extends Controller
     {
         $this->authorize('view', $ticket);
         $ticket->update(['status' => 'closed']);
-        $this->logActivity('delete ticket', "id: {$request->user()->id} deleted a ticket id: {$ticket->id}");
+        $this->logActivity('close ticket',"ticket {$ticket->id} closed successfully", "id: {$request->user()->id} closed a ticket id: {$ticket->id}");
 
         return redirect()->route('tickets.index')->with('success', 'ticket deleted successfully');
     }

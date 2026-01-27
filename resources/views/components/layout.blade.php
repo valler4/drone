@@ -74,6 +74,12 @@
                             </a>
                         </li>
                         <li>
+                            <a href="/dashboard" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-primary/10 transition-all group">
+                                <span class="group-hover:scale-110 transition-transform">📊</span>
+                                <span class="font-bold dark:text-slate-200">dashboard</span>
+                            </a>
+                        </li>
+                        <li>
                             <a href="/profile" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-primary/10 transition-all group">
                                 <span class="group-hover:scale-110 transition-transform">👤</span>
                                 <span class="font-bold dark:text-slate-200">Profile</span>
@@ -97,7 +103,7 @@
                 </aside>
                 <button id="theme-toggle" class="btn btn-ghost btn-circle">🌙</button>
             @else
-                <a href="{{ route('login') }}" class="btn btn-ghost btn-sm">Log in</a>
+                <a href="{{ route('login') }}" class="btn btn-ghost btn-sm rounded-full">Log in</a>
                 <a href="{{ route('register') }}" class="btn btn-primary btn-sm px-6 rounded-full">Sign up</a>
             @endauth
         </div>

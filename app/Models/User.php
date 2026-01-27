@@ -57,18 +57,25 @@ class User extends Authenticatable
 
     public function getImageUrlAttribute()
     {
-        if (!$this->profile_image) {
+        if (! $this->profile_image) {
             return asset('images/default-profile.png');
         } else {
-            return asset('storage/profile_images/' . $this->profile_image);
+            return asset('storage/profile_images/'.$this->profile_image);
         }
     }
+
     public function roles()
     {
         return $this->belongsToMany(role::class);
     }
+
     public function tickets()
     {
         return $this->hasMany(ticket::class);
+    }
+
+    public function activities()
+    {
+        return $this->hasMany(Activity::class);
     }
 }

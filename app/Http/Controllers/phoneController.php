@@ -3,13 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\PhoneRequest;
-use Illuminate\Http\Request;
 use App\Models\User;
 use App\Traits\Logs;
+use Illuminate\Http\Request;
 
 class phoneController extends Controller
 {
     use Logs;
+
     public function sendphone(PhoneRequest $request)
     {
         if (user::where('phone', $request->phone)->exists()) {
@@ -28,7 +29,7 @@ class phoneController extends Controller
             ]);
             $expiresat = session(',ail_otp_expires_at');
 
-            $this->logActivity('send otp phone', "id: {$user->id} user {$user->user_name} is sending phone code from: {$user->phone} to {$phone} otp {$otp} expires at {$expiresat}");
+            $this->logActivity('send phone code', 'phone code sent successfully', "id: {$user->id} user {$user->user_name} changing phone from: {$user->phone} to {$phone} otp {$otp} expires at {$expiresat}");
 
             return redirect()->route('confirm-phone')->with('success', 'OTP sent successfully');
         }
@@ -52,10 +53,11 @@ class phoneController extends Controller
 
             session()->forget(['phone_otp', 'temp_phone']);
 
-            $this->logActivity('updated phone', "id: {$user->id} user {$user->user_name} updated his phone from: {$user->phone} to {$tempphone}");
+            $this->logActivity('updated phone', " updated phone from: {$user->phone} to {$tempphone}", "id: {$user->id} user {$user->user_name} updated his phone from: {$user->phone} to {$tempphone}");
 
             return redirect()->route('profile')->with('success', 'phone updated successfully');
         }
+
         return back()->withErrors(['otp' => 'Invalid OTP']);
     }
 
@@ -65,7 +67,7 @@ class phoneController extends Controller
             return back()->withErrors(['error' => 'Please wait before sending another code.']);
         }
         $resendphone = session('temp_phone');
-        if (!$resendphone) {
+        if (! $resendphone) {
             return back()->withErrors(['error' => 'Session expired, please try again.']);
         } else {
             if (user::where('phone', $request->phone)->exists()) {
@@ -84,7 +86,7 @@ class phoneController extends Controller
                 ]);
                 $expiresat = session('phone_otp_expires_at');
 
-                $this->logActivity('resend otp phone', "id: {$user->id} user {$user->user_name} is resending phone code to update from: {$user->phone} to {$phone} otp {$phone_otp} expires at {$expiresat}");
+                $this->logActivity('resend otp phone', 'phone code resend successfully', "id: {$user->id} user {$user->user_name} resending phone code to update from: {$user->phone} to {$phone} otp {$phone_otp} expires at {$expiresat}");
 
                 return redirect()->route('confirm-phone')->with('success', 'code sent successfully');
             }

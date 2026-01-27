@@ -354,9 +354,9 @@ span {
 }
 
 .menu li a:hover {
-    background-color: #f0f7ff;
+    background-color: #2b7cd3;
     padding-left: 35px;
-    color: #007bff;
+    color: #ffffff;
 }
 
 :root {
@@ -450,7 +450,7 @@ body {
 
 /* --- الزرار الخارجي --- */
 .delete-button {
-    background-color: #dc2626;
+    background-color: #be0d0d;
     /* أحمر أغمق وأشيك */
     color: white;
     text-decoration: none;
@@ -464,7 +464,7 @@ body {
 }
 
 .delete-button:hover {
-    background-color: #b91c1c;
+    background-color: #ca0808;
 }
 
 /* --- الخلفية والمودال --- */

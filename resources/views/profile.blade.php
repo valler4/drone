@@ -109,7 +109,7 @@
 
                             <form action="{{ route('delete-account') }}" method="post">
                                 @csrf
-
+                                @method('delete')
                                 <input type="password" name="password" class="password-input"
                                     placeholder="Enter Password" required autofocus>
 

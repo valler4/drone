@@ -7,20 +7,20 @@ use Illuminate\Support\Facades\Log;
 
 trait Logs
 {
-
-    public function logActivity($action, $description)
+    public function logActivity($action, $description, $metadata)
     {
         $user = request()->user();
 
         Log::build([
             'driver' => 'single',
             'path' => storage_path('logs/user_activity.log'),
-        ])->info("user_id: {$user->id} | action: {$action} | desc: {$description}");
+        ])->info("user_id: {$user->id} | action: {$action} | desc: {$description} | metadata: {$metadata}");
 
         Activity::create([
-            'user_id'    => $user->id,
-            'action'     => $action,
+            'user_id' => $user->id,
+            'action' => $action,
             'description' => $description,
+            'matadata' => $metadata,
             'ip_address' => request()->ip(),
         ]);
     }

@@ -55,10 +55,10 @@
 
                         <div class="flex items-center gap-2">
                             <a href="{{ route('tickets.show', $ticket) }}" class="btn btn-ghost btn-sm rounded-xl dark:text-white">View</a>
-                            <a href="{{ route('tickets.edit', $ticket) }}" class="btn btn-ghost btn-sm rounded-xl text-primary dark:text-white">Edit</a>
 
                             @if ($ticket->status == 'open')
-                                <a href="#confirm-close-{{ $ticket->id }}" class="btn btn-ghost btn-sm rounded-xl text-error hover:bg-error/10">Close</a>
+                            <a href="{{ route('tickets.edit', $ticket) }}" class="btn btn-ghost btn-sm rounded-xl text-primary dark:text-white">Edit</a>
+                                <a href="#confirm-close-{{ $ticket->id }}" class="btn btn-ghost btn-sm rounded-xl text-primary hover:bg-error/10">Close</a>
 
                                 <div id="confirm-close-{{ $ticket->id }}" class="modal-overlay">
                                     <div class="modal-content rounded-3xl p-8 max-w-sm dark:bg-slate-900">

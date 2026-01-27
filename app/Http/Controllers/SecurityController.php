@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\PinCodeRequest;
 use App\Http\Requests\passwordRequest;
-use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\PinCodeRequest;
 use App\Traits\Logs;
+use Illuminate\Support\Facades\Auth;
 
 class SecurityController extends Controller
 {
@@ -20,7 +20,7 @@ class SecurityController extends Controller
             'password' => $request->new_password,
         ]);
 
-        $this->logActivity('update password', "id: {$user->id} user {$user->user_name} updated password");
+        $this->logActivity('update password', 'password updated successfully', "id: {$user->id} user {$user->user_name} updated password");
 
         auth::logout();
 
@@ -39,10 +39,8 @@ class SecurityController extends Controller
             'pin_code' => bcrypt($request->pin_code),
         ]);
 
-        $this->logActivity('update pin_code', "id: {$user->id} user {$user->user_name} updated pin code");
+        $this->logActivity('update pin_code', 'pin code updated successfully', "id: {$user->id} user {$user->user_name} updated pin code");
 
         return redirect('/home')->with('success', 'pin code updated successfully');
     }
-
 }
-

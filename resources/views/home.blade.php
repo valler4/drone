@@ -1,14 +1,5 @@
-<!DOCTYPE html>
-<html lang="en" data-theme="lofi">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>drone - Home</title>
-</head>
-
+<x-layout>
 <body class="min-h-screen flex flex-col bg-base-200 font-sans">
-    <x-layout>
         <x-slot:title>
             home
         </x-slot:title>

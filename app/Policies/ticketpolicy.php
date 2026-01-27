@@ -37,7 +37,7 @@ class ticketpolicy
      */
     public function update(User $user, ticket $ticket): bool
     {
-        return false;
+        return $user->id === $ticket->user_id;
     }
 
     /**
