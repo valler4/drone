@@ -1,12 +1,5 @@
 <x-layout>
     <x-slot:title>Update Email</x-slot:title>
-    @php
-        $lastSent = session('otp_sent_at');
-        $cooldown = 12;
-        $canSendAgainAt = $lastSent ? (clone $lastSent)->addSeconds($cooldown) : null;
-        $isWaiting = $canSendAgainAt && now()->lessThan($canSendAgainAt);
-        $remaining = $isWaiting ? now()->diffInSeconds($canSendAgainAt) : 0;
-    @endphp
 
     <div class="max-w-xl mx-auto px-1 py-1">
         <header class="mb-10">
@@ -32,12 +25,12 @@
 
                 <div class="flex flex-col md:flex-row items-stretch gap-3">
                     <input type="email" id="user-email" name="email" value="{{ old('email') }}"
-                        class="input bg-base-200 dark:bg-slate-900 border-none focus:ring-2 ring-primary rounded-2xl font-medium flex-1 dark:text-white @error('email') ring-2 ring-error @enderror"
+                        class="input bg-base-200 dark:bg-slate-900 border-none focus:ring-2 rounded-2xl font-medium flex-1 dark:text-white @error('email') ring-2 ring-error @enderror"
                         placeholder="name@example.com" required>
 
-                    <button type="submit" id="send-otp-btn" @if ($isWaiting) disabled @endif
-                        class="btn btn-primary rounded-2xl px-8 shadow-lg shadow-primary/20 {{ $isWaiting ? 'opacity-50 cursor-not-allowed' : '' }}">
-                        {{ $isWaiting ? "Wait {$remaining}s" : 'Send Code' }}
+                    <button type="submit" id="send-otp-btn"
+                        class="btn btn-primary rounded-2xl px-8 shadow-lg shadow-primary/20">
+                        send Code
                     </button>
                 </div>
 

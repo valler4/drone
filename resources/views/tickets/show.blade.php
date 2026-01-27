@@ -42,12 +42,12 @@
                 </div>
 
                 <div class="pt-8 border-t border-base-200 dark:border-slate-800 flex flex-wrap items-center gap-4">
+                    @if ($ticket->status === 'open')
                     <a href="{{ route('tickets.edit', $ticket) }}" class="btn btn-primary px-8 rounded-2xl shadow-lg shadow-primary/20">
                         Edit Ticket
                     </a>
 
-                    @if ($ticket->status === 'open')
-                        <a href="#confirm-close-{{ $ticket->id }}" class="btn btn-ghost rounded-2xl px-8 text-error hover:bg-error/10 border-error/20 border">
+                        <a href="#confirm-close-{{ $ticket->id }}" class="btn btn-ghost text-error font-bold btn-sm text-sm uppercase rounded-xl tracking-widest hover:bg-error/10">
                             Close Ticket
                         </a>
 
@@ -55,7 +55,7 @@
                             <div class="modal-content rounded-3xl p-8 max-w-sm dark:bg-slate-900">
                                 <h3 class="text-2xl font-black tracking-tighter mb-2 dark:text-white">Close Ticket?</h3>
                                 <p class="text-slate-500 dark:text-slate-400 mb-6 text-sm">Are you sure you want to close this ticket? This action cannot be undone.</p>
-                                
+
                                 <form action="{{ route('tickets.close', $ticket) }}" method="post">
                                     @csrf
                                     @method('patch')

@@ -76,19 +76,19 @@
                         </a>
                     </li>
                     <li>
-                        <a href="/dashboard"
-                            class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-primary/10 transition-all group">
-                            <span class="group-hover:scale-110 transition-transform">📊</span>
-                            <span class="font-bold dark:text-slate-200">dashboard</span>
-                        </a>
-                    </li>
-                    <li>
                         <a href="/profile"
-                            class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-primary/10 transition-all group">
-                            <span class="group-hover:scale-110 transition-transform">👤</span>
-                            <span class="font-bold dark:text-slate-200">Profile</span>
-                        </a>
-                    </li>
+                        class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-primary/10 transition-all group">
+                        <span class="group-hover:scale-110 transition-transform">👤</span>
+                        <span class="font-bold dark:text-slate-200">Profile</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/dashboard"
+                        class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-primary/10 transition-all group">
+                        <span class="group-hover:scale-110 transition-transform">📊</span>
+                        <span class="font-bold dark:text-slate-200">dashboard</span>
+                    </a>
+                </li>
                     <li>
                         <a href="/tickets"
                             class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-primary/10 transition-all group">

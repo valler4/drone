@@ -20,7 +20,7 @@ class SecurityController extends Controller
             'password' => $request->new_password,
         ]);
 
-        $this->logActivity('update password', 'password updated successfully', "id: {$user->id} user {$user->user_name} updated password");
+        // $this->logActivity('update password', 'password updated successfully', "id: {$user->id} user {$user->user_name} updated password");
 
         auth::logout();
 
@@ -38,8 +38,6 @@ class SecurityController extends Controller
         $user->update([
             'pin_code' => bcrypt($request->pin_code),
         ]);
-
-        $this->logActivity('update pin_code', 'pin code updated successfully', "id: {$user->id} user {$user->user_name} updated pin code");
 
         return redirect('/home')->with('success', 'pin code updated successfully');
     }

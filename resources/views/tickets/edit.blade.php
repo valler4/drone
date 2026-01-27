@@ -25,7 +25,7 @@
                     <span class="label-text font-bold text-xs uppercase tracking-wider text-slate-500 dark:text-slate-400">Ticket Title</span>
                 </label>
                 <input type="text" name="title" value="{{ old('title', $ticket->title) }}" placeholder="What is this about?"
-                    class="input bg-base-200 dark:bg-slate-900 border-none focus:ring-2 ring-primary rounded-2xl font-medium w-full dark:text-white @error('title') ring-2 ring-error @enderror" required autofocus>
+                    class="input bg-base-200 dark:bg-slate-900 border-none focus:ring-2 rounded-2xl font-medium w-full dark:text-white @error('title') ring-2 ring-error @enderror" required autofocus>
                 @error('title')
                     <div class="mt-2">
                         <span class="p-2 bg-error/10 text-error rounded-xl text-xs font-bold block italic">{{ $message }}</span>
@@ -38,14 +38,14 @@
                     <span class="label-text font-bold text-xs uppercase tracking-wider text-slate-500 dark:text-slate-400">Description / Subject</span>
                 </label>
                 <textarea name="subject" rows="6" placeholder="Please describe your issue in detail..."
-                    class="textarea bg-base-200 dark:bg-slate-900 border-none focus:ring-2 ring-primary rounded-2xl font-medium w-full min-h-[150px] dark:text-white @error('subject') ring-2 ring-error @enderror" required>{{ old('subject', $ticket->subject) }}</textarea>
+                    class="textarea bg-base-200 dark:bg-slate-900 border-none focus:ring-2 rounded-2xl font-medium w-full min-h-37.5 dark:text-white @error('subject') ring-2 ring-error @enderror" required>{{ old('subject', $ticket->subject) }}</textarea>
                 @error('subject')
                     <div class="mt-2">
                         <span class="p-2 bg-error/10 text-error rounded-xl text-xs font-bold block italic">{{ $message }}</span>
                     </div>
                 @enderror
             </div>
-
+            @if ($ticket->status === 'open')
             <div class="pt-6 flex flex-col md:flex-row md:items-center justify-between gap-6">
                 <div class="flex items-center gap-4">
                     <button type="submit" class="btn btn-primary px-10 rounded-2xl shadow-lg shadow-primary/20">
@@ -54,7 +54,7 @@
                     <a href="{{ route('tickets.show', $ticket) }}" class="btn btn-ghost rounded-2xl px-10 dark:text-slate-300">Cancel</a>
                 </div>
 
-                <a href="#confirm-delete" class="text-error font-bold text-sm uppercase tracking-widest hover:underline">Delete Ticket</a>
+                <a href="#confirm-delete" class="btn btn-ghost text-error font-bold btn-sm text-sm uppercase rounded-xl tracking-widest hover:bg-error/10">close Ticket</a>
             </div>
         </form>
 
@@ -66,19 +66,24 @@
                         <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
                     </svg>
                 </div>
-                <h3 class="text-2xl font-black tracking-tighter mb-2 text-slate-800 dark:text-white">Delete Ticket?</h3>
-                <p class="text-slate-500 dark:text-slate-400 mb-8 text-sm">Are you sure you want to permanently delete this ticket? This action cannot be undone.</p>
-                
-                <form action="{{ route('tickets.destroy', $ticket->id) }}" method="post">
+                <h3 class="text-2xl font-black tracking-tighter mb-2 text-slate-800 dark:text-white">close Ticket?</h3>
+                <p class="text-slate-500 dark:text-slate-400 mb-8 text-sm">Are you sure you want to close this ticket?</p>
+
+                <form action="{{ route('tickets.close', $ticket->id) }}" method="post">
                     @csrf
                     @method('delete')
                     <div class="flex flex-col gap-2">
-                        <button type="submit" class="btn btn-error rounded-2xl text-white shadow-lg shadow-error/20">Yes, Delete Permanently</button>
-                        <a href="#" class="btn btn-ghost rounded-2xl dark:text-slate-300">Go Back</a>
+                        <button type="submit" class="btn btn-error rounded-2xl text-white shadow-lg shadow-error/20">Yes, Close Ticket</button>
+                        <a href="#" class="btn btn-ghost rounded-2xl dark:text-slate-300">Cancel</a>
                     </div>
                 </form>
             </div>
         </div>
+        @else
+            <div class="mt-6">
+                <span class="text-sm font-medium text-slate-500 dark:text-slate-400">This ticket is closed and cannot be edited.</span>
+            </div>
+        @endif
     </div>
 
     <script src="{{ asset('js/main.js') }}"></script>

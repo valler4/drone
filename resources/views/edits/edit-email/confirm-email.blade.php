@@ -1,14 +1,5 @@
 <x-layout>
     <x-slot:title>Confirm Email</x-slot:title>
-    @php
-        $user = auth()->user();
-        $mail = session('temp_email');
-        $lastSent = session('otp_sent_at');
-        $cooldown = 12;
-        $canSendAgainAt = $lastSent ? (clone $lastSent)->addSeconds($cooldown) : null;
-        $isWaiting = $canSendAgainAt && now()->lessThan($canSendAgainAt);
-        $remaining = $isWaiting ? now()->diffInSeconds($canSendAgainAt) : 0;
-    @endphp
 
     <div class="max-w-md mx-auto px-1 py-1">
         <header class="mb-10 text-center md:text-left">
@@ -22,7 +13,7 @@
                 Back to Settings
             </a>
             <h1 class="text-4xl font-black tracking-tighter dark:text-white">Verify Email</h1>
-            <p class="text-slate-500 dark:text-slate-400 text-sm mt-1">Check your inbox at <strong>{{ $mail }}</strong>, we've sent you a 6-digit code.</p>
+            <p class="text-slate-500 dark:text-slate-400 text-sm mt-1">Check your inbox at <strong>{{ $newemail }}</strong>, we've sent you a 6-digit code.</p>
         </header>
 
         <form action="{{ route('update-email') }}" method="post" id="update-form" class="space-y-8">
@@ -35,7 +26,7 @@
                 </label>
 
                 <input type="text" name="otp" maxlength="6"
-                    class="input bg-base-200 dark:bg-slate-900 border-none focus:ring-2 ring-success rounded-2xl text-center text-3xl font-black tracking-[0.5em] h-20 w-full dark:text-white @error('otp') ring-2 ring-error @enderror"
+                    class="input bg-base-200 dark:bg-slate-900 border-none focus:ring-2 rounded-2xl text-center text-3xl font-black tracking-[0.5em] h-20 w-full dark:text-white @error('otp') ring-2 ring-error @enderror"
                     placeholder="000000" required autofocus />
 
                 <div class="mt-4">
@@ -64,11 +55,12 @@
             <p class="text-xs text-slate-400 dark:text-slate-500 font-medium tracking-wide">
                 Didn't receive the code?
             </p>
-            <form action="{{ route('resend-email-otp') }}" method="post" class="m-0">
+            <form id="otp-form" action="{{ route('send-email-otp') }}" method="post" class="m-0">
                 @csrf
-                <button type="submit" id="send-otp-btn" @if ($isWaiting) disabled @endif
-                    class="btn btn-ghost btn-sm text-primary font-black uppercase tracking-widest text-[10px] hover:bg-primary/5 transition-all {{ $isWaiting ? 'opacity-50 cursor-not-allowed' : '' }}">
-                    {{ $isWaiting ? "Resend in {$remaining}s" : 'Resend Code Now' }}
+                <input type="email" id="user-email" name="email" value="{{ $newemail }}" hidden>
+                <button type="submit" id="send-otp-btn"
+                    class="btn btn-ghost btn-sm text-primary font-black uppercase tracking-widest text-[10px] hover:bg-primary/5 transition-all">
+                    Resend Code Now
                 </button>
             </form>
         </div>

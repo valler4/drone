@@ -12,11 +12,24 @@ use Illuminate\Support\Facades\Mail;
 class EmailController extends Controller
 {
     use Logs;
+    public function editemail()
+    {
+        $user = request()->user();
+        return view('edits.edit-email.edit-email', compact('user'));
+    }
+
+    public function confirmemail()
+    {
+        $user = request()->user();
+        $newemail = session('temp_email');
+        return view('edits.edit-email.confirm-email', compact('user', 'newemail'));
+    }
+
 
     public function sendEmailotp(EmailRequest $request)
     {
         if (user::where('email', $request->email)->exists()) {
-            return back()->withErrors('email', 'Email already exists');
+            return back()->withErrors('otp', 'Email already exists');
         } else {
             $email = $request->email;
             $user = $request->user();
@@ -26,15 +39,13 @@ class EmailController extends Controller
                 'mail_otp' => $mail_otp,
                 'temp_email' => $request->email,
                 'mail_otp_expires_at' => now()->addMinutes(10),
-                'otp_sent_at' => now(),
-                'can_send_again' => now()->addSeconds(10),
             ]);
             $expiresat = session('mail_otp_expires_at');
 
             mail::to($email)->send(new MailEmail(session('mail_otp')));
 
             $this->logActivity('send email code', 'email code sent', "id: {$user->id} changing email from: {$user->email} to {$email} otp {$mail_otp} expires at {$expiresat}");
-            
+
             return redirect()->route('confirm-email')->with('success', 'code sent successfully');
         }
     }
@@ -57,42 +68,10 @@ class EmailController extends Controller
 
             session()->forget(['mail_otp', 'temp_email']);
 
-            $this->logActivity('updated email', " updated email from: {$user->email} to {$tempEmail}", "id: {$user->id} user {$user->user_name} updated his email from: {$user->email} to {$tempEmail}");
-
             return redirect()->route('profile')->with('success', 'Email updated successfully');
         }
 
         return back()->withErrors(['otp' => 'Invalid OTP']);
     }
 
-    public function resendmail(Request $request)
-    {
-        $resendemail = session('temp_email');
-        if (! $resendemail) {
-            return back()->withErrors(['error' => 'Session expired, please try again.']);
-        } else {
-            if (user::where('email', $request->email)->exists()) {
-                return back()->withErrors('email', 'Email already exists');
-            } else {
-                $email = $resendemail;
-                $user = $request->user();
-                $mail_otp = rand(100000, 999999);
-
-                session([
-                    'mail_otp' => $mail_otp,
-                    'temp_email' => $resendemail,
-                    'mail_otp_expires_at' => now()->addMinutes(10),
-                    'otp_sent_at' => now(),
-                    'can_send_again' => now()->addSeconds(10),
-                ]);
-                $expiresat = session('mail_otp_expires_at');
-
-                mail::to($email)->send(new MailEmail(session('mail_otp')));
-
-                $this->logActivity('resend email code', 'email code resend successfully', "id: {$user->id} er {$user->user_name} resending email code from: {$user->email} to {$email} otp {$mail_otp} expires at {$expiresat}");
-
-                return redirect()->route('confirm-email')->with('success', 'code sent successfully');
-            }
-        }
-    }
 }

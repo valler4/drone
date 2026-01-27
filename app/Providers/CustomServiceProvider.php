@@ -65,14 +65,14 @@ class CustomServiceProvider extends ServiceProvider
             });
         });
         RateLimiter::for('phone', function (Request $request) {
-            return Limit::perMinute(4)
+            return Limit::perMinute(50)
             ->by($request->ip())
             ->response(function(){
                 return back()->withErrors(['otp' => 'you have made too many attempts please try again later']);
             });
         });
         RateLimiter::for('confirm-phone', function (Request $request) {
-            return Limit::perMinute(4)
+            return Limit::perMinute(89)
             ->by($request->ip())
             ->response(function(){
                 return back()->withErrors(['otp' => 'you have made too many attempts please try again later']);

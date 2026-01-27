@@ -37,8 +37,6 @@ class ProfileController extends Controller
             $data['profile_image'] = $imagename;
         }
 
-        $this->logActivity('update profile', 'profile updated successfully', "id: {$user->id} user {$user->user_name} updated his profile");
-
         $user->fill($data)->save();
 
         return redirect()->route('profile')->with('success', 'Profile updated');

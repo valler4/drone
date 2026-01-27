@@ -13,10 +13,6 @@ use App\Http\Controllers\userController;
 use App\Models\ticket;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 // ? **login routes**
 
 Route::view('login', 'auth.login')
@@ -82,11 +78,11 @@ Route::put('edit.pin-code', [SecurityController::class, 'updatePinCode'])
 
 // ? **email routes**
 
-route::view('edit-email', 'edits/edit-email/edit-email')
+route::get('edit-email', [EmailController::class, 'editemail'])
     ->middleware('auth')
     ->name('edit-email');
 
-route::view('confirm-email', 'edits/edit-email/confirm-email')
+route::get('confirm-email', [EmailController::class, 'confirmemail'])
     ->middleware('auth')
     ->name('confirm-email');
 
@@ -98,17 +94,13 @@ Route::put('edit-email', [EmailController::class, 'updateEmail'])
     ->middleware('auth', 'throttle:confirm-email')
     ->name('update-email');
 
-Route::post('re-send-edit-email', [EmailController::class, 'resendmail'])
-    ->middleware(['auth', 'throttle:resend-email-otp'])
-    ->name('resend-email-otp');
-
 // ? **phone routes**
 
-route::view('edit-phone', 'edits/edit-phone/edit-phone')
+route::get('edit-phone', [phoneController::class, 'editphone'])
     ->middleware('auth')
     ->name('edit-phone');
 
-route::view('confirm-phone', 'edits/edit-phone/confirm-phone')
+route::get('confirm-phone', [phoneController::class, 'confirmphone'])
     ->middleware('auth')
     ->name('confirm-phone');
 
@@ -119,10 +111,6 @@ Route::post('edit-phone', [phoneController::class, 'sendphone'])
 Route::put('confirm-phone', [phoneController::class, 'updatephone'])
     ->middleware('auth', 'throttle:confirm-phone')
     ->name('update-phone');
-
-Route::post('resend-otp-edit-phone', [phoneController::class, 'resendphone'])
-    ->middleware('auth', 'throttle:phone')
-    ->name('resend-phone-otp');
 
 // ? **ticket routes**
 

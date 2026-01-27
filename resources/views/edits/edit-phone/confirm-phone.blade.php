@@ -2,12 +2,6 @@
     <x-slot:title>Confirm Phone</x-slot:title>
     @php
         $user = auth()->user();
-        $phone = session('temp_phone');
-        $lastSent = session('otp_sent_at');
-        $cooldown = 12;
-        $canSendAgainAt = $lastSent ? (clone $lastSent)->addSeconds($cooldown) : null;
-        $isWaiting = $canSendAgainAt && now()->lessThan($canSendAgainAt);
-        $remaining = $isWaiting ? now()->diffInSeconds($canSendAgainAt) : 0;
     @endphp
 
     <div class="max-w-md mx-auto px-1 py-1">
@@ -22,7 +16,7 @@
                 Back to Settings
             </a>
             <h1 class="text-4xl font-black tracking-tighter dark:text-white">Verify Phone</h1>
-            <p class="text-slate-500 dark:text-slate-400 text-sm mt-1">We've sent a 6-digit verification code to <strong>{{ $phone }}</strong> via SMS.</p>
+            <p class="text-slate-500 dark:text-slate-400 text-sm mt-1">We've sent a 6-digit verification code to <strong>{{ $newphone }}</strong> via SMS.</p>
         </header>
 
         <form action="{{ route('update-phone') }}" method="post" id="update-form" class="space-y-8">
@@ -35,7 +29,7 @@
                 </label>
 
                 <input type="text" name="otp" maxlength="6"
-                    class="input bg-base-200 dark:bg-slate-900 border-none focus:ring-2 ring-success rounded-2xl text-center text-3xl font-black tracking-[0.5em] h-20 w-full dark:text-white @error('otp') ring-2 ring-error @enderror"
+                    class="input bg-base-200 dark:bg-slate-900 border-none focus:ring-2 rounded-2xl text-center text-3xl font-black tracking-[0.5em] h-20 w-full dark:text-white @error('otp') ring-2 ring-error @enderror"
                     placeholder="000000" required autofocus />
 
                 <div class="mt-4">
@@ -64,11 +58,12 @@
             <p class="text-xs text-slate-400 dark:text-slate-500 font-medium tracking-wide">
                 Didn't receive the code?
             </p>
-            <form action="{{ route('resend-phone-otp') }}" method="post" class="m-0">
+            <form id="otp-form" action="{{ route('send-phone-otp') }}" method="post" class="m-0">
                 @csrf
-                <button type="submit" id="send-otp-btn" @if ($isWaiting) disabled @endif
-                    class="btn btn-ghost btn-sm text-primary font-black uppercase tracking-widest text-[10px] hover:bg-primary/5 transition-all {{ $isWaiting ? 'opacity-50 cursor-not-allowed' : '' }}">
-                    {{ $isWaiting ? "Resend in {$remaining}s" : 'Resend Code Now' }}
+                <input type="tel" id="user-phone" name="phone" value="{{ $newphone }}" hidden>
+                <button type="submit" id="send-otp-btn"
+                    class="btn btn-ghost btn-sm text-primary font-black uppercase tracking-widest text-[10px] hover:bg-primary/5 transition-all">
+                    resend Code Now
                 </button>
             </form>
         </div>
