@@ -66,7 +66,7 @@
                             <div class="flex items-center gap-3">
                                 <span
                                     class="text-[10px] font-black uppercase tracking-widest px-2 py-0.5 rounded-lg bg-base-200 text-slate-500">
-                                    {{ $ticket->id }}
+                                    #{{ $ticket->id }}
                                 </span>
                                 <span @class([
                                     'text-[10px] font-black uppercase tracking-widest px-2 py-0.5 rounded-lg',

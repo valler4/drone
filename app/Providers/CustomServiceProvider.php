@@ -113,5 +113,12 @@ class CustomServiceProvider extends ServiceProvider
                 return back()->withErrors(['error' => 'you have made too many attempts please try again later']);
             });
         });
+        RateLimiter::for('transfer', function (Request $request) {
+            return Limit::perMinute(3889)
+            ->by($request->ip())
+            ->response(function(){
+                return back()->withErrors(['error' => 'you have made too many attempts please try again later']);
+            });
+        });
     }
 }

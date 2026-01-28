@@ -5,15 +5,19 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 use App\Models\ticket;
+use App\Models\transaction;
 use App\Observers\UserObserver;
 use App\Observers\ticketObserver;
+use App\Observers\transactionObserver;
 use App\Policies\ticketpolicy;
+use App\Policies\transactionpolicy;
 use App\Models\User;
 
 class AppServiceProvider extends ServiceProvider
 {
     protected $policies = [
         ticket::class => ticketpolicy::class,
+        transaction::class => transactionpolicy::class,
     ];
 
     public function register(): void
@@ -26,6 +30,7 @@ class AppServiceProvider extends ServiceProvider
         $this->registerPolicies();
         User::observe(UserObserver::class);
         ticket::observe(ticketObserver::class);
+        transaction::observe(transactionObserver::class);
     }
 
     public function registerPolicies(): void

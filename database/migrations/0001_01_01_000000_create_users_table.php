@@ -19,6 +19,7 @@ return new class extends Migration
             $table->integer('age')->nullable();
             $table->string('profile_image')->nullable();
             $table->string('phone')->nullable();
+            $table->decimal('balance', 15, 2)->default(0);
             $table->rememberToken();
             $table->timestamps();
         });

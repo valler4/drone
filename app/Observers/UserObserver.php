@@ -19,7 +19,7 @@ class UserObserver
 
         $sensitivefields = ['password', 'remember_token', 'pin_code'];
 
-        $ignoredfields = ['updated_at', 'last_login'];
+        $ignoredfields = ['updated_at', 'last_login', 'balance'];
 
         foreach ($changes as $change => $newvalue) {
             if (in_array($change, $ignoredfields)) continue;

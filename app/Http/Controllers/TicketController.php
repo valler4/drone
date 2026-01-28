@@ -16,7 +16,7 @@ class TicketController extends Controller
 
     public function index(): View
     {
-        $tickets = request()->user()->tickets()->latest()->paginate(10);
+        $tickets = request()->user()->tickets()->latest()->paginate(30);
 
         return view('tickets.index', compact('tickets'));
     }

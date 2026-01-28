@@ -42,7 +42,7 @@
     {{ $head ?? '' }}
 </head>
 
-<body class="min-h-screen flex flex-col font-sans antialiased">
+<body class="h-screen flex flex-col font-sans antialiased overflow-hidden">
 
     <nav class="navbar bg-base-100/80 backdrop-blur-md sticky top-0 z-50 border-b border-base-200 px-6">
         <div class="navbar-start">
@@ -50,74 +50,51 @@
                 <span class="text-primary text-2xl">DRONE</span>
             </a>
         </div>
+ <div class="navbar-end gap-6">
+    @auth
+        <button class="btn btn-ghost btn-circle" onclick="togglesidebar()">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                stroke="currentColor" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+            </svg>
+        </button>
 
-        <div class="navbar-end gap-6">
-            @auth
+        <aside id="mysidebar" class="sidebar dark:bg-slate-950 dark:border-slate-800">
+            <div class="flex justify-between items-center mb-8">
+                <h3 class="font-bold uppercase tracking-widest text-xs dark:text-slate-400">Menu</h3>
+                <button class="btn btn-sm btn-circle btn-ghost dark:text-slate-400"
+                    onclick="togglesidebar()">✕</button>
+            </div>
 
-                <button class="btn btn-ghost btn-circle" onclick="togglesidebar()">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-                    </svg>
-                </button>
+            <ul class="menu w-full p-0 gap-2">
+                <li><a href="/home" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-primary/10 transition-all group"><span class="group-hover:scale-110 transition-transform">🏠</span><span class="font-bold dark:text-slate-200">Home</span></a></li>
+                <li><a href="/profile" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-primary/10 transition-all group"><span class="group-hover:scale-110 transition-transform">👤</span><span class="font-bold dark:text-slate-200">Profile</span></a></li>
+                <li><a href="/dashboard" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-primary/10 transition-all group"><span class="group-hover:scale-110 transition-transform">📊</span><span class="font-bold dark:text-slate-200">dashboard</span></a></li>
+                <li><a href="/tickets" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-primary/10 transition-all group"><span class="group-hover:scale-110 transition-transform">🎫</span><span class="font-bold dark:text-slate-200">Tickets</span></a></li>
+                <li><a href="/transactions" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-primary/10 transition-all group"><span class="group-hover:scale-110 transition-transform">💸</span><span class="font-bold dark:text-slate-200">Transactions</span></a></li>
+                <li class="mt-8 pt-4 border-t border-base-200 dark:border-slate-800">
+                    <form method="POST" action="{{ route('logout') }}" class="m-0">@csrf<button type="submit" class="btn btn-error btn-outline btn-sm w-full rounded-xl gap-2"><span>🚪</span> Logout</button></form>
+                </li>
+            </ul>
+        </aside>
 
-                <aside id="mysidebar" class="sidebar dark:bg-slate-950 dark:border-slate-800">
-                    <div class="flex justify-between items-center mb-8">
-                        <h3 class="font-bold uppercase tracking-widest text-xs dark:text-slate-400">Menu</h3>
-                        <button class="btn btn-sm btn-circle btn-ghost dark:text-slate-400" onclick="togglesidebar()">✕</button>
-                    </div>
-
-                    <ul class="menu w-full p-0 gap-2">
-                        <li>
-                            <a href="/home" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-primary/10 transition-all group">
-                                <span class="group-hover:scale-110 transition-transform">🏠</span>
-                                <span class="font-bold dark:text-slate-200">Home</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="/profile" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-primary/10 transition-all group">
-                                <span class="group-hover:scale-110 transition-transform">👤</span>
-                                <span class="font-bold dark:text-slate-200">Profile</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="/dashboard" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-primary/10 transition-all group">
-                                <span class="group-hover:scale-110 transition-transform">📊</span>
-                                <span class="font-bold dark:text-slate-200">dashboard</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="/tickets" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-primary/10 transition-all group">
-                                <span class="group-hover:scale-110 transition-transform">🎫</span>
-                                <span class="font-bold dark:text-slate-200">Tickets</span>
-                            </a>
-                        </li>
-                        <li class="mt-8 pt-4 border-t border-base-200 dark:border-slate-800">
-                            <form method="POST" action="{{ route('logout') }}" class="m-0">
-                                @csrf
-                                <button type="submit" class="btn btn-error btn-outline btn-sm w-full rounded-xl gap-2">
-                                    <span>🚪</span> Logout
-                                </button>
-                            </form>
-                        </li>
-                    </ul>
-                </aside>
-                <button id="theme-toggle" class="btn btn-ghost btn-circle">🌙</button>
-            @else
-                <a href="{{ route('login') }}" class="btn btn-ghost btn-sm rounded-full">Log in</a>
-                <a href="{{ route('register') }}" class="btn btn-primary btn-sm px-6 rounded-full">Sign up</a>
-            @endauth
+        <button id="theme-toggle" class="btn btn-ghost btn-circle">🌙</button>
+    @else
+        <div class="flex gap-2"> {{-- زدت Div داخلي للتنسيق فقط --}}
+            <a href="{{ route('login') }}" class="btn btn-ghost btn-sm rounded-full">Log in</a>
+            <a href="{{ route('register') }}" class="btn btn-primary btn-sm px-6 rounded-full">Sign up</a>
         </div>
+    @endauth
+</div>
     </nav>
 
-    <main class="flex-1 w-full px-4 py-2">
-        {{ $slot }}
-    </main>
+    <div class="flex flex-1 overflow-hidden relative">
+        <main class="flex-1 overflow-y-auto p-6">
+            {{ $slot }}
+        </main>
+    </div>
 
-    <footer class="w-full text-center border-t border-base-300 opacity-60 py-2">
-        <p class="text-[10px] font-bold tracking-[0.2em] uppercase">
-            &copy; {{ date('Y') }} Drone — Secure System
-        </p>
-    </footer>
     <script>
         window.userid = "{{ auth()->id() ?? 'guest' }}";
     </script>

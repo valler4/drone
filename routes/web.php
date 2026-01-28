@@ -9,6 +9,7 @@ use App\Http\Controllers\phoneController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SecurityController;
 use App\Http\Controllers\TicketController;
+use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\userController;
 use App\Models\ticket;
 use Illuminate\Support\Facades\Route;
@@ -41,6 +42,12 @@ Route::post('/logout', logout::class)
 
 Route::view('/home', 'home')
     ->name('home');
+
+// ?  //delete route\\
+
+Route::delete('delete-account', [userController::class, 'deleteAccount'])
+    ->middleware('auth', 'throttle:delete-account')
+    ->name('delete-account');
 
 // ? **profile routes**
 
@@ -134,14 +141,6 @@ route::patch('tickets/{ticket}/close', [TicketController::class, 'close'])
     ->middleware(['auth', 'throttle:tickets'])
     ->name('tickets.close');
 
-// ? **crud routes**
-
-// ?  //delete route\\
-
-Route::delete('delete-account', [userController::class, 'deleteAccount'])
-    ->middleware('auth', 'throttle:delete-account')
-    ->name('delete-account');
-
 // ? **dashboard for user**
 
 Route::view('dashboard', 'dashboard/main-dashboard', [dashboardController::class, 'dashboard'])
@@ -151,3 +150,21 @@ Route::view('dashboard', 'dashboard/main-dashboard', [dashboardController::class
 Route::get('log-dashboard', [DashboardController::class, 'logdashboard'])
     ->middleware('auth')
     ->name('log-dashboard');
+
+// ? **transaction route**
+
+Route::get('transactions', [TransactionController::class, 'index'])
+    ->middleware('auth')
+    ->name('transactions');
+
+Route::get('transaction/{transaction}', [TransactionController::class, 'show'])
+    ->middleware('auth')
+    ->name('transaction.show');
+
+Route::get('transactions/create', [TransactionController::class, 'create'])
+    ->middleware('auth')
+    ->name('transaction.create');
+
+Route::post('transaction/store', [TransactionController::class, 'store'])
+    ->middleware('auth')
+    ->name('transaction.store');
