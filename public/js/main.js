@@ -9,12 +9,9 @@ document.addEventListener("DOMContentLoaded", function () {
         );
         if (!btn || btn.classList.contains('no-loading')) return;
 
-        // تحديد النص بناءً على الـ ID
         let loadingText = btn.id === "send-otp-btn" ? "Sending..." : "Processing...";
 
-        // التعطيل في الـ Tick الجاية عشان الـ Submit يلحق يخرج
         setTimeout(() => {
-            // Only change text if it doesn't have complex HTML or if it's an input
             if (btn.tagName === "INPUT") {
                 btn.value = loadingText;
             } else if (btn.children.length === 0) {
@@ -72,26 +69,6 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
-    // 4. كود العداد (Countdown) لو الزرار معطل عند التحميل
-    const otpBtn = document.getElementById("send-otp-btn");
-    if (otpBtn && otpBtn.disabled) {
-        let match = otpBtn.innerText.match(/\d+/);
-        if (match) {
-            let seconds = parseInt(match[0]);
-            let interval = setInterval(() => {
-                seconds--;
-                if (seconds <= 0) {
-                    otpBtn.disabled = false;
-                    otpBtn.innerText = "Send Code";
-                    otpBtn.style.opacity = "1";
-                    otpBtn.style.cursor = "pointer";
-                    clearInterval(interval);
-                } else {
-                    otpBtn.innerText = `Wait ${seconds}s`;
-                }
-            }, 1000);
-        }
-    }
 
     // 5. الانيميشن بتاع الزراير والـ Inputs (Focus/Blur)
     const inputs = document.querySelectorAll(
@@ -170,15 +147,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 });
 
-function togglesidebar() {
-    const sidebar = document.getElementById("mysidebar");
-    const overlay = document.getElementById("myoverlay");
-
-    // تبديل الكلاس فقط
-    sidebar.classList.toggle("active");
-    if (overlay) overlay.classList.toggle("active");
-}
-
 document.addEventListener("DOMContentLoaded", () => {
     const btn = document.getElementById("theme-toggle");
     const html = document.documentElement;
@@ -196,7 +164,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    // جلب التفضيل المحفوظ وتطبيقه
     applytheme(localStorage.getItem(storagekey));
 
     if (btn) {

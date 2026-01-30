@@ -4,6 +4,7 @@ use App\Http\Controllers\auth\login;
 use App\Http\Controllers\auth\logout;
 use App\Http\Controllers\auth\register;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DepositController;
 use App\Http\Controllers\EmailController;
 use App\Http\Controllers\phoneController;
 use App\Http\Controllers\ProfileController;
@@ -168,3 +169,21 @@ Route::get('transactions/create', [TransactionController::class, 'create'])
 Route::post('transaction/store', [TransactionController::class, 'store'])
     ->middleware('auth')
     ->name('transaction.store');
+
+Route::view('amount', 'deposit/amount')
+->middleware('auth')
+->name('amount');
+
+Route::post('amount', [DepositController::class, 'depositnumber'])
+->middleware('auth')
+->name('amount.post');
+
+Route::view('deposit', 'deposit/deposit')
+->middleware('auth')
+->name('deposit');
+
+Route::post('paypal/create', [DepositController::class, 'createPayment'])
+    ->middleware('auth');
+
+Route::post('paypal/capture', [DepositController::class, 'capturePayment'])
+    ->middleware('auth');

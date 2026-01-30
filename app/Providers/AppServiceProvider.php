@@ -12,6 +12,8 @@ use App\Observers\transactionObserver;
 use App\Policies\ticketpolicy;
 use App\Policies\transactionpolicy;
 use App\Models\User;
+use App\Models\deposit;
+use App\Observers\depositObserver;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -31,6 +33,7 @@ class AppServiceProvider extends ServiceProvider
         User::observe(UserObserver::class);
         ticket::observe(ticketObserver::class);
         transaction::observe(transactionObserver::class);
+        deposit::observe(depositObserver::class);
     }
 
     public function registerPolicies(): void

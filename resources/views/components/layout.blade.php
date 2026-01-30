@@ -25,6 +25,11 @@
             color: var(--text-main);
             transition: background-color 0.3s ease, color 0.3s ease;
         }
+
+        /* عشان نضمن ان Flux sidebar ياخد الطول الصح */
+        .flux-sidebar-wrapper {
+            height: 100% !important;
+        }
     </style>
 
     <meta charset="UTF-8">
@@ -42,59 +47,81 @@
     {{ $head ?? '' }}
 </head>
 
-<body class="h-screen flex flex-col font-sans antialiased overflow-hidden">
+<body x-data="{ sidebarOpen: false }"
+    class="h-screen flex flex-col font-sans antialiased overflow-hidden bg-white dark:bg-zinc-900">
 
-    <nav class="navbar bg-base-100/80 backdrop-blur-md sticky top-0 z-50 border-b border-base-200 px-6">
+    <nav class="navbar bg-base-100/80 backdrop-blur-md sticky top-0 z-50 border-b border-base-200 px-6 h-16 shrink-0">
         <div class="navbar-start">
-            <a href="/home" class="w-24 text-xl navbar-start font-black tracking-tight flex items-start gap-8">
+            <a href="/home" class="w-24 text-xl font-black tracking-tight flex items-start gap-8">
                 <span class="text-primary text-2xl">DRONE</span>
             </a>
         </div>
- <div class="navbar-end gap-6">
-    @auth
-        <button class="btn btn-ghost btn-circle" onclick="togglesidebar()">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                stroke="currentColor" class="w-6 h-6">
-                <path stroke-linecap="round" stroke-linejoin="round"
-                    d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-            </svg>
-        </button>
-
-        <aside id="mysidebar" class="sidebar dark:bg-slate-950 dark:border-slate-800">
-            <div class="flex justify-between items-center mb-8">
-                <h3 class="font-bold uppercase tracking-widest text-xs dark:text-slate-400">Menu</h3>
-                <button class="btn btn-sm btn-circle btn-ghost dark:text-slate-400"
-                    onclick="togglesidebar()">✕</button>
-            </div>
-
-            <ul class="menu w-full p-0 gap-2">
-                <li><a href="/home" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-primary/10 transition-all group"><span class="group-hover:scale-110 transition-transform">🏠</span><span class="font-bold dark:text-slate-200">Home</span></a></li>
-                <li><a href="/profile" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-primary/10 transition-all group"><span class="group-hover:scale-110 transition-transform">👤</span><span class="font-bold dark:text-slate-200">Profile</span></a></li>
-                <li><a href="/dashboard" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-primary/10 transition-all group"><span class="group-hover:scale-110 transition-transform">📊</span><span class="font-bold dark:text-slate-200">dashboard</span></a></li>
-                <li><a href="/tickets" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-primary/10 transition-all group"><span class="group-hover:scale-110 transition-transform">🎫</span><span class="font-bold dark:text-slate-200">Tickets</span></a></li>
-                <li><a href="/transactions" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-primary/10 transition-all group"><span class="group-hover:scale-110 transition-transform">💸</span><span class="font-bold dark:text-slate-200">Transactions</span></a></li>
-                <li class="mt-8 pt-4 border-t border-base-200 dark:border-slate-800">
-                    <form method="POST" action="{{ route('logout') }}" class="m-0">@csrf<button type="submit" class="btn btn-error btn-outline btn-sm w-full rounded-xl gap-2"><span>🚪</span> Logout</button></form>
-                </li>
-            </ul>
-        </aside>
-
-        <button id="theme-toggle" class="btn btn-ghost btn-circle">🌙</button>
-    @else
-        <div class="flex gap-2"> {{-- زدت Div داخلي للتنسيق فقط --}}
-            <a href="{{ route('login') }}" class="btn btn-ghost btn-sm rounded-full">Log in</a>
-            <a href="{{ route('register') }}" class="btn btn-primary btn-sm px-6 rounded-full">Sign up</a>
+        <div class="navbar-end gap-6">
+            @auth
+                <button id="theme-toggle" class="btn btn-ghost btn-circle">🌙</button>
+                <button class="btn btn-ghost btn-circle" @click="sidebarOpen = !sidebarOpen">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                    </svg>
+                </button>
+            @else
+                <div class="flex gap-2">
+                    <a href="{{ route('login') }}" class="btn btn-ghost btn-sm rounded-full">Log in</a>
+                    <a href="{{ route('register') }}" class="btn btn-primary btn-sm px-6 rounded-full">Sign up</a>
+                </div>
+            @endauth
         </div>
-    @endauth
-</div>
     </nav>
 
-    <div class="flex flex-1 overflow-hidden relative">
-        <main class="flex-1 overflow-y-auto p-6">
+    <div class="flex flex-row-reverse flex-1 overflow-hidden h-[calc(100vh-4rem)] relative">
+
+        @auth
+            <flux:sidebar x-show="sidebarOpen" x-transition:enter="transition ease-out duration-300"
+                x-transition:enter-start="translate-x-full" x-transition:enter-end="translate-x-0"
+                x-transition:leave="transition ease-in duration-200" x-transition:leave-start="translate-x-0"
+                x-transition:leave-end="translate-x-full" sticky
+                class="bg-zinc-50 dark:bg-zinc-950 border-l border-zinc-200 dark:border-zinc-800 h-full w-64 shrink-0">
+                <div class="flex justify-between items-center mb-6 lg:hidden">
+                    <h3 class="font-bold uppercase text-xs">Menu</h3>
+                    <flux:button variant="ghost" icon="x-mark" @click="sidebarOpen = false" />
+                </div>
+
+                <flux:navlist variant="outline">
+                    <flux:navlist.item icon="home" href="/home">Home</flux:navlist.item>
+                    <flux:navlist.item icon="user" href="/profile">Profile</flux:navlist.item>
+                    <flux:navlist.item icon="chart-bar" href="/dashboard">Dashboard</flux:navlist.item>
+                    <flux:navlist.item icon="ticket" href="/tickets">Tickets</flux:navlist.item>
+                    <flux:navlist.item icon="currency-dollar" href="/transactions">Transactions</flux:navlist.item>
+                </flux:navlist>
+
+                <flux:spacer />
+
+                <flux:navlist>
+
+                    <flux:navlist.item as="button" type="submit"
+                        class="text-red-500 w-full" href="{{ route('amount') }}">
+                        buy coins
+                    </flux:navlist.item>
+
+                    <form method="POST" action="{{ route('logout') }}" class="w-full">
+                        @csrf
+                        <flux:navlist.item as="button" type="submit" icon="arrow-right-start-on-rectangle"
+                            class="text-red-500 w-full">
+                            Logout
+                        </flux:navlist.item>
+                    </form>
+                </flux:navlist>
+            </flux:sidebar>
+        @endauth
+
+        <main class="flex-1 overflow-y-auto p-6 transition-all duration-300">
             {{ $slot }}
         </main>
     </div>
 
+    @fluxScripts
     <script>
         window.userid = "{{ auth()->id() ?? 'guest' }}";
     </script>
