@@ -24,14 +24,14 @@
         <a href="{{ route('transaction.show', $transaction) }}"
             class="btn btn-ghost btn-sm rounded-xl dark:text-white">View</a>
         <div class="card-body">
+            <h2 class="card-title">Transaction ID: {{ $transaction->id }}</h2>
             @if ($transaction->sender->id === auth()->user()->id)
                 <h2 class="card-title text-green-600">You sent a transfer</h2>
+                <p>Receiver ID: {{ $transaction->receiver_id }} . username : {{ $transaction->receiver->name }}</p>
             @else
                 <h2 class="card-title text-blue-600">You received a transfer</h2>
+                <p>Sender ID: {{ $transaction->sender_id }} . username : {{ $transaction->sender->name }}</p>
             @endif
-            <h2 class="card-title">Transaction ID: {{ $transaction->id }}</h2>
-            <p>Sender ID: {{ $transaction->sender_id }} . username : {{ $transaction->sender->name }}</p>
-            <p>Receiver ID: {{ $transaction->receiver_id }} . username : {{ $transaction->receiver->name }}</p>
             <p>Amount: {{ $transaction->amount }}</p>
             <p>Type: {{ $transaction->type }}</p>
             <p>Note: {{ $transaction->note }}</p>

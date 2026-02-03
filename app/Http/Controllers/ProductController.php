@@ -14,11 +14,17 @@ use Illuminate\Support\Facades\Storage;
 class ProductController extends Controller
 {
     use Logs, AuthorizesRequests;
+
     public function index(): View
     {
-        $products = request()->user()->products()->latest()->paginate(30);
-
+        $products = product::where('status', 'open')->latest()->paginate(30);
         return view('products.index', compact('products'));
+    }
+
+    public function myproducts(): View
+    {
+        $products = request()->user()->products()->latest()->paginate(30);
+        return view('products.mine', compact('products'));
     }
 
     public function create(): View
@@ -43,7 +49,6 @@ class ProductController extends Controller
 
     public function show(product $product): View
     {
-        $this->authorize('view', $product);
         return view('products.show', compact('product'));
     }
 

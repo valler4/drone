@@ -13,6 +13,17 @@
                 @csrf
                 @method('PUT')
                 <img src="{{ $product->image_url }}" id="preview" class="w-full h-48 object-cover rounded-t-lg">
+                <flux:field>
+                    <flux:label>Product Image</flux:label>
+                    <flux:input name="product_image" type="file" onchange="previewImage(event)" />
+                    @error('product_image')
+                        <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                    @enderror
+                    <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">
+                        leave empty if you don't want to update the image
+                    </p>
+                </flux:field>
+                <br>
                 <div class="space-y-6">
                     <flux:field>
                         <flux:label>Product Name</flux:label>
@@ -42,35 +53,7 @@
                             @enderror
                         </flux:field>
 
-                        {{-- <flux:field>
-                                <flux:label>Category</flux:label>
-                                <flux:select name="category" value="{{ old('category', $product->category) }}">
-                                    <option value="">Select a category</option>
-                                    <option value="electronics">Electronics</option>
-                                    <option value="clothing">Clothing</option>
-                                    <option value="books">Books</option>
-                                    <option value="home">Home & Garden</option>
-                                    <option value="sports">Sports & Outdoors</option>
-                                    <option value="toys">Toys & Games</option>
-                                    <option value="food">Food & Beverages</option>
-                                    <option value="other">Other</option>
-                                </flux:select>
-                                @error('category')
-                                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-                                @enderror
-                            </flux:field> --}}
                     </div>
-
-                    <flux:field>
-                        <flux:label>Product Image</flux:label>
-                        <flux:input name="product_image" type="file" onchange="previewImage(event)"/>
-                        @error('product_image')
-                            <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-                        @enderror
-                        <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">
-                            leave empty if you don't want to update the image
-                        </p>
-                    </flux:field>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <flux:field>
@@ -82,18 +65,6 @@
                             @enderror
                         </flux:field>
 
-                        {{-- <flux:field>
-                                <flux:label>SKU</flux:label>
-                                <flux:input
-                                    name="sku"
-                                    type="text"
-                                    value="{{ old('sku', $product->sku) }}"
-                                    placeholder="Auto-generated if empty"
-                                />
-                                @error('sku')
-                                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-                                @enderror
-                            </flux:field> --}}
                     </div>
 
                     <div class="bg-gray-50 dark:bg-zinc-700/50 rounded-lg p-4">

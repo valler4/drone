@@ -32,7 +32,7 @@ class productObserver
                 "product {$product->id} is now {$product->status}",
                 "id: {$product->user_id} updated a product id: {$product->id}"
             );
-        } else {
+        } elseif ($product->user_id === auth()->user()->id){
             $this->logActivity(
                 'update product',
                 "product {$product->id} updated successfully",

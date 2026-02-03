@@ -27,6 +27,7 @@ class productRequest extends FormRequest
             'price' => 'required|numeric|min:0|max:999999999',
             'quantity' => 'required|integer|min:0',
             'product_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'status' => 'required|in:open,close',
         ];
         [
             'name.required' => 'Name is required',

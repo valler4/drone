@@ -16,7 +16,9 @@ use App\Models\deposit;
 use App\Observers\depositObserver;
 use App\Policies\productpolicy;
 use App\Models\product;
+use App\Models\purchase;
 use App\Observers\productObserver;
+use App\Observers\purchaseObserver;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -39,6 +41,7 @@ class AppServiceProvider extends ServiceProvider
         transaction::observe(transactionObserver::class);
         deposit::observe(depositObserver::class);
         product::observe(productObserver::class);
+        purchase::observe(purchaseObserver::class);
     }
 
     public function registerPolicies(): void

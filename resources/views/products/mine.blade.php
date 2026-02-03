@@ -1,28 +1,43 @@
 <x-layout title="Products">
     <div class="space-y-1">
         <div class="flex justify-between items-center">
-            <h1 class="text-3xl font-bold text-gray-900 dark:text-white">Products</h1>
-            <flux:button as="a" href="{{ route('products.mine') }}" variant="primary">
-                my Products
+            <h1 class="text-3xl font-bold text-gray-900 dark:text-white">My Products</h1>
+            <flux:button as="a" href="{{ route('products.create') }}" variant="primary">
+                create Product
             </flux:button>
         </div>
 
-        @if (session('success'))
-            <div id="toast-success"
-                class="alert alert-success rounded-2xl mb-8 shadow-lg shadow-success/10 border-none bg-success/10 text-success font-bold">
-                <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none"
-                    viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-                <span>{{ session('success') }}</span>
-            </div>
-        @endif
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             @forelse($products as $product)
                 <div class="group bg-white dark:bg-zinc-800 rounded-lg shadow-md hover:shadow-lg transition-all duration-200 relative overflow-hidden">
                     <div class="relative">
                         <img src="{{ $product->image_url }}" class="w-full h-48 object-cover rounded-t-lg">
+                        <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center gap-2">
+                            <form action="{{ route('products.destroy', $product->id) }}" method="POST" class="inline">
+                                @csrf
+                                @method('delete')
+                                <flux:button type="submit" variant="danger" size="sm" onclick="return confirm('Are you sure you want to delete this product?')">
+                                    <flux:icon.trash class="w-4 h-4" />
+                                </flux:button>
+                            </form>
+                            @if($product->status === 'open')
+                                <form action="{{ route('products.close', $product->id) }}" method="POST" class="inline">
+                                    @csrf
+                                    @method('patch')
+                                    <flux:button type="submit" variant="primary" color="orange" size="sm">
+                                        <flux:icon.lock-closed class="w-4 h-4" />
+                                    </flux:button>
+                                </form>
+                            @elseif ($product->status === 'close')
+                                <form action="{{ route('products.open', $product->id) }}" method="POST" class="inline">
+                                    @csrf
+                                    @method('patch')
+                                    <flux:button type="submit" variant="primary" color="orange" size="sm">
+                                        <flux:icon.lock-open class="w-4 h-4" />
+                                    </flux:button>
+                                </form>
+                            @endif
+                        </div>
                     </div>
 
                     <div class="p-4">
@@ -41,6 +56,9 @@
                         <div class="flex gap-2">
                             <flux:button as="a" href="{{ route('products.show', $product->id) }}" variant="outline" size="sm" class="flex-1">
                                 View
+                            </flux:button>
+                            <flux:button as="a" href="{{ route('products.edit', $product->id) }}" variant="ghost" size="sm">
+                                <flux:icon.pencil class="w-4 h-4" />
                             </flux:button>
                         </div>
                     </div>

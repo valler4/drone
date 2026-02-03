@@ -29,6 +29,27 @@ class CustomServiceProvider extends ServiceProvider
                 return back()->withErrors(['error' => 'you have made too many attempts please try again later']);
             });
         });
+        RateLimiter::for('AuthView', function (Request $request) {
+            return Limit::perMinute(15)
+            ->by($request->ip())
+            ->response(function(){
+                return back()->withErrors(['error' => 'you have made too many attempts please try again later']);
+            });
+        });
+        RateLimiter::for('view', function (Request $request) {
+            return Limit::perMinute(35)
+            ->by($request->user()->id.$request->ip())
+            ->response(function(){
+                return back()->withErrors(['error' => 'you have made too many attempts please try again later']);
+            });
+        });
+        RateLimiter::for('logout', function (Request $request) {
+            return Limit::perMinute(5)
+            ->by($request->user()->id.$request->ip())
+            ->response(function(){
+                return back()->withErrors(['error' => 'you have made too many attempts please try again later']);
+            });
+        });
         RateLimiter::for('register', function (Request $request) {
             return Limit::perMinute(5)
             ->by($request->input('email').$request->ip())
