@@ -6,7 +6,9 @@ use App\Http\Controllers\auth\register;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DepositController;
 use App\Http\Controllers\EmailController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\phoneController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SecurityController;
 use App\Http\Controllers\TicketController;
@@ -170,6 +172,8 @@ Route::post('transaction/store', [TransactionController::class, 'store'])
     ->middleware('auth')
     ->name('transaction.store');
 
+// ? **deposit route**
+
 Route::view('amount', 'deposit/amount')
 ->middleware('auth')
 ->name('amount');
@@ -183,7 +187,41 @@ Route::view('deposit', 'deposit/deposit')
 ->name('deposit');
 
 Route::post('paypal/create', [DepositController::class, 'createPayment'])
-    ->middleware('auth');
+    ->middleware('auth')
+    ->name('paypal.create');
 
-Route::post('paypal/capture', [DepositController::class, 'capturePayment'])
-    ->middleware('auth');
+Route::get('paypal/capture', [DepositController::class, 'capturePayment'])
+    ->middleware('auth')
+    ->name('paypal.capture');
+
+// ? **notification route**
+
+Route::get('notifications', [NotificationController::class, 'index'])
+    ->middleware('auth')
+    ->name('notifications');
+
+// ? **product route**
+
+route::resource('products', ProductController::class)
+    ->middleware('auth')
+    ->except(['destroy', 'update', 'store']);
+
+route::post('products', [ProductController::class, 'store'])
+    ->middleware(['auth', 'throttle:products'])
+    ->name('products.store');
+
+route::put('products/{product}', [ProductController::class, 'update'])
+    ->middleware(['auth', 'throttle:products'])
+    ->name('products.update');
+
+route::delete('products/{product}', [ProductController::class, 'destroy'])
+    ->middleware(['auth', 'throttle:products'])
+    ->name('products.destroy');
+
+route::patch('products/{product}/close', [ProductController::class, 'close'])
+    ->middleware(['auth', 'throttle:products'])
+    ->name('products.close');
+
+route::patch('products/{product}/open', [ProductController::class, 'open'])
+        ->middleware(['auth', 'throttle:products'])
+        ->name('products.open');

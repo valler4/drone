@@ -84,42 +84,6 @@ document.addEventListener("DOMContentLoaded", function () {
             () => (input.style.borderColor = "#374151")
         );
     });
-    // -----------------------------
-    // Remember me checkbox fancy toggle
-    // -----------------------------
-    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-
-    checkboxes.forEach((cb) => {
-        cb.addEventListener("change", () => {
-            if (cb.checked) {
-                cb.nextElementSibling.style.color = "rgb(218, 216, 216)";
-            } else {
-                cb.nextElementSibling.style.color = "#f9fafb";
-            }
-        });
-    });
-    // -----------------------------
-    // Helpers
-    // -----------------------------
-    function createMessage(text, type = "error") {
-        const msg = document.createElement("div");
-        msg.textContent = text;
-        msg.classList.add("js-message", type);
-        msg.style.padding = "10px";
-        msg.style.borderRadius = "8px";
-        msg.style.marginTop = "5px";
-        msg.style.fontSize = "13px";
-        msg.style.textAlign = "center";
-        msg.style.color = type === "error" ? "#b81414" : "#000000ff";
-        msg.style.background =
-            type === "error" ? "rgba(255,0,0,0.1)" : "rgba(0, 0, 0, 0.1)";
-        return msg;
-    }
-
-    function removeOldMessages(form) {
-        const old = form.querySelectorAll(".js-message");
-        old.forEach((m) => m.remove());
-    }
 });
 
 function previewImage(event) {

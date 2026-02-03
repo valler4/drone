@@ -37,7 +37,7 @@
                             Change Photo
                         </label>
                         <p class="text-[10px] text-slate-400 dark:text-slate-500 font-bold tracking-wider uppercase">JPG, PNG or GIF. Max 2MB.</p>
-                        
+
                         @error('profile_image')
                             <div class="mt-2">
                                 <span class="p-2 bg-error/10 text-error rounded-xl text-xs font-bold block italic">{{ $message }}</span>
@@ -96,5 +96,5 @@
             </div>
         </form>
     </div>
-    <script src="{{ asset('js/main.js') }}"></script>
+
 </x-layout>

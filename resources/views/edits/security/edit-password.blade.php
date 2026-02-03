@@ -80,5 +80,5 @@
             </div>
         </form>
     </div>
-    <script src="{{ asset('js/main.js') }}"></script>
+
 </x-layout>

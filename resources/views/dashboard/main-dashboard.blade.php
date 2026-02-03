@@ -35,5 +35,4 @@
             </div>
         @endif
 
-    <script src="{{ asset('js/main.js') }}"></script>
 </x-dashboard-layout>

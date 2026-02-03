@@ -13,8 +13,6 @@
                         <span>📜</span> LOGS
                     </a>
                 </li>
-                <li><a href="#" class="rounded-xl font-bold"><span>⚙️</span> Settings</a></li>
-                <li><a href="#" class="rounded-xl font-bold"><span>👥</span> Users</a></li>
             </ul>
 
             <div class="flex-1"></div>

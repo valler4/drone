@@ -71,7 +71,7 @@
 
                 <form action="{{ route('tickets.close', $ticket->id) }}" method="post">
                     @csrf
-                    @method('delete')
+                    @method('patch')
                     <div class="flex flex-col gap-2">
                         <button type="submit" class="btn btn-error rounded-2xl text-white shadow-lg shadow-error/20">Yes, Close Ticket</button>
                         <a href="#" class="btn btn-ghost rounded-2xl dark:text-slate-300">Cancel</a>
@@ -86,5 +86,5 @@
         @endif
     </div>
 
-    <script src="{{ asset('js/main.js') }}"></script>
+
 </x-layout>

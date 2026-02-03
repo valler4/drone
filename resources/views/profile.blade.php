@@ -139,5 +139,5 @@
             </div>
         </div>
     </main>
-    <script src="{{ asset('js/main.js') }}"></script>
+
 </x-layout>

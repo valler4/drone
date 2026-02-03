@@ -41,5 +41,5 @@
 
     {{ $transactions->links() }}
 
-    <script src="{{ asset('js/main.js') }}"></script>
+
 </x-layout>

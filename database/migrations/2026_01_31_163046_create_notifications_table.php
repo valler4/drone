@@ -11,13 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('transactions', function (Blueprint $table) {
-            $table->id('id',12);
-            $table->foreignId('sender_id')->constrained('users')->onDelete('cascade');
-            $table->foreignId('receiver_id')->constrained('users')->onDelete('cascade');
-            $table->decimal('amount', 15, 2);
+        Schema::create('notifications', function (Blueprint $table) {
+            $table->uuid('id')->primary();
             $table->string('type');
-            $table->text('note')->nullable();
+            $table->morphs('notifiable');
+            $table->text('data');
+            $table->timestamp('read_at')->nullable();
             $table->timestamps();
         });
     }
@@ -27,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('transactions');
+        Schema::dropIfExists('notifications');
     }
 };

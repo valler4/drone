@@ -45,35 +45,58 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     {{ $head ?? '' }}
+    @fluxAppearance
 </head>
 
 <body x-data="{ sidebarOpen: false }"
     class="h-screen flex flex-col font-sans antialiased overflow-hidden bg-white dark:bg-zinc-900">
+    <flux:header sticky
+        class="max-w-none w-full bg-white dark:bg-zinc-900 border-b border-zinc-200 dark:border-zinc-800">
+        <flux:sidebar.toggle class="lg:hidden" icon="bars-3" inset="left" />
 
-    <nav class="navbar bg-base-100/80 backdrop-blur-md sticky top-0 z-50 border-b border-base-200 px-6 h-16 shrink-0">
-        <div class="navbar-start">
-            <a href="/home" class="w-24 text-xl font-black tracking-tight flex items-start gap-8">
-                <span class="text-primary text-2xl">DRONE</span>
-            </a>
-        </div>
-        <div class="navbar-end gap-6">
+        <flux:brand href="/home" name="DRONE" class="lg:hidden dark:text-white" />
+
+        <flux:spacer />
+
+        {{-- الـ navbar هنا بياخد العناصر وبيرصها صح --}}
+        <flux:navbar class="gap-2 sm:gap-4">
             @auth
-                <button id="theme-toggle" class="btn btn-ghost btn-circle">🌙</button>
-                <button class="btn btn-ghost btn-circle" @click="sidebarOpen = !sidebarOpen">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                        stroke="currentColor" class="w-6 h-6">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                            d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-                    </svg>
-                </button>
-            @else
-                <div class="flex gap-2">
-                    <a href="{{ route('login') }}" class="btn btn-ghost btn-sm rounded-full">Log in</a>
-                    <a href="{{ route('register') }}" class="btn btn-primary btn-sm px-6 rounded-full">Sign up</a>
+
+            <div class="flex items-center gap-2 bg-zinc-800 px-3 py-1.5 rounded-full border border-zinc-700">
+                    <flux:icon.banknotes class="text-yellow-500 w-4 h-4" />
+                    <span class="text-sm font-bold text-zinc-100">
+                        {{ number_format(auth()->user()->balance, 2) }}
+                    </span>
                 </div>
+                {{-- البروفايل الأول --}}
+                <flux:dropdown position="bottom" align="end">
+                    <flux:profile avatar="{{ auth()->user()->image_url }}" name="{{ Str::limit(auth()->user()->name, 10) }}"
+                        class="cursor-pointer" />
+
+                    <flux:menu>
+                        <flux:menu.item icon="user-circle" href="/profile">Profile</flux:menu.item>
+                        <flux:menu.separator />
+                        <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+                            <flux:menu.item as="button" type="submit" icon="arrow-right-start-on-rectangle">Logout
+                            </flux:menu.item>
+                        </form>
+                    </flux:menu>
+                </flux:dropdown>
+
+                <flux:button id="theme-toggle" variant="ghost" icon="moon" />
+
+                <flux:navbar.item icon="bell" href="/notifications" label="Notifications" />
+
+                {{-- زرار السايد بار --}}
+                <flux:button variant="ghost" icon="bars-3" @click="sidebarOpen = !sidebarOpen" />
+            @else
+                <flux:navbar.item href="{{ route('login') }}">Log in</flux:navbar.item>
+                <flux:button as="a" href="{{ route('register') }}" variant="primary" size="sm">Sign up
+                </flux:button>
             @endauth
-        </div>
-    </nav>
+        </flux:navbar>
+    </flux:header>
 
     <div class="flex flex-row-reverse flex-1 overflow-hidden h-[calc(100vh-4rem)] relative">
 
@@ -90,9 +113,9 @@
 
                 <flux:navlist variant="outline">
                     <flux:navlist.item icon="home" href="/home">Home</flux:navlist.item>
-                    <flux:navlist.item icon="user" href="/profile">Profile</flux:navlist.item>
                     <flux:navlist.item icon="chart-bar" href="/dashboard">Dashboard</flux:navlist.item>
                     <flux:navlist.item icon="ticket" href="/tickets">Tickets</flux:navlist.item>
+                    <flux:navlist.item icon="archive-box" href="/products">products</flux:navlist.item>
                     <flux:navlist.item icon="currency-dollar" href="/transactions">Transactions</flux:navlist.item>
                 </flux:navlist>
 
@@ -100,8 +123,8 @@
 
                 <flux:navlist>
 
-                    <flux:navlist.item as="button" type="submit"
-                        class="text-red-500 w-full" href="{{ route('amount') }}">
+                    <flux:navlist.item as="button" type="submit" icon="banknotes" class="text-red-500 w-full"
+                        href="{{ route('amount') }}">
                         buy coins
                     </flux:navlist.item>
 
@@ -125,6 +148,7 @@
     <script>
         window.userid = "{{ auth()->id() ?? 'guest' }}";
     </script>
+    <script src="{{ asset('js/main.js') }}"></script>
 </body>
 
 </html>

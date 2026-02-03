@@ -14,12 +14,16 @@ use App\Policies\transactionpolicy;
 use App\Models\User;
 use App\Models\deposit;
 use App\Observers\depositObserver;
+use App\Policies\productpolicy;
+use App\Models\product;
+use App\Observers\productObserver;
 
 class AppServiceProvider extends ServiceProvider
 {
     protected $policies = [
         ticket::class => ticketpolicy::class,
         transaction::class => transactionpolicy::class,
+        product::class => productpolicy::class
     ];
 
     public function register(): void
@@ -34,6 +38,7 @@ class AppServiceProvider extends ServiceProvider
         ticket::observe(ticketObserver::class);
         transaction::observe(transactionObserver::class);
         deposit::observe(depositObserver::class);
+        product::observe(productObserver::class);
     }
 
     public function registerPolicies(): void

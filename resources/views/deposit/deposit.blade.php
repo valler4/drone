@@ -11,7 +11,12 @@
                 </div>
             </div>
 
-            <div id="paypal-button-container" class="mt-8"></div>
+            <form action="{{ route('paypal.create') }}" method="POST">
+                @csrf
+                <button type="submit" class="btn btn-primary w-full rounded-2xl shadow-lg shadow-primary/20">
+                    دفع
+                </button>
+            </form>
 
             <div id="loading-spinner" class="hidden text-center py-4">
                 <p class="text-sm text-gray-500 dark:text-gray-400 animate-pulse">جاري معالجة العملية... لا تغلق الصفحة</p>
@@ -22,46 +27,4 @@
             </p>
         </div>
     </div>
-
-    <script src="https://www.paypal.com/sdk/js?client-id={{ config('paypal.sandbox.client_id') }}&currency=USD"></script>
-
-    <script>
-        paypal.Buttons({
-            style: {
-                layout: 'vertical',
-                color:  'gold',
-                shape:  'rect',
-                label:  'pay'
-            },
-            createOrder: function(data, actions) {
-                return fetch('/paypal/create', {
-                    method: 'post',
-                    headers: { 'X-CSRF-TOKEN': '{{ csrf_token() }}' }
-                }).then(res => res.json())
-                .then(orderData => orderData.id);
-            },
-            onApprove: function(data, actions) {
-                document.getElementById('paypal-button-container').style.display = 'none';
-                document.getElementById('loading-spinner').style.display = 'block';
-
-                return fetch('/paypal/capture', {
-                    method: 'post',
-                    headers: {
-                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ orderID: data.orderID })
-                }).then(res => res.json())
-                .then(details => {
-                    if (details.status === 'Success') {
-                        window.location.href = "/dashboard?payment=success";
-                    } else {
-                        alert('حدث خطأ أثناء الدفع، حاول مرة أخرى.');
-                        location.reload();
-                    }
-                });
-            }
-        }).render('#paypal-button-container');
-    </script>
-    <script src="{{ asset('js/main.js') }}"></script>
 </x-layout>

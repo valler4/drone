@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\deposit;
+use App\Notifications\DepositSuccessful;
 use App\Traits\Logs;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -26,6 +27,7 @@ class DepositController extends Controller
 
     public function createPayment(Request $request)
     {
+        
         $paymentAmount = session('payment_amount', 10.00);
         // تجهيز المكتبة
         $provider = new paypalClient;
@@ -37,6 +39,11 @@ class DepositController extends Controller
         $response = $provider->createOrder([
             // نوع عملية الدفع
             'intent' => 'CAPTURE',
+            // الروابط التي سيختارها المستخدم
+            'application_context' => [
+                'return_url' => route('paypal.capture'),
+                'cancel_url' => route('deposit'),
+            ],
             // الاشياء التي سيتم شرائها
             'purchase_units' => [
                 [
@@ -46,7 +53,25 @@ class DepositController extends Controller
                         'currency_code' => 'USD',
                         // السعر
                         'value' => $paymentAmount,
-                    ],
+                        /*'breakdown' => [
+                            'item_total' => [
+                                'currency_code' => 'USD',
+                                'value' => $paymentAmount,
+                            ]
+                        ]
+                    */],
+                    /*'items' => [
+                        [
+                            'name' => 'فلوس',
+                            'description' => 'فلوس العملاء',
+                            'quantity' => '2',
+                            'unit_amount' => [
+                                'currency_code' => 'USD',
+                                'value' => $paymentAmount,
+                            ],
+                            'category' => 'DIGITAL_GOODS',
+                        ]
+                    ]*/
                 ],
             ],
         ]);
@@ -54,16 +79,20 @@ class DepositController extends Controller
         // التحقق من نجاح عملية انشاء الطلب
         if (isset($response['id']) && $response['id'] != null) {
             // الرد لملف البليد
-            return response()->json($response);
+            foreach ($response['links'] as $link) {
+                if ($link['rel'] == 'approve') {
+                    return redirect()->away($link['href']);
+                }
+            }
         }
 
         // في حال فشل انشاء الطلب
-        return response()->json(['error' => 'somthing went wrong'], 500);
+        return redirect()->route('deposit')->with('error', 'فشل انشاء طلب الدفع');
     }
 
     public function capturePayment(Request $request)
     {
-        $orderID = $request->orderID;
+        $orderID = $request->token;
 
         // تجهيز المكتبة
         $provider = new paypalClient;
@@ -73,15 +102,18 @@ class DepositController extends Controller
         $provider->getAccessToken();
         // سرقة الفلوس من العميل
         $result = $provider->capturePaymentOrder($orderID);
-        // التحقق من نجاح عملية السرقة
+        // التحقق من نجاح عملية السرقة]
+
         if (isset($result['status']) && $result['status'] == 'COMPLETED') {
             // رسالة نجاح لملف البليد
             // هنا يمكنك اضافة كود لتخزين بيانات العملية في قاعدة البيانات
 
             $amount = $result['purchase_units'][0]['payments']['captures'][0]['amount']['value'];
+            $paymentId = $result['id'];
 
-            DB::transaction(function () use ($request, $result, $amount) {
+            DB::transaction(function () use ($request, $result, $amount,$paymentId) {
                 $user = $request->user();
+                $user->notify(new DepositSuccessful($amount, $paymentId));
                 $user->increment('balance', $amount);
                 deposit::create([
                     'user_id' => $user->id,
@@ -94,10 +126,10 @@ class DepositController extends Controller
                 ]);
             });
 
-            return response()->json(['status' => 'Success', 'details' => $result]);
+            return redirect()->route('dashboard')->with('success', 'تم شحن الرصيد بنجاح!');
         }
 
         // في حال فشل السرقة
-        return response()->json(['status' => 'Error', 'message' => 'Payment failed'], 500);
+        return redirect()->route('deposit')->with('error', 'فشل السرقة');
     }
 }

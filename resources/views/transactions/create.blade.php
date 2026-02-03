@@ -14,5 +14,5 @@
         <button type="submit" class="btn btn-primary">Send</button>
     </form>
 
-    <script src="{{ asset('js/main.js') }}"></script>
+
 </x-layout>

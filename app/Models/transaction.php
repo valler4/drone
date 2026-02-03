@@ -11,7 +11,7 @@ class transaction extends Model
         parent::boot();
         static::creating(function ($model) {
             do {
-                $model->id = str_pad(mt_rand(10000000, 99999999), 8, '0', STR_PAD_LEFT);
+                $model->id = str_pad(mt_rand(100000000000, 999999999999), 8, '0', STR_PAD_LEFT);
             } while (self::where('id', $model->id)->exists());
         });
     }
