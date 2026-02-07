@@ -1,7 +1,7 @@
 *.log
 .DS_Store
 .env
-nextd.php
+0000000000000000000000000000000.php
 .env.backup
 .env.production
 .phpactor.json

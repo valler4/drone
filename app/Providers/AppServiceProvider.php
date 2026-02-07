@@ -2,35 +2,47 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Facades\Gate;
-use App\Models\ticket;
-use App\Models\transaction;
-use App\Observers\UserObserver;
-use App\Observers\ticketObserver;
-use App\Observers\transactionObserver;
-use App\Policies\ticketpolicy;
-use App\Policies\transactionpolicy;
-use App\Models\User;
+use App\Interfaces\PaymentGatewayInterface;
 use App\Models\deposit;
-use App\Observers\depositObserver;
-use App\Policies\productpolicy;
 use App\Models\product;
 use App\Models\purchase;
+use App\Models\ticket;
+use App\Models\transaction;
+use App\Models\User;
+use App\Observers\depositObserver;
 use App\Observers\productObserver;
 use App\Observers\purchaseObserver;
+use App\Observers\ticketObserver;
+use App\Observers\transactionObserver;
+use App\Observers\UserObserver;
+use App\Policies\productpolicy;
+use App\Policies\ticketpolicy;
+use App\Policies\transactionpolicy;
+use App\Services\paypal_service;
+use App\Services\StripeService;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
     protected $policies = [
         ticket::class => ticketpolicy::class,
         transaction::class => transactionpolicy::class,
-        product::class => productpolicy::class
+        product::class => productpolicy::class,
     ];
 
     public function register(): void
     {
-        //
+        $this->app->bind(PaymentGatewayInterface::class, function ($app) {
+            $method = session('payment_method', 'paypal');
+
+            if ($method === 'stripe') {
+                return new StripeService;
+            }
+
+            return new paypal_service;
+
+        });
     }
 
     public function boot(): void

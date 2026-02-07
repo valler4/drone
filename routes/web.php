@@ -4,9 +4,9 @@ use App\Http\Controllers\auth\login;
 use App\Http\Controllers\auth\logout;
 use App\Http\Controllers\auth\register;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\DepositController;
 use App\Http\Controllers\EmailController;
 use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\phoneController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
@@ -21,7 +21,7 @@ use Illuminate\Support\Facades\Route;
 // ? **login routes**
 
 Route::view('login', 'auth.login')
-    ->middleware(['guest','throttle:AuthView'])
+    ->middleware(['guest', 'throttle:AuthView'])
     ->name('login');
 
 Route::post('login', login::class)
@@ -30,7 +30,7 @@ Route::post('login', login::class)
 // ? **register routes**
 
 Route::view('/register', 'auth.register')
-    ->middleware(['guest','throttle:AuthView'])
+    ->middleware(['guest', 'throttle:AuthView'])
     ->name('register');
 
 Route::post('register', register::class)
@@ -40,7 +40,7 @@ Route::post('register', register::class)
 
 Route::post('/logout', logout::class)
     ->name('logout')
-    ->middleware(['auth','throttle:logout']);
+    ->middleware(['auth', 'throttle:logout']);
 
 // ? **home**
 
@@ -176,23 +176,27 @@ Route::post('transaction/store', [TransactionController::class, 'store'])
 
 // ? **deposit route**
 
+// ? **amount route**
+
 Route::view('amount', 'deposit/amount')
     ->middleware(['auth', 'throttle:view'])
     ->name('amount');
 
-Route::post('amount', [DepositController::class, 'depositnumber'])
+Route::post('amount', [PaymentController::class, 'depositnumber'])
     ->middleware(['auth', 'throttle:view'])
     ->name('amount.post');
+
+// ? **deposit route**
 
 Route::view('deposit', 'deposit/deposit')
     ->middleware(['auth', 'throttle:view'])
     ->name('deposit');
 
-Route::post('paypal/create', [DepositController::class, 'createPayment'])
+Route::post('paypal/create', [PaymentController::class, 'createPayment'])
     ->middleware(['auth', 'throttle:view'])
     ->name('paypal.create');
 
-Route::get('paypal/capture', [DepositController::class, 'capturePayment'])
+Route::get('paypal/capture', [PaymentController::class, 'capturePayment'])
     ->middleware(['auth', 'throttle:view'])
     ->name('paypal.capture');
 
@@ -216,11 +220,11 @@ route::post('products', [ProductController::class, 'store'])
     ->middleware(['auth', 'throttle:products'])
     ->name('products.store');
 
-route::put('products/{product}', [ProductController::class, 'update'])
+route::put('products/{product}/update', [ProductController::class, 'update'])
     ->middleware(['auth', 'throttle:products'])
     ->name('products.update');
 
-route::delete('products/{product}', [ProductController::class, 'destroy'])
+route::delete('products/{product}/delete', [ProductController::class, 'destroy'])
     ->middleware(['auth', 'throttle:products'])
     ->name('products.destroy');
 

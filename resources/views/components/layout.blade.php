@@ -54,7 +54,7 @@
         class="max-w-none w-full bg-white dark:bg-zinc-900 border-b border-zinc-200 dark:border-zinc-800">
         <flux:sidebar.toggle class="lg:hidden" icon="bars-3" inset="left" />
 
-        <flux:brand href="/home" name="DRONE" class="lg:hidden dark:text-white" />
+        <flux:brand href="/home" name="DRONE" class="text-2xl font-bold text-gray-900 dark:text-white" />
 
         <flux:spacer />
 
