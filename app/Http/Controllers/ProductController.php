@@ -90,13 +90,13 @@ class ProductController extends Controller
     {
         $this->authorize('view', $product);
         $product->update(['status' => 'close']);
-        return redirect()->route('products.index')->with('success', 'product closed successfully');
+        return redirect()->route('products.mine')->with('success', 'product closed successfully');
     }
 
     public function open(Request $request, product $product): RedirectResponse
     {
         $this->authorize('view', $product);
         $product->update(['status' => 'open']);
-        return redirect()->route('products.index')->with('success', 'product opened successfully');
+        return redirect()->route('products.mine')->with('success', 'product opened successfully');
     }
 }
