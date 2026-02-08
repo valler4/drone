@@ -67,6 +67,19 @@
 
                     </div>
 
+
+                    @if ($product->status === 'open')
+                    <flux:radio.group name="status" variant="cards" class="flex gap-4">
+                        <flux:radio label="Open" value="open" checked />
+                        <flux:radio label="Close" value="close" />
+                    </flux:radio.group>
+                    @elseif ($product->status === 'close')
+                    <flux:radio.group name="status" variant="cards" class="flex gap-4">
+                        <flux:radio label="Open" value="open" />
+                        <flux:radio label="Close" value="close" checked />
+                    </flux:radio.group>
+                    @endif
+
                     <div class="bg-gray-50 dark:bg-zinc-700/50 rounded-lg p-4">
                         <h3 class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Product Information</h3>
                         <div class="space-y-1 text-sm text-gray-600 dark:text-gray-400">
@@ -99,25 +112,6 @@
                         Delete Product
                     </flux:button>
                 </form>
-                @if ($product->status === 'open')
-                    <form method="post" action="{{ route('products.close', $product->id) }}">
-                        @csrf
-                        @method('patch')
-                        <flux:button type="submit" variant="primary" color="orange" size="sm" class="w-full">
-                            <flux:icon.lock-closed class="w-4 h-4 mr-2" />
-                            close Product
-                        </flux:button>
-                    </form>
-                @elseif ($product->status === 'close')
-                    <form method="post" action="{{ route('products.open', $product->id) }}">
-                        @csrf
-                        @method('patch')
-                        <flux:button type="submit" variant="primary" color="orange" size="sm" class="w-full">
-                            <flux:icon.lock-open class="w-4 h-4 mr-2" />
-                            open Product
-                        </flux:button>
-                    </form>
-                @endif
             </div>
         </div>
     </div>
