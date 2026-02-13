@@ -80,4 +80,4 @@
             </div>
         </div>
     </div>
-</x-layout>0
+</x-layout>
