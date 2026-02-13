@@ -18,11 +18,13 @@ class depositObserver
             'deposit_id' => $deposit->id,
             'paypal_order_id' => $deposit->payment_id,
             'amount' => $deposit->amount,
+            'currency' => $deposit->currency,
+            'type' => $deposit->type
         ]);
 
         $this->logActivity(
-            'paypal_deposit',
-            "تم شحن رصيد بقيمة {$deposit->amount} من خلال PayPal",
+            'coin purchase',
+            "Deposit of amount {$deposit->amount} by {$deposit->method} completed successfully.",
             $metadata
         );
     }

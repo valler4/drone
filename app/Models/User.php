@@ -93,4 +93,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(product::class);
     }
+
+    public function IsAdmin()
+    {
+        return $this->roles()->where('name', 'admin')->exists();
+    }
 }

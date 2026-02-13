@@ -5,7 +5,7 @@ namespace App\Services;
 use App\Interfaces\PaymentGatewayInterface;
 use Srmklive\PayPal\Services\PayPal;
 
-class paypal_service implements PaymentGatewayInterface
+class paypal_service extends Base_Payment_Service implements PaymentGatewayInterface
 {
     protected $provider;
 
@@ -19,21 +19,15 @@ class paypal_service implements PaymentGatewayInterface
     public function createPayment($paymentAmount)
     {
         $response = $this->provider->createOrder([
-            // نوع عملية الدفع
             'intent' => 'CAPTURE',
-            // الروابط التي سيختارها المستخدم
             'application_context' => [
-                'return_url' => route('paypal.capture'),
-                'cancel_url' => route('deposit'),
+                'return_url' => route('payment.capture', ['payment_method' => 'paypal']),
+                'cancel_url' => route('deposit', ['payment_method' => 'paypal', 'amount' => $paymentAmount]),
             ],
-            // الاشياء التي سيتم شرائها
             'purchase_units' => [
                 [
-                    // الكمية التي سيتم شراءها
                     'amount' => [
-                        // العملة
                         'currency_code' => 'USD',
-                        // السعر
                         'value' => $paymentAmount,
                     ],
                 ],
@@ -41,7 +35,6 @@ class paypal_service implements PaymentGatewayInterface
         ]);
 
         if (isset($response['id']) && $response['id'] != null) {
-            // الرد لملف البليد
             foreach ($response['links'] as $link) {
                 if ($link['rel'] == 'approve') {
                     return [
@@ -55,9 +48,9 @@ class paypal_service implements PaymentGatewayInterface
         return ['success' => false];
     }
 
-    public function capturePayment($orderID)
+    public function capturePayment($request)
     {
-        $result = $this->provider->capturePaymentOrder($orderID);
+        $result = $this->provider->capturePaymentOrder($request->token);
 
         if (isset($result['status']) && $result['status'] == 'COMPLETED') {
             return [

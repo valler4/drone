@@ -226,6 +226,16 @@ input:focus,
     padding: 1rem 2rem !important;
 }
 
+.error-toast {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    border-radius: 20px !important;
+    background: #dd1e1e !important;
+    color: white !important;
+    padding: 1rem 2rem !important;
+}
+
 label[for="file-input"] {
     cursor: pointer;
     transition: all 0.2s;

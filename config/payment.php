@@ -25,4 +25,15 @@ return [
         'locale' => env('PAYPAL_LOCALE', 'en_US'), // force gateway language  i.e. it_IT, es_ES, en_US ... (for express checkout only)
         'validate_ssl' => env('PAYPAL_VALIDATE_SSL', true), // Validate SSL when creating api client.]
     ],
+    'paymob' => [
+        'base_url' => env('PAYMOB_BASE_URL'),
+        'paymob_api_key' => env('PAYMOB_API_KEY'),
+        'api_key' => env('PAYMOB_API_KEY'),
+        'integration_id' => env('PAYMOB_INTEGRATION_ID'),
+        'iframe_id' => env('PAYMOB_IFRAME_ID'),
+    ],
+    'stripe' => [
+        'key' => env('STRIPE_KEY'),
+        'secret' => env('STRIPE_SECRET'),
+    ],
 ];

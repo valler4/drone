@@ -62,7 +62,7 @@
         <flux:navbar class="gap-2 sm:gap-4">
             @auth
 
-            <div class="flex items-center gap-2 bg-zinc-800 px-3 py-1.5 rounded-full border border-zinc-700">
+                <div class="flex items-center gap-2 bg-zinc-800 px-3 py-1.5 rounded-full border border-zinc-700">
                     <flux:icon.banknotes class="text-yellow-500 w-4 h-4" />
                     <span class="text-sm font-bold text-zinc-100">
                         {{ number_format(auth()->user()->balance, 2) }}
@@ -117,6 +117,9 @@
                     <flux:navlist.item icon="ticket" href="/tickets">Tickets</flux:navlist.item>
                     <flux:navlist.item icon="archive-box" href="/products">products</flux:navlist.item>
                     <flux:navlist.item icon="currency-dollar" href="/transactions">Transactions</flux:navlist.item>
+                    @if (auth()->user()->IsAdmin())
+                        <flux:navlist.item icon="cog-6-tooth" href="{{ route('admin.index') }}">Admin Link</flux:navlist.item>
+                    @endif
                 </flux:navlist>
 
                 <flux:spacer />
@@ -124,7 +127,7 @@
                 <flux:navlist>
 
                     <flux:navlist.item as="button" type="submit" icon="banknotes" class="text-red-500 w-full"
-                        href="{{ route('amount') }}">
+                        href="{{ route('payment_method') }}">
                         buy coins
                     </flux:navlist.item>
 
