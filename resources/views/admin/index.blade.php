@@ -79,5 +79,5 @@
                 </table>
             </div>
         </div>
-    </div>
+    </div>0
 </x-layout>
