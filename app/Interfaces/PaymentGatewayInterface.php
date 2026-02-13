@@ -6,5 +6,5 @@ interface PaymentGatewayInterface
 {
     public function createPayment($paymentAmount);
 
-    public function capturePayment($token);
+    public function capturePayment($request);
 }

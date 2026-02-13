@@ -15,6 +15,7 @@ use App\Http\Controllers\SecurityController;
 use App\Http\Controllers\TicketController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\userController;
+use App\Http\Controllers\AdminController;
 use App\Models\ticket;
 use Illuminate\Support\Facades\Route;
 
@@ -148,7 +149,7 @@ route::patch('tickets/{ticket}/close', [TicketController::class, 'close'])
 
 // ? **dashboard for user**
 
-Route::view('dashboard', 'dashboard/main-dashboard', [dashboardController::class, 'dashboard'])
+Route::get('dashboard', [dashboardController::class, 'dashboard'])
     ->middleware(['auth', 'throttle:view'])
     ->name('dashboard');
 
@@ -171,34 +172,33 @@ Route::get('transactions/create', [TransactionController::class, 'create'])
     ->name('transaction.create');
 
 Route::post('transaction/store', [TransactionController::class, 'store'])
-    ->middleware(['auth', 'throttle:view'])
+    ->middleware(['auth', 'throttle:transfer'])
     ->name('transaction.store');
 
 // ? **deposit route**
 
-// ? **amount route**
-
-Route::view('amount', 'deposit/amount')
+Route::view('payment_method', 'payment/method')
     ->middleware(['auth', 'throttle:view'])
-    ->name('amount');
+    ->name('payment_method');
 
-Route::post('amount', [PaymentController::class, 'depositnumber'])
+Route::post('payment_method', [PaymentController::class, 'PaymentMethod'])
     ->middleware(['auth', 'throttle:view'])
-    ->name('amount.post');
+    ->name('payment_method.post');
 
-// ? **deposit route**
+// ? **payment route**
 
-Route::view('deposit', 'deposit/deposit')
+Route::view('deposit', 'payment/deposit')
     ->middleware(['auth', 'throttle:view'])
     ->name('deposit');
 
-Route::post('paypal/create', [PaymentController::class, 'createPayment'])
-    ->middleware(['auth', 'throttle:view'])
-    ->name('paypal.create');
+Route::post('/payment/create', [PaymentController::class, 'createPayment'])
+    ->middleware(['auth', 'throttle:payment'])
+    ->name('payment.create');
 
-Route::get('paypal/capture', [PaymentController::class, 'capturePayment'])
-    ->middleware(['auth', 'throttle:view'])
-    ->name('paypal.capture');
+Route::get('/payment/capture', [PaymentController::class, 'capturePayment'])
+    ->middleware(['auth', 'throttle:payment'])
+    ->name('payment.capture');
+
 
 // ? **notification route**
 
@@ -213,7 +213,7 @@ route::resource('products', ProductController::class)
     ->except(['destroy', 'update', 'store']);
 
 route::get('myproducts', [ProductController::class, 'myproducts'])
-    ->middleware(['auth', 'throttle:products'])
+    ->middleware(['auth', 'throttle:view'])
     ->name('products.mine');
 
 route::post('products', [ProductController::class, 'store'])
@@ -239,5 +239,11 @@ route::patch('products/{product}/open', [ProductController::class, 'open'])
 // ? **purchase route**
 
 Route::post('purchase/{product}', [PurchaseController::class, 'purchase'])
-    ->middleware(['auth', 'throttle:view'])
+    ->middleware(['auth', 'throttle:products'])
     ->name('purchase');
+
+// ? **admin route**
+
+Route::get('admin', [AdminController::class, 'index'])
+    ->middleware(['auth','admin', 'throttle:view'])
+    ->name('admin.index');

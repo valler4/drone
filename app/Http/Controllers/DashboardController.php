@@ -12,7 +12,7 @@ class DashboardController extends Controller
 
     public function dashboard()
     {
-        return view('user-dashboard', compact('user'));
+        return view('dashboard.main-dashboard');
     }
 
     public function logDashboard(Request $request)

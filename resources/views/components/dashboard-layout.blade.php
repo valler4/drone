@@ -6,10 +6,14 @@
     @endisset
 
     <div class="flex h-full overflow-hidden">
-        <aside class="hidden md:flex w-64 border-e border-base-200 bg-base-100 flex-col p-4 gap-4 flex-none h-full shadow-sm rounded-r-2xl">
+        <aside
+            class="hidden md:flex w-64 border-e border-base-200 bg-base-100 flex-col p-4 gap-4 flex-none h-full shadow-sm rounded-r-2xl">
             <ul class="menu w-full p-0 gap-2">
                 <li>
-                    <a href="/log-dashboard" @class(['active' => request()->is('log-dashboard'), 'rounded-xl font-bold'])>
+                    <a href="/log-dashboard" @class([
+                        'active' => request()->is('log-dashboard'),
+                        'rounded-xl font-bold',
+                    ])>
                         <span>📜</span> LOGS
                     </a>
                 </li>

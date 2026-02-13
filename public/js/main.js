@@ -111,6 +111,22 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 });
 
+document.addEventListener("DOMContentLoaded", function () {
+    const toast = document.getElementById("toast-error");
+
+    if (toast) {
+        // Wait 4 seconds, then fade out
+        setTimeout(() => {
+            toast.classList.add("fade-out");
+
+            // Remove from DOM after transition finishes
+            setTimeout(() => {
+                toast.remove();
+            }, 500);
+        }, 4000);
+    }
+});
+
 document.addEventListener("DOMContentLoaded", () => {
     const btn = document.getElementById("theme-toggle");
     const html = document.documentElement;

@@ -15,53 +15,49 @@ class PaymentController extends Controller
 
     protected $paymentService;
 
-    public function depositnumber(Request $request)
+    public function PaymentMethod(Request $request)
     {
         $request->validate([
-            'amount' => 'required|numeric|min:1',
             'payment_method' => 'required|in:paypal,stripe',
+            'amount' => 'required|numeric|min:1',
         ]);
-        session([
-            'payment_amount' => $request->amount,
-            'payment_method' => $request->payment_method,
-        ]);
+        $payment_method = $request->input('payment_method');
+        $amount = $request->input('amount');
 
-        return redirect()->route('deposit')->with('success', 'دلوقتي هات فلوسك');
+        return redirect()->route('deposit', ['amount' => $amount, 'payment_method' => $payment_method])->with('success', 'دلوقتي هات فلوسك');
     }
 
-    // انشاء الطلب تلقائي عند تشغيل الكونترولر
     public function __construct(PaymentGatewayInterface $paymentService)
     {
         $this->paymentService = $paymentService;
     }
 
-    // انشاء طلب الدفع
     public function createPayment(Request $request)
-    {   // مبلغ الدفع
-        $paymentAmount = session('payment_amount', 10.00);
-        // رد طلب الدفع
-        $result = $this->paymentService->createPayment($paymentAmount);
+    {
+        $amount = $request->input('amount');
+        if (!$amount) {
+            return redirect()->route('deposit')->with('error', 'المبلغ غير موجود');
+        }
+        $result = $this->paymentService->createPayment($amount);
 
-        // التحقق من وجود رابط توجيه (سواء من PayPal أو Stripe مستقبلاً)
         if ($result['success']) {
             return redirect()->away($result['url']);
         }
 
-        // في حال فشل انشاء الطلب
         return redirect()->route('deposit')->with('error', 'فشل انشاء طلب الدفع');
-        // todo add error log . json_encode($response)
     }
 
     public function capturePayment(Request $request)
     {
-        // التحقق من نجاح عملية الدفع
-        $result = $this->paymentService->capturePayment($request->token);
+        $result = $this->paymentService->capturePayment($request);
 
         if (isset($result['status']) && $result['status'] == 'COMPLETED') {
+
             $amount = $result['amount'];
             $paymentId = $result['id'];
-            // لتخزين بيانات العملية في قاعدة البيانات
-            DB::transaction(function () use ($request, $result, $amount, $paymentId) {
+            $payment_method = $request->input('payment_method');
+
+            DB::transaction(function () use ($request, $result, $amount, $paymentId, $payment_method) {
                 $user = $request->user();
 
                 $user->notify(new DepositSuccessful($amount, $paymentId));
@@ -72,17 +68,15 @@ class PaymentController extends Controller
                     'payment_id' => $result['id'],
                     'currency' => $result['currency'],
                     'status' => $result['status'],
-                    'method' => session('payment_method', 'paypal'),
+                    'method' => $payment_method,
                     'amount' => $amount,
                     'type' => 'deposit',
                 ]);
             });
 
-            // رسالة نجاح لملف البليد
             return redirect()->route('dashboard')->with('success', 'تم شحن الرصيد بنجاح!');
         }
 
-        // في حال فشل السرقة
         return redirect()->route('deposit')->with('error', 'فشل السرقة');
     }
 }
