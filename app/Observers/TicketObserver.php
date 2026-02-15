@@ -2,10 +2,10 @@
 
 namespace App\Observers;
 
-use App\Models\ticket;
+use App\Models\Ticket;
 use App\Traits\Logs;
 
-class ticketObserver
+class TicketObserver
 {
     use Logs;
     /**

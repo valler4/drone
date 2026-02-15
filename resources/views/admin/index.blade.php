@@ -1,83 +1,91 @@
 <x-layout>
-    <x-slot:title>لوحة التحكم - Admin</x-slot:title>
+    <x-slot:title>لوحة التحكم - Admin Dashboard</x-slot:title>
 
-    <div class="space-y-8 p-2 md:p-0">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div class="space-y-8 p-4 md:p-6 bg-base-200/50 min-h-screen">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div>
+                <h1 class="text-2xl font-black text-base-content">الإحصائيات العامة</h1>
+            </div>
+            <div class="flex gap-2">
+                <button class="btn btn-sm btn-outline">تصدير التقارير 📤</button>
+                <button class="btn btn-sm btn-primary">تحديث البيانات 🔄</button>
+            </div>
+        </div>
 
-            <div class="card bg-base-100 shadow-xl border border-base-200 dark:border-white/5">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-6">
+
+            <a href="{{ route('admin.users.index') }}" class="card bg-base-100 shadow-sm border border-base-200 hover:shadow-md transition-all hover:border-blue-500 cursor-pointer group">
                 <div class="card-body p-6">
                     <div class="flex items-center justify-between">
                         <div>
-                            <p class="text-sm font-medium text-base-content/60 uppercase">Total Users</p>
-                            <h3 class="text-3xl font-black mt-1">{{ number_format($totalUsers) }}</h3>
+                            <p class="text-xs font-bold text-blue-500 uppercase tracking-wider">Total Users</p>
+                            <h3 class="text-3xl font-black mt-1 group-hover:scale-105 transition-transform origin-left">{{ number_format($totalUsers) }}</h3>
                         </div>
-                        <div class="bg-primary/10 p-3 rounded-2xl text-2xl">👥</div>
+                        <div class="bg-blue-500/10 p-4 rounded-2xl text-3xl group-hover:bg-blue-500/20 transition-colors">👥</div>
                     </div>
                 </div>
-            </div>
+            </a>
 
-            <div class="card bg-base-100 shadow-xl border border-base-200 dark:border-white/5">
+            <a href="{{ route('admin.deposits.index') }}" class="card bg-base-100 shadow-sm border border-base-200 hover:shadow-md transition-all hover:border-green-500 cursor-pointer group">
                 <div class="card-body p-6">
                     <div class="flex items-center justify-between">
                         <div>
-                            <p class="text-sm font-medium text-base-content/60 uppercase">Total Deposits</p>
-                            <h3 class="text-3xl font-black mt-1 text-success">${{ number_format($totalDeposits, 2) }}</h3>
+                            <p class="text-xs font-bold text-green-500 uppercase tracking-wider">Total Deposits</p>
+                            <h3 class="text-3xl font-black mt-1 group-hover:scale-105 transition-transform origin-left">${{ number_format($totalDeposits, 2) }}</h3>
                         </div>
-                        <div class="bg-success/10 p-3 rounded-2xl text-2xl">💰</div>
+                        <div class="bg-green-500/10 p-4 rounded-2xl text-3xl group-hover:bg-green-500/20 transition-colors">💰</div>
                     </div>
                 </div>
-            </div>
+            </a>
 
+            <a href="{{ route('admin.transactions.index') }}" class="card bg-base-100 shadow-sm border border-base-200 hover:shadow-md transition-all hover:border-indigo-500 cursor-pointer group">
+                <div class="card-body p-6">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-xs font-bold text-indigo-500 uppercase tracking-wider">Transactions</p>
+                            <h3 class="text-3xl font-black mt-1 group-hover:scale-105 transition-transform origin-left">{{ number_format($totalTransactions) }}</h3>
+                        </div>
+                        <div class="bg-indigo-500/10 p-4 rounded-2xl text-3xl group-hover:bg-indigo-500/20 transition-colors">🔄</div>
+                    </div>
+                </div>
+            </a>
+
+            <a href="{{ route('admin.purchases.index') }}" class="card bg-base-100 shadow-sm border border-base-200 hover:shadow-md transition-all hover:border-emerald-500 cursor-pointer group">
+                <div class="card-body p-6">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-xs font-bold text-emerald-500 uppercase tracking-wider">Total Purchases</p>
+                            <h3 class="text-3xl font-black mt-1 group-hover:scale-105 transition-transform origin-left">{{ number_format($totalPurchases) }}</h3>
+                        </div>
+                        <div class="bg-emerald-500/10 p-4 rounded-2xl text-3xl group-hover:bg-emerald-500/20 transition-colors">📦</div>
+                    </div>
+                </div>
+            </a>
+
+            <a href="{{ route('admin.tickets.index') }}" class="card bg-base-100 shadow-sm border border-base-200 hover:shadow-md transition-all hover:border-orange-500 cursor-pointer group">
+                <div class="card-body p-6">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-xs font-bold text-orange-500 uppercase tracking-wider">Support Tickets</p>
+                            <h3 class="text-3xl font-black mt-1 group-hover:scale-105 transition-transform origin-left">{{ number_format($totalTickets) }}</h3>
+                        </div>
+                        <div class="bg-orange-500/10 p-4 rounded-2xl text-3xl group-hover:bg-orange-500/20 transition-colors">🎫</div>
+                    </div>
+                </div>
+            </a>
+
+            <a href="{{ route('admin.products.index') }}" class="card bg-base-100 shadow-sm border border-base-200 hover:shadow-md transition-all hover:border-purple-500 cursor-pointer group">
+                <div class="card-body p-6">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-xs font-bold text-purple-500 uppercase tracking-wider">Active Products</p>
+                            <h3 class="text-3xl font-black mt-1 group-hover:scale-105 transition-transform origin-left">{{ number_format($totalProducts) }}</h3>
+                        </div>
+                        <div class="bg-purple-500/10 p-4 rounded-2xl text-3xl group-hover:bg-purple-500/20 transition-colors">✨</div>
+                    </div>
+                </div>
+            </a>
         </div>
 
-        <div class="bg-base-100 rounded-[2rem] border border-base-200 dark:border-white/5 shadow-sm overflow-hidden">
-            <div class="p-6 border-b border-base-200 dark:border-white/5 flex justify-between items-center bg-base-200/30">
-                <h2 class="text-lg font-black uppercase tracking-widest">Recent Transactions</h2>
-                <a href="#" class="btn btn-sm btn-ghost rounded-xl">View All</a>
-            </div>
-
-            <div class="overflow-x-auto">
-                <table class="table w-full">
-                    <thead>
-                        <tr class="text-base-content/50 uppercase text-xs border-b border-base-200 dark:border-white/5">
-                            <th>Transaction ID</th>
-                            <th>User</th>
-                            <th>Amount</th>
-                            <th>Method</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-                    <tbody class="text-sm">
-                        @forelse($recentTransactions as $transaction)
-                            <tr class="hover:bg-base-200/50 transition-colors border-b border-base-200 dark:border-white/5">
-                                <td class="font-mono opacity-60 text-xs">{{ $transaction->payment_id }}</td>
-                                <td>
-                                    <div class="font-bold">{{ $transaction->user->name ?? 'Unknown' }}</div>
-                                    <div class="text-[10px] opacity-50">{{ $transaction->created_at->format('Y-m-d H:i') }}</div>
-                                </td>
-                                <td class="font-black text-success">+${{ number_format($transaction->amount, 2) }}</td>
-                                <td>
-                                    <span class="badge badge-sm font-bold uppercase tracking-tighter">{{ $transaction->method }}</span>
-                                </td>
-                                <td>
-                                    <div @class([
-                                        'badge badge-sm font-bold',
-                                        'badge-success' => $transaction->status === 'COMPLETED',
-                                        'badge-warning' => $transaction->status === 'PENDING',
-                                        'badge-error' => $transaction->status === 'FAILED',
-                                    ])>
-                                        {{ $transaction->status }}
-                                    </div>
-                                </td>
-                            </tr>
-                        @empty
-                            <tr>
-                                <td colspan="5" class="text-center py-20 opacity-40 italic">No recent activity detected.</td>
-                            </tr>
-                        @endforelse
-                    </tbody>
-                </table>
-            </div>
-        </div>
     </div>
 </x-layout>

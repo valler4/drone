@@ -2,10 +2,10 @@
 
 namespace App\Observers;
 
-use App\Models\deposit;
+use App\Models\Deposit;
 use App\Traits\Logs;
 
-class depositObserver
+class DepositObserver
 {
     use Logs;
 

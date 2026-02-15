@@ -12,21 +12,7 @@ class User extends Authenticatable
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
 
-    protected static function boot()
-    {
-        parent::boot();
-        static::creating(function ($model) {
-            do {
-                $model->id = str_pad(mt_rand(10000000, 99999999), 8, '0', STR_PAD_LEFT);
-            } while (self::where('id', $model->id)->exists());
-        });
-    }
-
-    protected $keyType = 'string';
-
-    public $incrementing = false;
-
-    protected $fillable = [
+        protected $fillable = [
         'name',
         'email',
         'user_name',
@@ -41,6 +27,20 @@ class User extends Authenticatable
         'status',
         'user_id',
     ];
+
+    protected static function boot()
+    {
+        parent::boot();
+        static::creating(function ($model) {
+            do {
+                $model->id = str_pad(mt_rand(10000000, 99999999), 8, '0', STR_PAD_LEFT);
+            } while (self::where('id', $model->id)->exists());
+        });
+    }
+
+    protected $keyType = 'string';
+
+    public $incrementing = false;
 
     protected $hidden = [
         'password',
@@ -66,12 +66,12 @@ class User extends Authenticatable
 
     public function roles()
     {
-        return $this->belongsToMany(role::class);
+        return $this->belongsToMany(Role::class);
     }
 
     public function tickets()
     {
-        return $this->hasMany(ticket::class);
+        return $this->hasMany(Ticket::class);
     }
 
     public function activities()
@@ -81,17 +81,17 @@ class User extends Authenticatable
 
         public function senttransactions()
     {
-        return $this->hasMany(transaction::class, 'sender_id');
+        return $this->hasMany(Transaction::class, 'sender_id');
     }
 
     public function receivedtransactions()
     {
-        return $this->hasMany(transaction::class, 'receiver_id');
+        return $this->hasMany(Transaction::class, 'receiver_id');
     }
 
         public function products()
     {
-        return $this->hasMany(product::class);
+        return $this->hasMany(Product::class);
     }
 
     public function IsAdmin()

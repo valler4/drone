@@ -2,30 +2,30 @@
 
 namespace App\Providers;
 
-use App\Models\deposit;
-use App\Models\product;
-use App\Models\purchase;
-use App\Models\ticket;
-use App\Models\transaction;
+use App\Models\Deposit;
+use App\Models\Product;
+use App\Models\Purchase;
+use App\Models\Ticket;
+use App\Models\Transaction;
 use App\Models\User;
-use App\Observers\depositObserver;
-use App\Observers\productObserver;
-use App\Observers\purchaseObserver;
-use App\Observers\ticketObserver;
-use App\Observers\transactionObserver;
+use App\Observers\DepositObserver;
+use App\Observers\ProductObserver;
+use App\Observers\PurchaseObserver;
+use App\Observers\TicketObserver;
+use App\Observers\TransactionObserver;
 use App\Observers\UserObserver;
-use App\Policies\productpolicy;
-use App\Policies\ticketpolicy;
-use App\Policies\transactionpolicy;
+use App\Policies\Productpolicy;
+use App\Policies\Ticketpolicy;
+use App\Policies\Transactionpolicy;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
     protected $policies = [
-        ticket::class => ticketpolicy::class,
-        transaction::class => transactionpolicy::class,
-        product::class => productpolicy::class,
+        Ticket::class => Ticketpolicy::class,
+        Transaction::class => Transactionpolicy::class,
+        Product::class => Productpolicy::class,
     ];
 
     public function register(): void
@@ -37,11 +37,11 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
         User::observe(UserObserver::class);
-        ticket::observe(ticketObserver::class);
-        transaction::observe(transactionObserver::class);
-        deposit::observe(depositObserver::class);
-        product::observe(productObserver::class);
-        purchase::observe(purchaseObserver::class);
+        Ticket::observe(TicketObserver::class);
+        Transaction::observe(TransactionObserver::class);
+        Deposit::observe(DepositObserver::class);
+        Product::observe(ProductObserver::class);
+        Purchase::observe(PurchaseObserver::class);
     }
 
     public function registerPolicies(): void

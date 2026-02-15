@@ -2,10 +2,10 @@
 
 namespace App\Observers;
 
-use App\Models\purchase;
+use App\Models\Purchase;
 use App\Traits\Logs;
 
-class purchaseObserver
+class PurchaseObserver
 {
     use Logs;
     /**

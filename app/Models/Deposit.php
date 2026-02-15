@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class transaction extends Model
+class Deposit extends Model
 {
     protected static function boot()
     {
@@ -15,23 +15,21 @@ class transaction extends Model
             } while (self::where('id', $model->id)->exists());
         });
     }
-    protected $table = 'transactions';
+
+    protected $table = 'deposits';
+
     protected $fillable = [
-        'sender_id',
-        'receiver_id',
+        'user_id',
         'amount',
         'type',
-        'note',
+        'payment_id',
+        'currency',
+        'status',
+        'method',
     ];
-    // Relations for observer use
-    public function sender()
-    {
-        return $this->belongsTo(User::class,'sender_id');
-    }
 
-    public function receiver()
+    public function user()
     {
-        return $this->belongsTo(User::class,'receiver_id');
+        return $this->belongsTo(User::class);
     }
-
 }

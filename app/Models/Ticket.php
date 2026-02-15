@@ -4,29 +4,18 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class deposit extends Model
+class Ticket extends Model
 {
     protected static function boot()
     {
         parent::boot();
         static::creating(function ($model) {
             do {
-                $model->id = str_pad(mt_rand(100000000000, 999999999999), 8, '0', STR_PAD_LEFT);
+                $model->id = str_pad(mt_rand(10000000, 99999999), 8, '0', STR_PAD_LEFT);
             } while (self::where('id', $model->id)->exists());
         });
     }
-
-    protected $table = 'deposits';
-
-    protected $fillable = [
-        'user_id',
-        'amount',
-        'type',
-        'payment_id',
-        'currency',
-        'status',
-        'method',
-    ];
+    protected $fillable = ['title', 'subject', 'user_id', 'status'];
 
     public function user()
     {

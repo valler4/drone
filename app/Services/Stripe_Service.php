@@ -25,7 +25,7 @@ class Stripe_Service extends Base_Payment_Service implements PaymentGatewayInter
                     ],
                     'unit_amount' => $amount * 100,
                 ],
-                'quantity' => $amount,
+                'quantity' => 1,
             ]],
             'mode' => 'payment',
             'success_url' => route('payment.capture', ['payment_method' => 'stripe', 'amount' => $amount]) . '&session_id={CHECKOUT_SESSION_ID}',

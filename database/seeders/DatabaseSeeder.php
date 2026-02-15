@@ -3,11 +3,10 @@
 namespace Database\Seeders;
 
 use App\Models\User;
-use Dflydev\DotAccessData\Data;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\DB;
+use App\Models\role;
 
 class DatabaseSeeder extends Seeder
 {
@@ -21,7 +20,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'Test User',
             'email' => 'test@example.com',
             ]);*/
-            /*
+        /*
             $this->call(DatabaseSeeder::class);
 DB::disableQueryLog();
 
@@ -48,6 +47,24 @@ DB::disableQueryLog();
             User::insert($users);
         }
 */
+
+
+
+        $admin = User::create([
+            'id' => 1,
+            'name' => 'a',
+            'user_name' => 'a',
+            'email' => 'a@g',
+            'password' => Hash::make('aaaaaaaa'),
+            'balance' => 1000.00,
+        ]);
+
+        $adminRole = role::create([
+            'id' => 1,
+            'name' => 'admin'
+        ]);
+
+        $admin->roles()->attach($adminRole->id);
 
     }
 }

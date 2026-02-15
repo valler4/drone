@@ -2,10 +2,10 @@
 
 namespace App\Observers;
 
-use App\Models\product;
+use App\Models\Product;
 use App\Traits\Logs;
 
-class productObserver
+class ProductObserver
 {
     use Logs;
     /**
