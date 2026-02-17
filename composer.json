@@ -13,6 +13,7 @@
         "laravel/sanctum": "^4.0",
         "laravel/tinker": "^2.10.1",
         "livewire/flux": "^2.11",
+        "livewire/livewire": "^4.1",
         "mailgun/mailgun-php": "^4.3",
         "nyholm/psr7": "^1.8",
         "srmklive/paypal": "~3.0",

@@ -1,10 +1,12 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\auth\Login;
 use App\Http\Controllers\auth\Logout;
 use App\Http\Controllers\auth\Register;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EmailController;
+use App\Http\Controllers\MessageController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PhoneController;
@@ -15,7 +17,7 @@ use App\Http\Controllers\SecurityController;
 use App\Http\Controllers\TicketController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\AdminController;
+use App\Livewire\Chat;
 use Illuminate\Support\Facades\Route;
 
 // ? **login Routes**
@@ -198,7 +200,6 @@ Route::get('/payment/capture', [PaymentController::class, 'capturePayment'])
     ->middleware(['auth', 'throttle:payment'])
     ->name('payment.capture');
 
-
 // ? **notification Route**
 
 Route::get('notifications', [NotificationController::class, 'index'])
@@ -240,6 +241,14 @@ Route::patch('products/{product}/open', [ProductController::class, 'open'])
 Route::post('purchase/{product}', [PurchaseController::class, 'purchase'])
     ->middleware(['auth', 'throttle:products'])
     ->name('purchase');
+
+// ? **chat Route**
+
+Route::middleware('auth')->group(function () {
+    // Route::get('/chat/{user_id}', [MessageController::class, 'getMessages']);
+    // Route::post('/chat/send', [MessageController::class, 'sendMessage']);
+    Route::get('chat', Chat::class)->name('chat');
+});
 
 // ? **admin Route**
 

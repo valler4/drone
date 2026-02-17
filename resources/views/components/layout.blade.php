@@ -117,6 +117,7 @@
                     <flux:navlist.item icon="ticket" href="/tickets">Tickets</flux:navlist.item>
                     <flux:navlist.item icon="archive-box" href="/products">products</flux:navlist.item>
                     <flux:navlist.item icon="currency-dollar" href="/transactions">Transactions</flux:navlist.item>
+                    <flux:navlist.item icon="chat-bubble-left-ellipsis" href="/chat" >chat</flux:navlist.item>
                     @if (auth()->user()->IsAdmin())
                         <flux:navlist.item icon="cog-6-tooth" href="{{ route('admin.index') }}">Admin Link</flux:navlist.item>
                     @endif

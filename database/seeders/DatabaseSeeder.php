@@ -2,11 +2,11 @@
 
 namespace Database\Seeders;
 
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
-use App\Models\role;
 
 class DatabaseSeeder extends Seeder
 {
@@ -48,8 +48,6 @@ DB::disableQueryLog();
         }
 */
 
-
-
         $admin = User::create([
             'id' => 1,
             'name' => 'a',
@@ -59,9 +57,9 @@ DB::disableQueryLog();
             'balance' => 1000.00,
         ]);
 
-        $adminRole = role::create([
+        $adminRole = Role::create([
             'id' => 1,
-            'name' => 'admin'
+            'name' => 'admin',
         ]);
 
         $admin->roles()->attach($adminRole->id);
