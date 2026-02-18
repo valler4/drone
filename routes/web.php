@@ -56,17 +56,23 @@ Route::delete('delete-account', [UserController::class, 'deleteAccount'])
     ->middleware('auth', 'throttle:delete-account')
     ->name('delete-account');
 
+// ? **settings Routes**
+
+Route::view('/settings', 'settings/index')
+    ->middleware(['auth', 'throttle:view'])
+    ->name('settings');
+
 // ? **profile Routes**
 
-Route::view('/profile', 'profile')
+Route::get('profile/edit', [ProfileController::class, 'edit'])
     ->middleware(['auth', 'throttle:view'])
-    ->name('profile');
+    ->name('profile.edit');
 
-Route::get('edit-profile', [ProfileController::class, 'edit'])
-    ->middleware(['auth', 'throttle:view'])
-    ->name('edit.profile');
+Route::get('profile/{user}', [ProfileController::class, 'show'])
+    ->middleware('auth')
+    ->name('profile.show');
 
-Route::put('edit-profile', [ProfileController::class, 'update'])
+Route::put('profile/update', [ProfileController::class, 'update'])
     ->middleware(['auth', 'throttle:profile'])
     ->name('profile.update');
 
@@ -237,6 +243,7 @@ Route::patch('products/{product}/open', [ProductController::class, 'open'])
     ->name('products.open');
 
 // ? **purchase Route**
+
 
 Route::post('purchase/{product}', [PurchaseController::class, 'purchase'])
     ->middleware(['auth', 'throttle:products'])

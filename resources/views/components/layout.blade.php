@@ -25,8 +25,6 @@
             color: var(--text-main);
             transition: background-color 0.3s ease, color 0.3s ease;
         }
-
-        /* عشان نضمن ان Flux sidebar ياخد الطول الصح */
         .flux-sidebar-wrapper {
             height: 100% !important;
         }
@@ -74,7 +72,7 @@
                         class="cursor-pointer" />
 
                     <flux:menu>
-                        <flux:menu.item icon="user-circle" href="/profile">Profile</flux:menu.item>
+                        <flux:menu.item icon="user-circle" href="/settings">settings</flux:menu.item>
                         <flux:menu.separator />
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf

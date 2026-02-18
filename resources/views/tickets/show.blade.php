@@ -4,15 +4,15 @@
     <div class="w-full mx-auto px-1 py-1">
         <header class="mb-8">
             <div class="flex items-center justify-between mb-4">
-                <a href="{{ route('tickets.index') }}"
-                    class="text-xs font-bold uppercase tracking-widest text-primary/60 flex items-center gap-2 hover:text-primary transition-all">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor"
-                        viewBox="0 0 16 16">
-                        <path fill-rule="evenodd"
-                            d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z" />
-                    </svg>
-                    Back to Tickets
-                </a>
+                    <a href="{{ route('tickets.index') }}"
+                        class="flex items-center text-sm font-bold hover:opacity-70 transition-opacity">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                        </svg>
+                        Back to Tickets
+                    </a>
 
                 <div class="flex items-center gap-2">
                     <span @class([
@@ -28,15 +28,15 @@
                 </div>
             </div>
 
-            <h1 class="text-4xl font-black tracking-tighter dark:text-white">{{ $ticket->title }}</h1>
-            <p class="text-slate-500 dark:text-slate-400 mt-2">Submitted on {{ $ticket->created_at->format('M d, Y \a\t H:i') }}</p>
+            <h1 class="text-4xl font-black tracking-tighter">{{ $ticket->title }}</h1>
+            <p class="text-slate-500 mt-2">Submitted on {{ $ticket->created_at->format('M d, Y \a\t H:i') }}</p>
         </header>
 
-        <div class="bg-base-100 dark:bg-slate-900 rounded-3xl border border-base-300 dark:border-slate-800 overflow-hidden shadow-sm">
+        <div class="bg-base-100 rounded-3xl border border-base-300 overflow-hidden shadow-sm">
             <div class="p-8 space-y-6">
                 <div class="space-y-2">
                     <h2 class="text-xs font-bold text-slate-400 uppercase tracking-widest">Description</h2>
-                    <div class="text-slate-800 dark:text-slate-200 leading-relaxed whitespace-pre-wrap text-lg">
+                    <div class="text-slate-800 leading-relaxed whitespace-pre-wrap text-lg">
                         {{ $ticket->subject }}
                     </div>
                 </div>

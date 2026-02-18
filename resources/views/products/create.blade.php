@@ -1,95 +1,98 @@
 <x-layout title="Create Product">
-    <div class="max-w-2xl mx-auto space-y-6">
+    <div class="max-w-2xl mx-auto space-y-6 px-4 py-8">
         <div class="flex items-center justify-between">
-            <h1 class="text-3xl font-bold text-gray-900 dark:text-white">Create Product</h1>
-            <flux:button as="a" href="{{ route('products.index') }}" variant="ghost">
-                <flux:icon.arrow-left class="w-4 h-4 mr-2" />
-                Back to Products
-            </flux:button>
+            <h1 class="text-3xl font-black tracking-tighter">Create Product</h1>
+                    <a href="{{ route('products.index') }}"
+                        class="flex items-center text-sm font-bold hover:opacity-70 transition-opacity">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                        </svg>
+                        Back to Products
+                    </a>
         </div>
 
-        <div class="bg-white dark:bg-zinc-800 rounded-lg shadow-md p-6">
+        <div class="bg-white dark:bg-zinc-900 rounded-2xl shadow-sm border border-slate-200 dark:border-zinc-800 p-8">
             <form method="POST" action="{{ route('products.store') }}" enctype="multipart/form-data">
                 @csrf
-                @method('post')
-                <img src="{{ asset('images/default-product.jpg') }}" id="preview"
-                    class="w-full h-48 object-cover rounded-t-lg">
-                <flux:field>
-                    <flux:label>Product Image</flux:label>
-                    <flux:input name="product_image" type="file" onchange="previewImage(event)" />
-                    @error('product_image')
-                        <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-                    @enderror
-                    <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">
-                        Optional: Upload a product image (JPG, PNG, GIF up to 5MB)
-                    </p>
-                </flux:field>
-                <br>
-                <div class="space-y-6">
-                    <flux:field>
-                        <flux:label>Product Name</flux:label>
-                        <flux:input name="name" type="text" required value="{{ old('name') }}"
-                            placeholder="Enter product name" />
-                        @error('name')
-                            <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-                        @enderror
-                    </flux:field>
+                @method('POST')
 
-                    <flux:field>
-                        <flux:label>Description</flux:label>
-                        <flux:textarea name="description" rows="4" placeholder="Enter product description" required value="{{ old('description') }}">
-                        </flux:textarea>
-                        @error('description')
-                            <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-                        @enderror
-                    </flux:field>
-
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <flux:field>
-                            <flux:label>Price</flux:label>
-                            <flux:input name="price" type="number" step="0.01" min="0" required
-                                value="{{ old('price') }}" placeholder="0.00" />
-                            @error('price')
-                                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-                            @enderror
-                        </flux:field>
-
-                    </div>
-
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <flux:field>
-                            <flux:label>Stock Quantity</flux:label>
-                            <flux:input name="quantity" type="number" min="0" required value="{{ old('quantity') }}" />
-                            @error('quantity')
-                                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-                            @enderror
-                        </flux:field>
-
-                    </div>
-
-                    <flux:field>
-                        <flux:label>Is this product open to public?</flux:label>
-
-                        <flux:radio.group name="status" variant="cards" class="flex gap-4">
-                            <flux:radio label="Open" value="open" checked />
-                            <flux:radio label="Close" value="close" />
-                        </flux:radio.group>
-
-                        @error('status')
-                            <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-                        @enderror
-                    </flux:field>
-
+                <div class="mb-6">
+                    <img src="{{ asset('images/default-product.jpg') }}"
+                        class="w-full h-56 object-cover rounded-xl border border-slate-100 dark:border-zinc-700">
                 </div>
 
-                <div class="flex gap-4 mt-8">
-                    <flux:button type="submit" variant="primary" class="flex-1">
-                        <flux:icon.check class="w-4 h-4 mr-2" />
+                <div class="space-y-5">
+                    <div>
+                        <label class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-1">Product Image</label>
+                        <input name="product_image" type="file"
+                            class="w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-bold file:bg-slate-100 dark:file:bg-zinc-800 dark:file:text-slate-300 file:text-slate-700 hover:file:bg-slate-200">
+                        @error('product_image')
+                            <p class="text-red-500 text-xs mt-1 font-bold">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-1">Product Name</label>
+                        <input name="name" type="text" required value="{{ old('name') }}" placeholder="Enter product name"
+                            class="w-full border border-slate-200 dark:border-zinc-700 dark:bg-zinc-800 rounded-xl px-4 py-2 focus:ring-2 focus:ring-primary outline-none text-slate-900 dark:text-white">
+                        @error('name')
+                            <p class="text-red-500 text-xs mt-1 font-bold">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-1">Description</label>
+                        <textarea name="description" rows="4" required placeholder="Enter product description"
+                            class="w-full border border-slate-200 dark:border-zinc-700 dark:bg-zinc-800 rounded-xl px-4 py-2 focus:ring-2 focus:ring-primary outline-none text-slate-900 dark:text-white">{{ old('description') }}</textarea>
+                        @error('description')
+                            <p class="text-red-500 text-xs mt-1 font-bold">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-1">Price ($)</label>
+                            <input name="price" type="number" step="0.01" min="0" required value="{{ old('price') }}" placeholder="0.00"
+                                class="w-full border border-slate-200 dark:border-zinc-700 dark:bg-zinc-800 rounded-xl px-4 py-2 text-slate-900 dark:text-white">
+                            @error('price')
+                                <p class="text-red-500 text-xs mt-1 font-bold">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-1">Stock Quantity</label>
+                            <input name="quantity" type="number" min="0" required value="{{ old('quantity', 0) }}" placeholder="0"
+                                class="w-full border border-slate-200 dark:border-zinc-700 dark:bg-zinc-800 rounded-xl px-4 py-2 text-slate-900 dark:text-white">
+                            @error('quantity')
+                                <p class="text-red-500 text-xs mt-1 font-bold">{{ $message }}</p>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-1">Status</label>
+                        <select name="status"
+                            class="w-full border border-slate-200 dark:border-zinc-700 dark:bg-zinc-800 rounded-xl px-4 py-2 text-slate-900 dark:text-white">
+                            <option value="open" {{ old('status') === 'open' ? 'selected' : '' }}>Open (Public)</option>
+                            <option value="close" {{ old('status') === 'close' ? 'selected' : '' }}>Close (Private)</option>
+                        </select>
+                        @error('status')
+                            <p class="text-red-500 text-xs mt-1 font-bold">{{ $message }}</p>
+                        @enderror
+                    </div>
+                </div>
+
+                <div class="flex flex-col sm:flex-row gap-3 mt-8">
+                    <button type="submit"
+                        class="flex-1 bg-emerald-600 text-white font-bold py-3 rounded-xl hover:bg-emerald-700 transition-colors shadow-lg shadow-emerald-900/10">
                         Create Product
-                    </flux:button>
-                    <flux:button as="a" href="{{ route('products.index') }}" variant="outline">
+                    </button>
+                    <a href="{{ route('products.index') }}"
+                        class="flex-1 text-center border border-slate-200 dark:border-zinc-700 text-slate-700 dark:text-slate-300 font-bold py-3 rounded-xl hover:bg-slate-50 dark:hover:bg-zinc-800 transition-colors">
                         Cancel
-                    </flux:button>
+                    </a>
                 </div>
             </form>
         </div>

@@ -1,4 +1,4 @@
-/* 1. التنسيقات الأساسية وتصفير المتصفح (base & reset) */
+
 * {
     box-sizing: border-box;
 }
@@ -17,80 +17,6 @@ body {
     background-color: #f9f9f9;
 }
 
-.sidebar {
-    position: fixed;
-    top: 0;
-    right: -250px;
-    width: 250px;
-    height: 100vh;
-    background: #ffffff;
-    z-index: 100;
-    visibility: hidden;
-    transition: right 0.3s ease, visibility 0.3s ease;
-    box-shadow: -5px 0 20px rgba(0, 0, 0, 0.1);
-    border-left: 1px solid #eee;
-    display: flex;
-    flex-direction: column;
-    padding: 2rem;
-    box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
-}
-
-.sidebar.active {
-    right: 0;
-    visibility: visible;
-}
-
-
-.menu {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.menu li a {
-    display: block;
-    padding: 15px 20px;
-    color: #444;
-    text-decoration: none;
-    font-weight: 500;
-    border-bottom: 1px solid #273063;
-    transition: 0.2s;
-}
-
-.menu li a:hover {
-    background-color: #000000;
-    color: #000000;
-    padding-right: 25px;
-}
-
-.sidebar .btn-circle {
-    margin: 10px;
-    background: none;
-    border: none;
-    font-size: 15px;
-    cursor: pointer;
-    color: #888;
-}
-
-.overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.4);
-    z-index: 9998;
-    opacity: 0;
-    visibility: hidden;
-    transition: 0.3s;
-}
-
-.overlay.active {
-    opacity: 1;
-    visibility: visible;
-}
-
-/* 3. عناصر النماذج والمدخلات المشتركة (forms & inputs) */
 input:not([type="checkbox"]),
 .input {
     padding: 14px 18px;
@@ -119,91 +45,6 @@ input:focus,
 
 .form-control:focus-within .label-text {
     color: hsl(var(--p));
-}
-
-/* 4. صفحة التسجيل والدخول (auth) */
-.auth-body {
-    background: url('../images/img.jpg') no-repeat center center fixed;
-    background-size: cover;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.auth-box {
-    width: 100%;
-    max-width: 650px;
-    display: flex;
-    flex-direction: column;
-}
-
-.auth-form {
-    background: transparent;
-    padding: 40px;
-    border-radius: 24px;
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px;
-    align-items: start;
-}
-
-.auth-form header,
-.auth-form h2,
-.auth-form button,
-.auth-form footer,
-.remember {
-    grid-column: span 2;
-}
-
-.auth-form h2 {
-    text-align: center;
-    color: #f0f0f0;
-    margin-bottom: 10px;
-    font-size: 32px;
-    font-weight: 900;
-}
-
-.auth-btn {
-    margin-top: 15px;
-    background: #ffffffcc;
-    color: #000;
-    border: none;
-    padding: 16px;
-    border-radius: 15px;
-    font-weight: 700;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.auth-btn:hover {
-    background: #000000;
-    color: #ffffff;
-}
-
-.links-box {
-    text-align: center;
-    font-size: 13px;
-    color: #eee6e6;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    margin-top: 20px;
-}
-
-.links-box a {
-    color: #ffffffc7;
-    text-decoration: none;
-    font-weight: 800;
-}
-
-/* 5. صفحة الملف الشخصي (profile) */
-.info-group {
-    position: relative;
-    padding: 0.5rem 0;
 }
 
 .avatar div {
@@ -241,132 +82,14 @@ label[for="file-input"] {
     transition: all 0.2s;
 }
 
-/* 6. التنبيهات والأخطاء (errors) */
 .text-error,
 .error-text,
 span {
     display: block;
-    color: #fa0000ea;
     font-size: 10px;
     font-weight: 800;
     text-transform: lowercase;
     margin-top: 4px;
-}
-
-/* حل مشكلة التداخل في الهيدر */
-.sidebar-header {
-    padding: 50px 25px 15px;
-    /* زودنا الـ padding اللي فوق (50px) عشان يبعد عن الـ x */
-    border-bottom: 1px solid #f0f0f0;
-}
-
-.sidebar-header h3 {
-    margin: 0;
-    font-size: 16px;
-    letter-spacing: 1px;
-    color: #888;
-    text-transform: lowercase;
-}
-
-/* زرار الإغلاق - وضعناه في زاوية بعيدة */
-.close-sidebar-btn {
-    position: absolute;
-    top: 15px;
-    left: 15px;
-    background: #f8f8f8;
-    color: #ec0404;
-    border: none;
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    cursor: pointer;
-    font-size: 18px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: 0.3s;
-    z-index: 10;
-}
-
-/* حل مشكلة مساحة زرار اللوج أوت */
-/* تصفير القائمة عشان ميبقاش فيه مسافات في الجناب */
-.menu {
-    list-style: none;
-    padding: 0;
-    /* مهم جداً */
-    margin: 0;
-    width: 100%;
-}
-
-.logout-item {
-    width: 100%;
-    display: block;
-    padding: 0;
-    margin: 0;
-}
-
-.logout-form {
-    display: block;
-    width: 100%;
-    margin: 0;
-    padding: 0;
-}
-
-.logout-link {
-    display: flex;
-    /* بيخلي الزرار مرن */
-    align-items: center;
-    /* بيوسطن الأيقونة والكلام */
-    justify-content: flex-start;
-    /* بيبدأ من اليمين (لو الموقع rtl) أو الشمال */
-
-    width: 100%;
-    /* بيفرش العرض كله */
-    min-height: 50px;
-    /* بيضمن مساحة ضغط عمودية مريحة */
-
-    background: none;
-    border: none;
-    margin: 0;
-    padding: 15px 25px;
-    /* مساحة داخلية كبيرة تملأ الفراغ */
-
-    cursor: pointer;
-    text-align: inherit;
-    font-family: inherit;
-    font-size: 16px;
-    color: #ef4444 !important;
-    transition: all 0.3s ease;
-
-    /* بيخلي البادينج يتحسب من ضمن العرض الـ 100% */
-    box-sizing: border-box;
-
-    /* بيخلي الزرار يملأ السطر تماماً */
-    appearance: none;
-    -webkit-appearance: none;
-}
-
-/* تأثير الهوفر لما يملأ المكان */
-.logout-link:hover {
-    background-color: #fff1f1;
-    padding-left: 35px;
-    /* حركة بسيطة تأكد للمستخدم إنه واقف على الزرار */
-}
-
-/* تنسيق إضافي للينكات العادية عشان يبقوا مية مية */
-.menu li a {
-    display: flex;
-    align-items: center;
-    padding: 15px 25px;
-    color: #444;
-    text-decoration: none;
-    transition: all 0.3s ease;
-}
-
-.menu li a:hover {
-    background-color: #2b7cd3;
-    padding-left: 35px;
-    color: #ffffff;
 }
 
 :root {
@@ -377,7 +100,6 @@ span {
     --accent: #64748b;
 }
 
-/* الوضع الليلي - التغيير بيحصل هنا بس */
 .dark-mode {
     --bg-main: #131314 !important;
     --bg-nav: #1e1f20 !important;
@@ -386,7 +108,6 @@ span {
     --accent: #ffffff !important;
 }
 
-/* تطبيق الألوان */
 body {
     background-color: var(--bg-main) !important;
     color: var(--text-main);
@@ -399,7 +120,6 @@ body {
     color: #ffffff !important;
 }
 
-/* تنسيق العناصر في الدارك مود */
 .dark-mode nav,
 .dark-mode .navbar,
 .dark-mode .sidebar {
@@ -418,7 +138,6 @@ body {
     background-color: var(--bg-main) !important;
 }
 
-/* الأزرار */
 .dark-mode .auth-btn,
 .dark-mode .btn-primary {
     background-color: #000000 !important;
@@ -426,7 +145,6 @@ body {
     border: none !important;
 }
 
-/* نصوص عامة لضمان الوضوح */
 .dark-mode h1,
 .dark-mode h2,
 .dark-mode h3,
@@ -458,13 +176,10 @@ body {
     transform: translateY(-2px);
 }
 
-/* --- الزرار الخارجي --- */
 .delete-button {
     background-color: #be0d0d;
-    /* أحمر أغمق وأشيك */
     color: white;
     text-decoration: none;
-    /* عشان ده لينك */
     border: none;
     padding: 10px 20px;
     border-radius: 6px;
@@ -477,7 +192,6 @@ body {
     background-color: #ca0808;
 }
 
-/* --- الخلفية والمودال --- */
 .modal-overlay {
     display: none;
     position: fixed;
@@ -486,7 +200,6 @@ body {
     width: 100%;
     height: 100%;
     backdrop-filter: blur(1px);
-    /* تأثير ضبابي خفيف ورا المودال */
     z-index: 1000;
 }
 
@@ -505,10 +218,8 @@ body {
     max-width: 400px;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.986);
     color: #333;
-    /* لون الخط الأساسي */
 }
 
-/* --- الحقول والأزرار داخل المودال --- */
 .password-input {
     width: 100%;
     padding: 10px;
@@ -573,7 +284,6 @@ body {
 @media (prefers-color-scheme: dark) {
     .modal-content {
         background: #141322;
-        /* لون رمادي غامق جداً */
         color: #ffffff;
     }
 
@@ -593,7 +303,6 @@ body {
     }
 }
 
-/* 7. الحركات (animations) */
 @keyframes slideup {
     from {
         opacity: 0;
@@ -631,7 +340,6 @@ body {
     cursor: not-allowed !important;
 }
 
-/* Button & Link Hover Animations (Replacement for JS) */
 button,
 .btn,
 .links-box a {
@@ -650,7 +358,6 @@ button:hover,
     box-shadow: 0 10px 25px rgba(255, 255, 255, 0.1);
 }
 
-/* Dark Mode fixes for text visibility */
 .dark-mode .text-slate-800 { color: #e3e3e3 !important; }
 .dark-mode .text-slate-500 { color: #a1a1aa !important; }
 .dark-mode .text-slate-400 { color: #888888 !important; }
@@ -668,12 +375,11 @@ button:hover,
     user-select: none;
     font-size: 14px;
     z-index: 10;
-    /* Ensure it's above the input field */
-    color: #9ca3af; /* Default eye icon color */
+    color: #9ca3af;
 }
 
 .password-toggle:hover {
-    color: #6b7280; /* Darker on hover */
+    color: #6b7280;
 }
 
 .dark-mode .password-toggle {
@@ -684,26 +390,10 @@ button:hover,
     color: #e5e7eb;
 }
 
-/* Ensure input focus does not affect toggle position */
 .form-control:focus-within .password-toggle {
-    color: #6366f1; /* Match primary color on focus */
+    color: #6366f1;
 }
 
 .dark-mode .form-control:focus-within .password-toggle {
-    color: wheat; /* Match dark mode primary on focus */
-}
-
-/* 8. التجاوب مع الموبايل (responsive) */
-@media (max-width: 500px) {
-    .auth-form {
-        grid-template-columns: 1fr;
-    }
-
-    .auth-form header,
-    .auth-form h2,
-    .auth-form button,
-    .auth-form footer,
-    .remember {
-        grid-column: span 1;
-    }
+    color: wheat;
 }

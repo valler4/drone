@@ -3,10 +3,9 @@
 namespace App\Policies;
 
 use App\Models\User;
-use App\Models\Transaction;
-use Illuminate\Auth\Access\Response;
+use App\Models\Ticket;
 
-class Transactionpolicy
+class TicketPolicy
 {
     /**
      * Determine whether the user can view any models.
@@ -19,9 +18,9 @@ class Transactionpolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, transaction $transaction): bool
+    public function view(User $user, Ticket $ticket): bool
     {
-        return $user->id === $transaction->sender_id || $user->id === $transaction->receiver_id;
+        return (int) $user->id === (int) $ticket->user_id;
     }
 
     /**
@@ -35,15 +34,15 @@ class Transactionpolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, transaction $transaction): bool
+    public function update(User $user, Ticket $ticket): bool
     {
-        return false;
+        return (int) $user->id === (int) $ticket->user_id;
     }
 
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, transaction $transaction): bool
+    public function delete(User $user, ticket $ticket): bool
     {
         return false;
     }
@@ -51,7 +50,7 @@ class Transactionpolicy
     /**
      * Determine whether the user can restore the model.
      */
-    public function restore(User $user, transaction $transaction): bool
+    public function restore(User $user, ticket $ticket): bool
     {
         return false;
     }
@@ -59,7 +58,7 @@ class Transactionpolicy
     /**
      * Determine whether the user can permanently delete the model.
      */
-    public function forceDelete(User $user, transaction $transaction): bool
+    public function forceDelete(User $user, ticket $ticket): bool
     {
         return false;
     }

@@ -3,7 +3,7 @@
 
     <div class="max-w-xl mx-auto px-1 py-1">
         <header class="mb-10">
-            <a href="{{ route('profile') }}"
+            <a href="{{ route('settings') }}"
                 class="text-xs font-bold uppercase tracking-widest text-primary/60 flex items-center gap-2 mb-4 hover:text-primary transition-all dark:text-primary">
                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor"
                     viewBox="0 0 16 16">

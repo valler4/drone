@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\product;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Traits\Logs;
 use Illuminate\Contracts\View\View;
@@ -17,7 +17,7 @@ class ProductController extends Controller
 
     public function index(): View
     {
-        $products = product::where('status', 'open')->latest()->paginate(30);
+        $products = Product::where('status', 'open')->latest()->paginate(30);
         return view('products.index', compact('products'));
     }
 
@@ -44,21 +44,21 @@ class ProductController extends Controller
             $product->update(['product_image' => $path]);
         }
 
-        return redirect()->route('products.index')->with('success', 'Product created successfully');
+        return redirect()->route('products.index')->with('success', 'product created successfully');
     }
 
-    public function show(product $product): View
+    public function show(Product $product): View
     {
         return view('products.show', compact('product'));
     }
 
-    public function edit(product $product): View
+    public function edit(Product $product): View
     {
-        $this->authorize('update', $product);
+        $this->authorize('view', $product);
         return view('products.edit', compact('product'));
     }
 
-    public function update(productRequest $request, product $product): RedirectResponse
+    public function update(productRequest $request, Product $product): RedirectResponse
     {
         $this->authorize('update', $product);
         $productdata = $request->validated();
@@ -79,21 +79,21 @@ class ProductController extends Controller
         return redirect()->route('products.index')->with('success', 'product updated successfully');
     }
 
-    public function destroy(Request $request, product $product): RedirectResponse
+    public function destroy(Product $product): RedirectResponse
     {
         $this->authorize('view', $product);
         $product->delete();
         return redirect()->route('products.index')->with('success', 'product deleted successfully');
     }
 
-    public function close(Request $request, product $product): RedirectResponse
+    public function close(Product $product): RedirectResponse
     {
         $this->authorize('view', $product);
         $product->update(['status' => 'close']);
         return redirect()->route('products.mine')->with('success', 'product closed successfully');
     }
 
-    public function open(Request $request, product $product): RedirectResponse
+    public function open(Product $product): RedirectResponse
     {
         $this->authorize('view', $product);
         $product->update(['status' => 'open']);

@@ -77,29 +77,29 @@
                                 </span>
                             </div>
                             <h3
-                                class="text-xl font-bold tracking-tight text-slate-800 dark:text-white group-hover:text-primary transition-colors">
+                                class="text-xl font-bold tracking-tight text-slate-800 group-hover:text-primary transition-colors">
                                 <a href="{{ route('tickets.show', $ticket) }}">{{ $ticket->title }}</a>
                             </h3>
-                            <p class="text-sm text-slate-500 dark:text-slate-400 line-clamp-1">{{ $ticket->subject }}
+                            <p class="text-sm text-slate-500  line-clamp-1">{{ $ticket->subject }}
                             </p>
                         </div>
 
                         <div class="flex items-center gap-2">
                             <a href="{{ route('tickets.show', $ticket) }}"
-                                class="btn btn-ghost btn-sm rounded-xl dark:text-white">View</a>
+                                class="btn btn-ghost btn-sm rounded-xl ">View</a>
 
                             @if ($ticket->status == 'open')
                                 <a href="{{ route('tickets.edit', $ticket) }}"
-                                    class="btn btn-ghost btn-sm rounded-xl text-primary dark:text-white">Edit</a>
+                                    class="btn btn-ghost btn-sm rounded-xl text-primary">Edit</a>
                                 <a href="#confirm-close-{{ $ticket->id }}"
                                     class="btn btn-ghost text-error font-bold btn-sm text-sm uppercase rounded-xl tracking-widest hover:bg-error/10"
                                     >Close</a>
 
                                 <div id="confirm-close-{{ $ticket->id }}" class="modal-overlay">
                                     <div class="modal-content rounded-3xl p-8 max-w-sm dark:bg-slate-900">
-                                        <h3 class="text-2xl font-black tracking-tighter mb-2 dark:text-white">Close
+                                        <h3 class="text-2xl font-black tracking-tighter mb-2 ">Close
                                             Ticket?</h3>
-                                        <p class="text-slate-500 dark:text-slate-400 mb-6 text-sm">Are you sure you want
+                                        <p class="text-slate-500 mb-6 text-sm">Are you sure you want
                                             to close this ticket? This action cannot be undone.</p>
 
                                         <form action="{{ route('tickets.close', $ticket) }}" method="post">
@@ -110,7 +110,7 @@
                                                     class="btn btn-error rounded-2xl text-white shadow-lg shadow-error/20">Yes,
                                                     Close Ticket</button>
                                                 <a href="#"
-                                                    class="btn btn-ghost rounded-2xl dark:text-slate-300">Cancel</a>
+                                                    class="btn btn-ghost rounded-2xl">Cancel</a>
                                             </div>
                                         </form>
                                     </div>
@@ -121,17 +121,17 @@
                 </div>
             @empty
                 <div
-                    class="text-center py-20 bg-base-200 dark:bg-slate-800/50 rounded-3xl border-2 border-dashed border-base-300 dark:border-slate-700">
+                    class="text-center py-20 bg-base-200 rounded-3xl border-2 border-dashed border-base-300">
                     <div
-                        class="bg-base-100 dark:bg-slate-900 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-xl shadow-base-300/50">
+                        class="bg-base-100w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-xl shadow-base-300/50">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
                             class="text-slate-300 dark:text-slate-600" viewBox="0 0 16 16">
                             <path
                                 d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm4.5 0v2h7V2h-7zM4.5 5v2h7V5h-7zM4.5 8v2h7V8h-7zM4.5 11v2h7v-2h-7z" />
                         </svg>
                     </div>
-                    <h3 class="text-lg font-bold text-slate-800 dark:text-white">No tickets found</h3>
-                    <p class="text-slate-500 dark:text-slate-400 mb-6">You haven't submitted any support tickets yet.
+                    <h3 class="text-lg font-bold">No tickets found</h3>
+                    <p class="text-slate-500 mb-6">You haven't submitted any support tickets yet.
                     </p>
                     <a href="{{ route('tickets.create') }}"
                         class="btn btn-primary rounded-2xl px-8 shadow-lg shadow-primary/20">Create Your First

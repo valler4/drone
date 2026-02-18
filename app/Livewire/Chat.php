@@ -15,7 +15,7 @@ class Chat extends Component
     public $newMessage;
     public $messages;
     public $loginId;
-    public $limit = 30;
+    public $limit = 15;
 
     public function mount()
     {

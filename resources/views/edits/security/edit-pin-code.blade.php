@@ -3,16 +3,16 @@
 
     <div class="max-w-2xl mx-auto px-1 py-1">
         <header class="mb-12">
-            <a href="{{ route('profile') }}"
+            <a href="{{ route('settings') }}"
                 class="text-xs font-bold uppercase tracking-widest text-primary/60 flex items-center gap-2 mb-4 hover:text-primary transition-all dark:text-primary">
                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor"
                     viewBox="0 0 16 16">
                     <path fill-rule="evenodd"
                         d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z" />
                 </svg>
-                Back to Profile
+                Back to settings
             </a>
-            <h1 class="text-4xl font-black tracking-tighter dark:text-white">Pin Security</h1>
+            <h1 class="text-4xl font-black tracking-tighter">Pin Security</h1>
             <p class="text-slate-500 dark:text-slate-400 mt-2">Your PIN code adds an extra layer of protection for sensitive actions.</p>
         </header>
 
@@ -60,7 +60,7 @@
                 <button type="submit" class="btn btn-primary px-10 rounded-2xl shadow-lg shadow-primary/20">
                     Update PIN Code
                 </button>
-                <a href="{{ route('profile') }}" class="btn btn-ghost rounded-2xl px-10 dark:text-slate-300">Cancel</a>
+                <a href="{{ route('settings') }}" class="btn btn-ghost rounded-2xl px-10">Cancel</a>
             </div>
         </form>
     </div>

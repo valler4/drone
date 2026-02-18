@@ -34,5 +34,5 @@
                 <span>{{ session('error') }}</span>
             </div>
         @endif
-        
+
 </x-dashboard-layout>

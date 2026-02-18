@@ -63,7 +63,7 @@ class phoneController extends Controller
 
             session()->forget(['phone_otp', 'temp_phone']);
 
-            return redirect()->route('profile')->with('success', 'phone updated successfully');
+            return redirect()->route('settings')->with('success', 'phone updated successfully');
         }
 
         return back()->withErrors(['otp' => 'Invalid OTP']);

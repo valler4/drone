@@ -1,7 +1,7 @@
 <x-layout title="Products">
     <div class="space-y-1">
         <div class="flex justify-between items-center">
-            <h1 class="text-3xl font-bold text-gray-900 dark:text-white">My Products</h1>
+            <h1 class="text-3xl font-bold">My Products</h1>
             <flux:button as="a" href="{{ route('products.create') }}" variant="primary">
                 create Product
             </flux:button>
@@ -66,8 +66,8 @@
             @empty
                 <div class="col-span-full text-center py-12">
                     <flux:icon.cube class="w-16 h-16 text-gray-400 mx-auto mb-4" />
-                    <h3 class="text-lg font-medium text-gray-900 dark:text-white mb-2">No products found</h3>
-                    <p class="text-gray-600 dark:text-gray-300 mb-4">Get started by creating your first product.</p>
+                    <h3 class="text-lg font-medium ">No products found</h3>
+                    <p class=" mb-4">Get started by creating your first product.</p>
                     <flux:button as="a" href="{{ route('products.create') }}" variant="primary">
                         <flux:icon.plus class="w-4 h-4 mr-2" />
                         Add Product

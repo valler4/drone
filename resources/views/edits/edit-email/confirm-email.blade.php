@@ -3,7 +3,7 @@
 
     <div class="max-w-md mx-auto px-1 py-1">
         <header class="mb-10 text-center md:text-left">
-            <a href="{{ route('profile') }}"
+            <a href="{{ route('settings') }}"
                 class="text-xs font-bold uppercase tracking-widest text-primary/60 flex items-center justify-center md:justify-start gap-2 mb-4 hover:text-primary transition-all dark:text-primary">
                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor"
                     viewBox="0 0 16 16">
@@ -45,7 +45,7 @@
                     Verify & Update
                 </button>
 
-                <a href="{{ route('profile') }}" class="btn btn-ghost rounded-2xl h-14 dark:text-slate-300">
+                <a href="{{ route('settings') }}" class="btn btn-ghost rounded-2xl h-14 dark:text-slate-300">
                     Cancel
                 </a>
             </div>

@@ -7,14 +7,10 @@ use Illuminate\Support\Facades\Storage;
 
 class Product extends Model
 {
+    public $incrementing = true;
     protected static function boot()
     {
         parent::boot();
-        static::creating(function ($model) {
-            do {
-                $model->id = str_pad(mt_rand(1000000000, 9999999999), 8, '0', STR_PAD_LEFT);
-            } while (self::where('id', $model->id)->exists());
-        });
         static::deleting(function ($product) {
             if ($product->product_image) {
                 Storage::disk('public')->delete($product->product_image);

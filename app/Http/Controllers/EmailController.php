@@ -68,7 +68,7 @@ class EmailController extends Controller
 
             session()->forget(['mail_otp', 'temp_email']);
 
-            return redirect()->route('profile')->with('success', 'Email updated successfully');
+            return redirect()->route('settings')->with('success', 'Email updated successfully');
         }
 
         return back()->withErrors(['otp' => 'Invalid OTP']);

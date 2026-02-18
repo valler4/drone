@@ -12,8 +12,8 @@
                 </svg>
                 Back to Tickets
             </a>
-            <h1 class="text-4xl font-black tracking-tighter dark:text-white">Create New Ticket</h1>
-            <p class="text-slate-500 dark:text-slate-400 mt-2">Submit a new support ticket and we'll get back to you as soon as possible.</p>
+            <h1 class="text-4xl font-black tracking-tighter ">Create New Ticket</h1>
+            <p class="mt-2">Submit a new support ticket and we'll get back to you as soon as possible.</p>
         </header>
 
         <form action="{{ route('tickets.store') }}" method="post" class="space-y-6">
@@ -21,10 +21,10 @@
 
             <div class="form-control w-full">
                 <label class="label">
-                    <span class="label-text font-bold text-xs uppercase tracking-wider text-slate-500 dark:text-slate-400">Ticket Title</span>
+                    <span class="label-text font-bold text-xs uppercase tracking-wider">Ticket Title</span>
                 </label>
                 <input type="text" name="title" value="{{ old('title') }}" placeholder="What is this about?"
-                    class="input bg-base-200 dark:bg-slate-900 border-none focus:ring-2 rounded-2xl font-medium w-full dark:text-white @error('title') ring-2 ring-error @enderror" required autofocus>
+                    class="input bg-base-200 border-none focus:ring-2 rounded-2xl font-medium w-full @error('title') ring-2 ring-error @enderror" required autofocus>
                 @error('title')
                     <div class="mt-2">
                         <span class="p-2 bg-error/10 text-error rounded-xl text-xs font-bold block italic">{{ $message }}</span>
@@ -34,10 +34,10 @@
 
             <div class="form-control w-full">
                 <label class="label">
-                    <span class="label-text font-bold text-xs uppercase tracking-wider text-slate-500 dark:text-slate-400">Description / Subject</span>
+                    <span class="label-text font-bold text-xs uppercase tracking-wider border-border-slate-200">Description / Subject</span>
                 </label>
                 <textarea name="subject" rows="6" placeholder="Please describe your issue in detail..."
-                    class="textarea bg-base-200 dark:bg-slate-900 border-none focus:ring-2 rounded-2xl font-medium w-full dark:text-white @error('subject') ring-2 ring-error @enderror" required>{{ old('subject') }}</textarea>
+                    class="textarea bg-base-200 border-none focus:ring-2 rounded-2xl font-medium w-full @error('subject') ring-2 ring-error @enderror" required>{{ old('subject') }}</textarea>
                 @error('subject')
                     <div class="mt-2">
                         <span class="p-2 bg-error/10 text-error rounded-xl text-xs font-bold block italic">{{ $message }}</span>
@@ -49,7 +49,7 @@
                 <button type="submit" class="btn btn-primary px-10 rounded-2xl shadow-lg shadow-primary/20">
                     Send Ticket
                 </button>
-                <a href="{{ route('tickets.index') }}" class="btn btn-ghost rounded-2xl px-10 dark:text-slate-300">Cancel</a>
+                <a href="{{ route('tickets.index') }}" class="btn btn-ghost rounded-2xl px-10">Cancel</a>
             </div>
         </form>
     </div>

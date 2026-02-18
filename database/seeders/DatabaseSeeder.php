@@ -57,6 +57,15 @@ DB::disableQueryLog();
             'balance' => 1000.00,
         ]);
 
+        User::create([
+            'id' => 2,
+            'name' => 's',
+            'user_name' => 's',
+            'email' => 's@g',
+            'password' => Hash::make('ssssssss'),
+            'balance' => 1000.00,
+        ]);
+
         $adminRole = Role::create([
             'id' => 1,
             'name' => 'admin',

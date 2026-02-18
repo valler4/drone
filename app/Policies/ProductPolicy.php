@@ -5,7 +5,7 @@ namespace App\Policies;
 use App\Models\User;
 use App\Models\Product;
 
-class Productpolicy
+class ProductPolicy
 {
     /**
      * Determine whether the user can view any models.
@@ -18,9 +18,9 @@ class Productpolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, product $product): bool
+    public function view(User $user, Product $product): bool
     {
-        return $user->id === $product->user_id;
+        return (int) $user->id === (int) $product->user_id;
     }
 
     /**
@@ -34,9 +34,9 @@ class Productpolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, product $product): bool
+    public function update(User $user, Product $product): bool
     {
-        return $user->id === $product->user_id;
+        return (int) $user->id === (int) $product->user_id;
     }
 
     /**

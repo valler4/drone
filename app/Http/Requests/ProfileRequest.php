@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class ProfileRequest extends FormRequest
 {
@@ -11,29 +12,40 @@ class ProfileRequest extends FormRequest
         return true;
     }
 
-
     public function rules(): array
     {
         return [
-            'user_name' => 'required|string|max:255|regex:/^[a-zA-Z0-9-_.]+/|unique:users,user_name,' . $this->user()->id,
-            'name' => 'required|string|regex:/^[a-zA-Z\s]+$/|max:50',
-            'age' => 'nullable|integer|between:0,150',
-            'profile_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'name' => ['required', 'string', 'max:50', 'regex:/^[a-zA-Z\s]+$/'],
+            'user_name' => [
+                'required',
+                'string',
+                'max:255',
+                'regex:/^[a-zA-Z0-9-_.]+$/',
+                Rule::unique('users', 'user_name')->ignore($this->user()->id)
+            ],
+            'bio' => ['nullable', 'string', 'max:1000'],
+            'country' => ['nullable', 'string', 'max:100'],
+            'gender' => ['nullable', Rule::in(['male', 'female', 'programmer'])],
+            'age' => ['nullable', 'integer', 'between:0,150'],
+            'profile_image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
         ];
-        [
-            'user_name.required' => 'Username is required',
-            'user_name.unique' => 'Username already exists',
-            'email.email' => 'Email must be a valid email address',
-            'email.unique' => 'Email already exists',
-            'phone.digits_between' => 'Phone number must be between 7 and 15 digits',
-            'phone.unique' => 'Phone number already exists',
-            'age.integer' => 'Age must be an integer',
-            'age.between' => 'Age must be between 0 and 150',
-            'profile_image.image' => 'Profile image must be an image',
-            'profile_image.mimes' => 'Profile image must be a JPEG, PNG, or JPG',
-            'profile_image.max' => 'Profile image size must be less than 2MB',
-            'name.required' => 'Name is required',
-            'name.regex' => 'Name must contain only letters and spaces',
+    }
+
+    public function messages(): array
+    {
+        return [
+            'name.required' => 'Display name is required.',
+            'name.regex' => 'The name may only contain letters and spaces.',
+            'user_name.required' => 'Username is mandatory.',
+            'user_name.unique' => 'This username has already been taken.',
+            'user_name.regex' => 'Username contains invalid characters.',
+            'bio.max' => 'Bio description is too long (Max 1000 characters).',
+            'gender.in' => 'Please select a valid gender option.',
+            'age.integer' => 'Age must be a valid number.',
+            'age.between' => 'Age must be between 0 and 150.',
+            'profile_image.image' => 'The uploaded file must be an image.',
+            'profile_image.mimes' => 'Only JPEG, PNG, JPG, and GIF files are allowed.',
+            'profile_image.max' => 'Image size must not exceed 2MB.',
         ];
     }
 }

@@ -1,6 +1,6 @@
 <x-layout>
     <x-slot:title>
-        profile
+        settings
     </x-slot:title>
     <main>
         <div class="w-full mx-auto px-1 py-1">
@@ -15,7 +15,7 @@
                         </svg>
                         Back
                     </a>
-                    <h1 class="text-4xl font-black tracking-tighter">My Profile</h1>
+                    <h1 class="text-4xl font-black tracking-tighter">settings</h1>
                 </div>
 
                 <div
@@ -134,7 +134,7 @@
                 </div>
             </div>
             <div class="mt-16 pt-8 border-t border-base-300 flex flex-col md:flex-row gap-4">
-                <a href="{{ route('edit.profile') }}"
+                <a href="{{ route('profile.edit') }}"
                     class="btn btn-primary btn-lg grow rounded-2xl shadow-lg shadow-primary/20">Edit Profile</a>
             </div>
         </div>
