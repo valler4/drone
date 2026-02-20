@@ -15,7 +15,7 @@ class Chat extends Component
     public $newMessage;
     public $messages;
     public $loginId;
-    public $limit = 15;
+    public $limit = 30;
 
     public function mount()
     {
@@ -62,7 +62,6 @@ class Chat extends Component
 
         $this->messages->push($NewMessageData);
 
-        $messageText = $this->newMessage;
         $this->newMessage = '';
 
         broadcast(new MessageSent($NewMessageData))->toOthers();

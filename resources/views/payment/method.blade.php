@@ -5,7 +5,7 @@
         <div class="w-full max-w-md p-8 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl shadow-sm">
             <div class="text-center mb-8">
                 <h1 class="text-2xl font-bold text-gray-800 dark:text-white">شحن الرصيد</h1>
-                <p class="text-sm text-gray-500 dark:text-gray-400 mt-2">حدد المبلغ وطريقة الدفع</p>
+                <p class="text-sm text-gray-500 mt-2">حدد المبلغ وطريقة الدفع</p>
             </div>
 
             <form action="{{ route('payment_method.post') }}" method="POST" class="space-y-6">
@@ -14,7 +14,7 @@
                 <div>
                     <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">المبلغ المطلوب (USD)</label>
                     <input type="number" name="amount" min="1" step="0.01"
-                        class="block w-full px-4 py-3 bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white rounded-xl focus:ring-blue-500 focus:border-blue-500 shadow-sm transition-all"
+                        class="block w-full px-4 py-3 text-gray-950 rounded-xl shadow-sm transition-all"
                         placeholder="0.00" required>
                 </div>
 

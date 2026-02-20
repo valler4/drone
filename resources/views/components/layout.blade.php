@@ -50,7 +50,6 @@
     class="h-screen flex flex-col font-sans antialiased overflow-hidden bg-white dark:bg-zinc-900">
     <flux:header sticky
         class="max-w-none w-full bg-white dark:bg-zinc-900 border-b border-zinc-200 dark:border-zinc-800">
-        <flux:sidebar.toggle class="lg:hidden" icon="bars-3" inset="left" />
 
         <flux:brand href="/home" name="DRONE" class="text-2xl font-bold text-gray-900 dark:text-white" />
 
@@ -82,7 +81,7 @@
                     </flux:menu>
                 </flux:dropdown>
 
-                <flux:button id="theme-toggle" variant="ghost" icon="moon" />
+                <flux:button id="theme-toggle"/>
 
                 <flux:navbar.item icon="bell" href="/notifications" label="Notifications" />
 
