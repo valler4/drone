@@ -25,6 +25,7 @@
             color: var(--text-main);
             transition: background-color 0.3s ease, color 0.3s ease;
         }
+
         .flux-sidebar-wrapper {
             height: 100% !important;
         }
@@ -51,20 +52,13 @@
     <flux:header sticky
         class="max-w-none w-full bg-white dark:bg-zinc-900 border-b border-zinc-200 dark:border-zinc-800">
 
-        <flux:brand href="/home" name="DRONE" class="text-2xl font-bold text-gray-900 dark:text-white" />
+        <flux:brand href="/home" name="DRONE" class="text-2xl font-bold text-gray-900" />
 
         <flux:spacer />
 
         {{-- الـ navbar هنا بياخد العناصر وبيرصها صح --}}
         <flux:navbar class="gap-2 sm:gap-4">
             @auth
-
-                <div class="flex items-center gap-2 bg-zinc-800 px-3 py-1.5 rounded-full border border-zinc-700">
-                    <flux:icon.banknotes class="text-yellow-500 w-4 h-4" />
-                    <span class="text-sm font-bold text-zinc-100">
-                        {{ number_format(auth()->user()->balance, 2) }}
-                    </span>
-                </div>
                 {{-- البروفايل الأول --}}
                 <flux:dropdown position="bottom" align="end">
                     <flux:profile avatar="{{ auth()->user()->image_url }}" name="{{ Str::limit(auth()->user()->name, 10) }}"
@@ -81,9 +75,9 @@
                     </flux:menu>
                 </flux:dropdown>
 
-                <flux:button id="theme-toggle"/>
-
                 <flux:navbar.item icon="bell" href="/notifications" label="Notifications" />
+
+                <flux:navbar.item id="theme-toggle" />
 
                 {{-- زرار السايد بار --}}
                 <flux:button variant="ghost" icon="bars-3" @click="sidebarOpen = !sidebarOpen" />
@@ -114,9 +108,10 @@
                     <flux:navlist.item icon="ticket" href="/tickets">Tickets</flux:navlist.item>
                     <flux:navlist.item icon="archive-box" href="/products">products</flux:navlist.item>
                     <flux:navlist.item icon="currency-dollar" href="/transactions">Transactions</flux:navlist.item>
-                    <flux:navlist.item icon="chat-bubble-left-ellipsis" href="/chat" >chat</flux:navlist.item>
+                    <flux:navlist.item icon="chat-bubble-left-ellipsis" href="/chat">chat</flux:navlist.item>
                     @if (auth()->user()->IsAdmin())
-                        <flux:navlist.item icon="cog-6-tooth" href="{{ route('admin.index') }}">Admin Link</flux:navlist.item>
+                        <flux:navlist.item icon="cog-6-tooth" href="{{ route('admin.index') }}">Admin Link
+                        </flux:navlist.item>
                     @endif
                 </flux:navlist>
 

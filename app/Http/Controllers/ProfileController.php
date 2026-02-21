@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileRequest;
+use App\Models\FriendRequest;
 use App\Traits\Logs;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class ProfileController extends Controller
 {
@@ -22,8 +24,45 @@ class ProfileController extends Controller
     public function show(User $user)
     {
 
+        $friendRequest = FriendRequest::where('sender_id', Auth::id())
+            ->where('receiver_id', $user->id)
+            ->where('status', 'pending')
+            ->first();
 
-        return view('profile.show', compact('user'));
+        return view('profile.show', compact('user', 'friendRequest'));
+    }
+
+    public function sendFriendRequest(Request $request)
+    {
+        $request->validate([
+            'receiver_id' => 'required|exists:users,id|different:sender_id',
+        ], [
+            'different' => 'You cannot send a friend request to yourself!'
+        ]);
+
+        FriendRequest::updateOrCreate(
+            [
+                'sender_id' => Auth::id(),
+                'receiver_id' => $request->receiver_id
+            ],
+            [
+                'status' => 'pending'
+            ]
+        );
+
+        // $friendRequest->receiver->notify(new FriendRequestNotification($friendRequest));
+
+        return redirect()->back()->with('success', 'Friend request sent successfully!');
+    }
+
+    public function deleteFriendRequest(FriendRequest $friendRequest)
+    {
+
+        if ($friendRequest->sender_id === (int) Auth::id()) {
+            $friendRequest->delete();
+        }
+
+        return redirect()->back()->with('success', 'Request canceled.');
     }
 
     public function update(ProfileRequest $request)

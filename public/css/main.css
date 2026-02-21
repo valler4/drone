@@ -287,12 +287,6 @@ body {
         color: #ffffff;
     }
 
-    .password-input {
-        background: #374151;
-        border-color: #4b5563;
-        color: white;
-    }
-
     .cancel-btn {
         background: #4b5563;
         color: #e5e7eb;
@@ -338,62 +332,4 @@ body {
 .btn-disabled-loading {
     opacity: 0.6 !important;
     cursor: not-allowed !important;
-}
-
-button,
-.btn,
-.links-box a {
-    transition: transform 0.25s ease, box-shadow 0.25s ease !important;
-}
-
-button:hover,
-.btn:hover,
-.links-box a:hover {
-    transform: scale(1.05);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-}
-
-.dark-mode button:hover,
-.dark-mode .btn:hover {
-    box-shadow: 0 10px 25px rgba(255, 255, 255, 0.1);
-}
-
-.dark-mode .text-slate-800 { color: #e3e3e3 !important; }
-.dark-mode .text-slate-500 { color: #a1a1aa !important; }
-.dark-mode .text-slate-400 { color: #888888 !important; }
-
-.password-toggle-wrapper {
-    position: relative;
-}
-
-.password-toggle {
-    position: absolute;
-    right: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-    cursor: pointer;
-    user-select: none;
-    font-size: 14px;
-    z-index: 10;
-    color: #9ca3af;
-}
-
-.password-toggle:hover {
-    color: #6b7280;
-}
-
-.dark-mode .password-toggle {
-    color: #a1a1aa;
-}
-
-.dark-mode .password-toggle:hover {
-    color: #e5e7eb;
-}
-
-.form-control:focus-within .password-toggle {
-    color: #6366f1;
-}
-
-.dark-mode .form-control:focus-within .password-toggle {
-    color: wheat;
 }

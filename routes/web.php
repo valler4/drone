@@ -76,6 +76,16 @@ Route::put('profile/update', [ProfileController::class, 'update'])
     ->middleware(['auth', 'throttle:profile'])
     ->name('profile.update');
 
+// ? **friend request Routes**
+
+Route::post('profile/friend-request', [ProfileController::class, 'sendFriendRequest'])
+    ->middleware(['auth', 'throttle:profile'])
+    ->name('friend-request.send');
+
+Route::delete('profile/friend-request/{friendRequest}', [ProfileController::class, 'deleteFriendRequest'])
+    ->middleware(['auth', 'throttle:profile'])
+    ->name('friend-request.cancel');
+
 // ? **password Routes**
 
 Route::view('edit.password', 'edits/security/edit-password')
@@ -276,5 +286,4 @@ Route::middleware(['auth', 'admin', 'throttle:admin'])->prefix('admin')->name('a
     Route::get('/transactions', [AdminController::class, 'index'])->name('transactions.index');
 
     Route::get('/tickets', [AdminController::class, 'index'])->name('tickets.index');
-
 });

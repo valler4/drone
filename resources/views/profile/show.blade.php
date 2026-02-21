@@ -30,47 +30,67 @@
                         Edit Profile
                     </a>
                 </div>
-            @endif
+            @elseif ($friendRequest)
+                <div class="mt-4 md:mt-0">
+                    {{-- لاحظ هنا أضفنا $friendRequest->id داخل الـ route --}}
+                    <form action="{{ route('friend-request.cancel', $friendRequest->id) }}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-error btn-outline rounded-2xl px-6">
+                            Cancel Request
+                        </button>
+                    </form>
+                </div> {{-- تأكد من إغلاق الـ div هنا --}}
+            @else
+                <form action="{{ route('friend-request.send') }}" method="POST">
+                    @csrf
+                    <input type="hidden" name="receiver_id" value="{{ $user->id }}">
+                    <button type="submit" class="btn btn-primary rounded-2xl px-6 text-white">
+                        Add Friend
+                    </button>
+                </form>
+        @endif
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="md:col-span-2 space-y-8">
+            <section>
+                <p class="text-xl leading-relaxed text-slate-800 italic">
+                    "{{ $user->bio ?? 'This user hasn\'t shared a story yet.' }}"
+                </p>
+            </section>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div class="md:col-span-2 space-y-8">
-                <section>
-                    <p class="text-xl leading-relaxed text-slate-800 italic">
-                        "{{ $user->bio ?? 'This user hasn\'t shared a story yet.' }}"
-                    </p>
-                </section>
-            </div>
+        <div class="space-y-6">
+            @if (auth()->id() === $user->id)
+                <div class="bg-gray-50 dark:bg-slate-950 border border-gray-200 p-6 rounded-3xl">
+                    <h3 class="text-xs font-bold uppercase text-amber-50 tracking-widest text-primary mb-6">Private
+                        Info</h3>
 
-            <div class="space-y-6">
-                @if (auth()->id() === $user->id)
-                    <div class="bg-gray-50 dark:bg-slate-950 border border-gray-200 p-6 rounded-3xl">
-                        <h3 class="text-xs font-bold uppercase text-amber-50 tracking-widest text-primary mb-6">Private
-                            Info</h3>
+                    <div class="space-y-6">
+                        <div>
+                            <p class="text-[10px] font-bold text-slate-400 uppercase tracking-tighter">Balance</p>
+                            <p class="text-2xl font-black text-slate-900 dark:text-white">
+                                ${{ number_format($user->balance, 2) }}</p>
+                        </div>
 
-                        <div class="space-y-6">
-                            <div>
-                                <p class="text-[10px] font-bold text-slate-400 uppercase tracking-tighter">Balance</p>
-                                <p class="text-2xl font-black text-slate-900 dark:text-white">
-                                    ${{ number_format($user->balance, 2) }}</p>
-                            </div>
-
-                            <div class="pt-4 border-t border-gray-100 dark:border-slate-800">
-                                <p class="text-[10px] font-bold text-slate-400 uppercase tracking-tighter">Contact</p>
-                                <p class="text-sm text-slate-700 dark:text-slate-300">{{ $user->email }}</p>
-                                <p class="text-sm text-slate-700 dark:text-slate-300 mt-1">
-                                    {{ $user->phone ?? 'No phone' }}</p>
-                            </div>
+                        <div class="pt-4 border-t border-gray-100">
+                            <p class="text-[10px] font-bold text-slate-900 dark:text-white uppercase tracking-tighter">
+                                Contact</p>
+                            <p class="text-sm text-slate-700 dark:text-slate-300">{{ $user->email }}</p>
+                            <p class="text-sm text-slate-700 dark:text-slate-300 mt-1">
+                                {{ $user->phone ?? 'No phone' }}</p>
                         </div>
                     </div>
-                @else
-                    <div class="p-6 rounded-3xl border border-gray-100 dark:border-slate-800 text-center">
-                        <p class="text-xs text-slate-400 dark:text-slate-500 italic uppercase">
-                            Member since {{ $user->created_at->format('M Y') }}
-                        </p>
-                    </div>
-                @endif
-            </div>
+                </div>
+            @else
+                <div class="p-6 rounded-3xl border border-gray-100 dark:border-slate-800 text-center">
+                    <p class="text-xs text-slate-400 dark:text-slate-500 italic uppercase">
+                        Member since {{ $user->created_at->format('M Y') }}
+                    </p>
+                </div>
+            @endif
         </div>
+    </div>
     </div>
 </x-layout>

@@ -1,6 +1,6 @@
+<x-slot:title>{{ $selectedUser->name  }}'s Chat</x-slot:title>
 <div
     class="flex h-[90vh] bg-white dark:bg-zinc-900 rounded-2xl shadow-xl overflow-hidden border border-slate-200 dark:border-zinc-800">
-
     <div class="w-1/3 flex flex-col border-r border-slate-200 dark:border-zinc-800 bg-slate-50 dark:bg-zinc-950">
         <div
             class="p-4 border-b border-slate-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 flex justify-between items-center">

@@ -87,6 +87,6 @@ class Chat extends Component
 
     public function render()
     {
-        return view('livewire.chat')->layout('components.layout');
+        return view('chat.chat')->layout('components.layout');
     }
 }
