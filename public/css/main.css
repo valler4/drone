@@ -229,11 +229,6 @@ body {
     box-sizing: border-box;
 }
 
-.password-input::placeholder {
-    color: #999696;
-    font-weight: bold;
-}
-
 .actions {
     display: flex;
     justify-content: center;

@@ -25,6 +25,8 @@ return new class extends Migration
             $table->decimal('balance', 15, 2)->default(0);
             $table->rememberToken();
             $table->timestamps();
+
+            $table->index(['user_name', 'email', 'phone','name']);
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {

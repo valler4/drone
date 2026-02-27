@@ -15,8 +15,8 @@
                 </svg>
                 Back to Settings
             </a>
-            <h1 class="text-4xl font-black tracking-tighter dark:text-white">Verify Phone</h1>
-            <p class="text-slate-500 dark:text-slate-400 text-sm mt-1">We've sent a 6-digit verification code to <strong>{{ $newphone }}</strong> via SMS.</p>
+            <h1 class="text-4xl font-black tracking-tighter">Verify Phone</h1>
+            <p class="text-sm mt-1">We've sent a 6-digit verification code to <strong>{{ $newphone }}</strong> via SMS.</p>
         </header>
 
         <form action="{{ route('update-phone') }}" method="post" id="update-form" class="space-y-8">
@@ -25,7 +25,7 @@
 
             <div class="form-control w-full">
                 <label class="label justify-center md:justify-start">
-                    <span class="label-text font-bold text-xs uppercase tracking-wider text-slate-500 dark:text-slate-400">Verification Code</span>
+                    <span class="label-text font-bold text-xs uppercase tracking-wider">Verification Code</span>
                 </label>
 
                 <input type="text" name="otp" maxlength="6"
@@ -48,14 +48,14 @@
                     Verify & Update
                 </button>
 
-                <a href="{{ route('settings') }}" class="btn btn-ghost rounded-2xl h-14 dark:text-slate-300">
+                <a href="{{ route('settings') }}" class="btn btn-ghost rounded-2xl h-14">
                     Cancel
                 </a>
             </div>
         </form>
 
-        <div class="mt-12 flex flex-col items-center gap-4 border-t border-base-200 dark:border-slate-800 pt-8">
-            <p class="text-xs text-slate-400 dark:text-slate-500 font-medium tracking-wide">
+        <div class="mt-12 flex flex-col items-center gap-4 pt-8">
+            <p class="text-xs font-medium tracking-wide">
                 Didn't receive the code?
             </p>
             <form id="otp-form" action="{{ route('send-phone-otp') }}" method="post" class="m-0">

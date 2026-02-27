@@ -12,15 +12,15 @@
                 </svg>
                 Back to Settings
             </a>
-            <h1 class="text-4xl font-black tracking-tighter dark:text-white">Update Phone</h1>
-            <p class="text-slate-500 dark:text-slate-400 text-sm mt-1">Enter your new phone number to receive a verification code.</p>
+            <h1 class="text-4xl font-black tracking-tighter">Update Phone</h1>
+            <p class="text-sm mt-1">Enter your new phone number to receive a verification code.</p>
         </header>
 
         <form id="otp-form" action="{{ route('send-phone-otp') }}" method="post" class="space-y-8">
             @csrf
             <div class="form-control w-full">
                 <label class="label">
-                    <span class="label-text font-bold text-xs uppercase tracking-wider text-slate-500 dark:text-slate-400">Phone Number</span>
+                    <span class="label-text font-bold text-xs uppercase tracking-wider">Phone Number</span>
                 </label>
 
                 <div class="flex flex-col md:flex-row items-stretch gap-3">
@@ -51,7 +51,7 @@
         <div class="mt-12 p-6 bg-primary/5 dark:bg-primary/10 rounded-3xl border border-primary/10 dark:border-primary/20">
             <div class="flex gap-4">
                 <div class="text-primary text-xl">📱</div>
-                <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed italic">
+                <p class="text-xs leading-relaxed italic">
                     Make sure your phone is nearby to receive the 6-digit verification code via SMS.
                 </p>
             </div>

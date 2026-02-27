@@ -12,15 +12,15 @@
                 </svg>
                 Back to Settings
             </a>
-            <h1 class="text-4xl font-black tracking-tighter dark:text-white">Update Email</h1>
-            <p class="text-slate-500 dark:text-slate-400 text-sm mt-1">We'll send a verification code to your new email address.</p>
+            <h1 class="text-4xl font-black tracking-tighter">Update Email</h1>
+            <p class="text-sm mt-1">We'll send a verification code to your new email address.</p>
         </header>
 
         <form id="otp-form" action="{{ route('send-email-otp') }}" method="post" class="space-y-8">
             @csrf
             <div class="form-control w-full">
                 <label class="label">
-                    <span class="label-text font-bold text-xs uppercase tracking-wider text-slate-500 dark:text-slate-400">New Email Address</span>
+                    <span class="label-text font-bold text-xs uppercase tracking-wider">New Email Address</span>
                 </label>
 
                 <div class="flex flex-col md:flex-row items-stretch gap-3">
@@ -51,7 +51,7 @@
         <div class="mt-12 p-6 bg-primary/5 dark:bg-primary/10 rounded-3xl border border-primary/10 dark:border-primary/20">
             <div class="flex gap-4">
                 <div class="text-primary text-xl">💡</div>
-                <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+                <p class="text-xs leading-relaxed">
                     <span class="font-bold text-primary uppercase tracking-widest text-[10px]">Important:</span> Changing your email will require re-verification. You won't be able to log in with your old email after this process is complete.
                 </p>
             </div>

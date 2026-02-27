@@ -13,7 +13,7 @@
                 Back to settings
             </a>
             <h1 class="text-4xl font-black tracking-tighter">Pin Security</h1>
-            <p class="text-slate-500 dark:text-slate-400 mt-2">Your PIN code adds an extra layer of protection for sensitive actions.</p>
+            <p class="mt-2">Your PIN code adds an extra layer of protection for sensitive actions.</p>
         </header>
 
         <form action="{{ route('profile.updatePinCode') }}" method="post" id="pinForm" class="space-y-10">
@@ -23,10 +23,10 @@
             <div class="space-y-8">
                 <div class="form-control w-full">
                     <label class="label">
-                        <span class="label-text font-bold text-xs uppercase tracking-wider text-slate-500 dark:text-slate-400">Confirm Current Password</span>
+                        <span class="label-text font-bold text-xs uppercase tracking-wider">Confirm Current Password</span>
                     </label>
                     <input type="password" name="password"
-                        class="input bg-base-200 dark:bg-slate-900 border-none focus:ring-2 ring-primary rounded-2xl font-medium w-full dark:text-white"
+                        class="input bg-base-200 dark:bg-slate-900 border-none focus:ring-2 ring-primary rounded-2xl font-medium w-full"
                         autofocus required />
                     @error('password')
                         <div class="mt-2">
@@ -37,10 +37,10 @@
 
                 <div class="form-control w-full">
                     <label class="label">
-                        <span class="label-text font-bold text-xs uppercase tracking-wider text-slate-500 dark:text-slate-400">New 4-Digit PIN</span>
+                        <span class="label-text font-bold text-xs uppercase tracking-wider">New 4-Digit PIN</span>
                     </label>
                     <input type="password" name="pin_code" maxlength="4"
-                        class="input bg-base-200 dark:bg-slate-900 border-none focus:ring-2 ring-primary rounded-2xl font-black text-center text-3xl tracking-[1em] w-full dark:text-white h-16"
+                        class="input bg-base-200 dark:bg-slate-900 border-none focus:ring-2 ring-primary rounded-2xl font-black text-center text-3xl tracking-[1em] w-full h-16"
                         placeholder="0000" required />
                     @error('pin_code')
                         <div class="mt-2">

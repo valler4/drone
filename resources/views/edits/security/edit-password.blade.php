@@ -23,10 +23,10 @@
             <div class="space-y-6">
                 <div class="form-control w-full">
                     <label class="label">
-                        <span class="label-text font-bold text-xs uppercase tracking-wider text-slate-500 dark:text-slate-400">Current Password</span>
+                        <span class="label-text font-bold text-xs uppercase tracking-wider">Current Password</span>
                     </label>
                     <input type="password" name="password"
-                        class="input bg-base-200 dark:bg-slate-900 border-none focus:ring-2 ring-primary rounded-2xl font-medium w-full dark:text-white"
+                        class="input bg-base-200 dark:bg-slate-900 border-none focus:ring-2 ring-primary rounded-2xl font-medium w-full"
                         autofocus required />
                     @error('password')
                         <div class="mt-2">
@@ -38,10 +38,10 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div class="form-control w-full">
                         <label class="label">
-                            <span class="label-text font-bold text-xs uppercase tracking-wider text-slate-500 dark:text-slate-400">New Password</span>
+                            <span class="label-text font-bold text-xs uppercase tracking-wider">New Password</span>
                         </label>
                         <input type="password" name="new_password"
-                            class="input bg-base-200 dark:bg-slate-900 border-none focus:ring-2 ring-primary rounded-2xl font-medium w-full dark:text-white"
+                            class="input bg-base-200 border-none focus:ring-2 ring-primary rounded-2xl font-medium w-full"
                             required />
                         @error('new_password')
                             <div class="mt-2">
@@ -52,10 +52,10 @@
 
                     <div class="form-control w-full">
                         <label class="label">
-                            <span class="label-text font-bold text-xs uppercase tracking-wider text-slate-500 dark:text-slate-400">Confirm New Password</span>
+                            <span class="label-text font-bold text-xs uppercase tracking-wider">Confirm New Password</span>
                         </label>
                         <input type="password" name="new_password_confirmation"
-                            class="input bg-base-200 dark:bg-slate-900 border-none focus:ring-2 ring-primary rounded-2xl font-medium w-full dark:text-white"
+                            class="input bg-base-200 border-none focus:ring-2 ring-primary rounded-2xl font-medium w-full"
                             required />
                         @error('new_password_confirmation')
                             <div class="mt-2">

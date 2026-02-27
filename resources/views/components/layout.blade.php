@@ -59,6 +59,15 @@
         {{-- الـ navbar هنا بياخد العناصر وبيرصها صح --}}
         <flux:navbar class="gap-2 sm:gap-4">
             @auth
+
+                {{-- شريط البحث --}}
+                <div class="hidden sm:block flex-1 max-w-md mx-4">
+                    <form action="/search" method="GET">
+                        <flux:input name="q" icon="magnifying-glass" placeholder="Search for something..."
+                            variant="filled" />
+                    </form>
+                </div>
+
                 {{-- البروفايل الأول --}}
                 <flux:dropdown position="bottom" align="end">
                     <flux:profile avatar="{{ auth()->user()->image_url }}" name="{{ Str::limit(auth()->user()->name, 10) }}"
@@ -106,7 +115,7 @@
                     <flux:navlist.item icon="home" href="/home">Home</flux:navlist.item>
                     <flux:navlist.item icon="chart-bar" href="/dashboard">Dashboard</flux:navlist.item>
                     <flux:navlist.item icon="ticket" href="/tickets">Tickets</flux:navlist.item>
-                    <flux:navlist.item icon="archive-box" href="/products">products</flux:navlist.item>
+                    <flux:navlist.item icon="archive-box" href="/products">Products</flux:navlist.item>
                     <flux:navlist.item icon="currency-dollar" href="/transactions">Transactions</flux:navlist.item>
                     <flux:navlist.item icon="chat-bubble-left-ellipsis" href="/chat">chat</flux:navlist.item>
                     @if (auth()->user()->IsAdmin())

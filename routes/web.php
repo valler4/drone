@@ -13,6 +13,7 @@ use App\Http\Controllers\PhoneController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PurchaseController;
+use App\Http\Controllers\SearchController;
 use App\Http\Controllers\SecurityController;
 use App\Http\Controllers\TicketController;
 use App\Http\Controllers\TransactionController;
@@ -41,14 +42,20 @@ Route::post('register', Register::class)
 // ? **logout**
 
 Route::post('/logout', Logout::class)
-    ->name('logout')
-    ->middleware(['auth', 'throttle:logout']);
+    ->middleware(['auth', 'throttle:logout'])
+    ->name('logout');
 
 // ? **home**
 
 Route::view('/home', 'home')
     ->middleware('throttle:AuthView')
     ->name('home');
+
+// ? **search Route**
+
+Route::get('/search', [SearchController::class, 'index'])
+    ->middleware('auth')
+    ->name('search');
 
 // ?  //delete Route\\
 
@@ -262,8 +269,6 @@ Route::post('purchase/{product}', [PurchaseController::class, 'purchase'])
 // ? **chat Route**
 
 Route::middleware('auth')->group(function () {
-    // Route::get('/chat/{user_id}', [MessageController::class, 'getMessages']);
-    // Route::post('/chat/send', [MessageController::class, 'sendMessage']);
     Route::get('chat', Chat::class)->name('chat');
 });
 
