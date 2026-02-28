@@ -6,7 +6,6 @@ use App\Http\Controllers\auth\Logout;
 use App\Http\Controllers\auth\Register;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EmailController;
-use App\Http\Controllers\MessageController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PhoneController;
@@ -260,7 +259,6 @@ Route::patch('products/{product}/open', [ProductController::class, 'open'])
     ->name('products.open');
 
 // ? **purchase Route**
-
 
 Route::post('purchase/{product}', [PurchaseController::class, 'purchase'])
     ->middleware(['auth', 'throttle:products'])
