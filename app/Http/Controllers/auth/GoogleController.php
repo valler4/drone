@@ -4,33 +4,45 @@ namespace App\Http\Controllers\auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
 
 class GoogleController extends Controller
 {
-    public function redirectToGoogle(Request $request)
+    public function redirectToGoogle()
     {
         return Socialite::driver('google')->redirect();
     }
 
-    public function HandelGoogleCallback(Request $request)
+    public function HandelGoogleCallback()
     {
-
         $googleUser = Socialite::driver('google')->stateless()->user();
 
-        $user = User::updateOrCreate([
-            'google_id' => $googleUser->id,
-        ], [
-            'name' => $googleUser->name,
-            'email' => $googleUser->email,
-            'user_name' => 'user_' . bin2hex(random_bytes(4)).rand(1000000, 9999999),
-            'password' => null,
-        ]);
+        $user = User::where('google_id', $googleUser->id)
+            ->orWhere('email', $googleUser->email)
+            ->first();
+
+        if ($user) {
+            $user->update([
+                'google_id' => $googleUser->id,
+                'name' => $googleUser->name,
+            ]);
+        } else {
+            $user = User::create([
+                'google_id' => $googleUser->id,
+                'name' => $googleUser->name,
+                'email' => $googleUser->email,
+                'user_name' => rand(1000000, 9999999),
+                'password' => null,
+            ]);
+        }
 
         Auth::login($user);
-        return redirect()->route('home');
 
+        if (is_null($user->password)) {
+            return redirect()->route('password.set');
+        }
+
+        return redirect()->route('home');
     }
 }

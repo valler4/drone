@@ -72,15 +72,8 @@
                         Create Account
                     </button>
 
-                    <div class="relative flex py-5 items-center">
-                        <div class="flex-grow border-t border-slate-200"></div>
-                        <span class="flex-shrink mx-4 text-slate-400 text-sm font-medium">OR</span>
-                        <div class="flex-grow border-t border-slate-200"></div>
-                    </div>
-
                     <a href="/auth/google"
                         class="btn w-full h-14 rounded-2xl font-bold text-lg border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 flex items-center justify-center gap-3 shadow-sm transition-all">
-                        <img src="https://www.svgrepo.com/show/355037/google.svg" class="w-6 h-6" alt="Google Logo">
                         Continue with Google
                     </a>
 

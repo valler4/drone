@@ -6,6 +6,7 @@ use App\Http\Requests\passwordRequest;
 use App\Http\Requests\PinCodeRequest;
 use App\Traits\Logs;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 
 class SecurityController extends Controller
 {
@@ -13,8 +14,30 @@ class SecurityController extends Controller
 
     public function setPassword()
     {
-        return view('edits.security.password.set');
+        return view('edits/security/password_set');
     }
+
+    public function passwordUpdate(Request $request)
+    {
+        $user = $request->user();
+
+        $request->validate([
+            'new_password' => 'required|string|min:8|confirmed',
+        ]);
+
+        $user->update([
+            'password' => bcrypt($request->new_password),
+        ]);
+
+        auth::logout();
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        auth::login($user);
+
+        return redirect('/home')->with('success', 'Password updated successfully');
+    }
+
 
     public function updatePassword(passwordRequest $request)
     {
