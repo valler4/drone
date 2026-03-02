@@ -39,6 +39,7 @@ class User extends Authenticatable
         'bio',
         'country',
         'gender',
+        'google_id',
     ];
 
     protected $keyType = 'string';

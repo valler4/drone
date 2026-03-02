@@ -30,9 +30,9 @@ class login extends Controller
             $user->last_login = now();
             $user->save();
 
-            $this->logActivity('login', 'logged in', "id: {$user->id} user {$user->user_name} logged in");
-
             request()->session()->regenerate();
+
+            $this->logActivity('login', 'logged in', "id: {$user->id} user {$user->user_name} logged in");
 
             return redirect()->intended('/home')->with('success', 'You are logged in successfully '.Auth::user()->name);
 

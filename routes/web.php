@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\auth\GoogleController;
 use App\Http\Controllers\auth\Login;
 use App\Http\Controllers\auth\Logout;
 use App\Http\Controllers\auth\Register;
@@ -28,6 +29,13 @@ Route::view('login', 'auth.login')
 
 Route::post('login', Login::class)
     ->middleware(['guest', 'throttle:login']);
+
+// ? **google auth Routes**
+
+Route::get('auth/google', [GoogleController::class, 'redirectToGoogle']);
+    // ->name('auth.google');
+Route::get('auth/google/callback', [GoogleController::class, 'HandelGoogleCallback']);
+    // ->name('auth.google.callback');
 
 // ? **register Routes**
 
@@ -101,6 +109,10 @@ Route::view('edit.password', 'edits/security/edit-password')
 Route::put('edit.password', [SecurityController::class, 'updatePassword'])
     ->middleware('auth', 'throttle:password')
     ->name('profile.updatepassword');
+
+Route::get('set-password', [SecurityController::class, 'setPassword'])
+    ->middleware(['auth', 'throttle:view'])
+    ->name('password.set');
 
 // ? **pin code Routes**
 

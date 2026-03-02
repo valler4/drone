@@ -11,6 +11,10 @@ trait Logs
     {
         $user = request()->user();
 
+        if (!$user) {
+            return;
+        }
+
         Log::build([
             'driver' => 'single',
             'path' => storage_path('logs/user_activity.log'),

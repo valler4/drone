@@ -16,17 +16,17 @@ return new class extends Migration
             $table->string('country')->nullable();
             $table->enum('gender', ['male', 'female', 'programmer'])->default('programmer');
             $table->string('email')->unique()->nullable();
-            $table->string('password');
+            $table->string('password')->nullable();
             $table->string('pin_code')->nullable();
             $table->timestamp('last_login')->nullable();
             $table->integer('age')->nullable();
             $table->string('profile_image')->nullable();
             $table->string('phone')->nullable();
             $table->decimal('balance', 15, 2)->default(0);
+            $table->string('google_id')->nullable();
             $table->rememberToken();
             $table->timestamps();
-
-            $table->index(['user_name', 'email', 'phone','name']);
+            $table->index(['user_name', 'name']);
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
@@ -50,6 +50,5 @@ return new class extends Migration
         Schema::dropIfExists('users');
         Schema::dropIfExists('password_reset_tokens');
         Schema::dropIfExists('sessions');
-
     }
 };

@@ -11,16 +11,19 @@ class SecurityController extends Controller
 {
     use Logs;
 
+    public function setPassword()
+    {
+        return view('edits.security.password.set');
+    }
+
     public function updatePassword(passwordRequest $request)
     {
         $user = $request->user();
         $data = $request->validated();
 
         $user->update([
-            'password' => $request->new_password,
+            'password' => bcrypt($request->new_password),
         ]);
-
-        // $this->logActivity('update password', 'password updated successfully', "id: {$user->id} user {$user->user_name} updated password");
 
         auth::logout();
 
