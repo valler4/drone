@@ -4,6 +4,7 @@ namespace App\Observers;
 
 use App\Models\Product;
 use App\Traits\Logs;
+use Illuminate\Support\Facades\Auth;
 
 class ProductObserver
 {
@@ -32,7 +33,7 @@ class ProductObserver
                 "product {$product->id} is now {$product->status}",
                 "id: {$product->user_id} updated a product id: {$product->id}"
             );
-        } elseif ($product->user_id === auth()->user()->id){
+        } elseif ($product->user_id === Auth::user()->id){
             $this->logActivity(
                 'update product',
                 "product {$product->id} updated successfully",

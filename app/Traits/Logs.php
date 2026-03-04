@@ -24,7 +24,7 @@ trait Logs
             'user_id' => $user->id,
             'action' => $action,
             'description' => $description,
-            'matadata' => $metadata,
+            'metadata' => $metadata,
             'ip_address' => request()->ip(),
         ]);
     }
