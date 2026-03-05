@@ -14,13 +14,9 @@ class TicketController extends Controller
     use AuthorizesRequests;
     public function index(Request $request, Ticket $ticket)
     {
-        $tickets = request()->user()->tickets()->latest()->get();
+        $tickets = request()->user()->tickets()->latest()->paginate(15);
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Tickets retrieved successfully',
-            'tickets' => $tickets
-        ]);
+        return TicketResource::collection($tickets);
     }
 
     public function store(TicketRequest $request)
