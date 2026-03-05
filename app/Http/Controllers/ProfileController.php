@@ -49,9 +49,6 @@ class ProfileController extends Controller
                 'status' => 'pending'
             ]
         );
-
-        // $friendRequest->receiver->notify(new FriendRequestNotification($friendRequest));
-
         return redirect()->back()->with('success', 'Friend request sent successfully!');
     }
 
