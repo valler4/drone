@@ -70,7 +70,7 @@ class TicketController extends Controller
         $this->authorize('view', $ticket);
         $ticket->update(['status' => 'closed']);
 
-        return redirect()->route('tickets.index')->with('success', 'ticket deleted successfully');
+        return redirect()->route('tickets.index')->with('success', 'ticket closed successfully');
     }
 
 }
