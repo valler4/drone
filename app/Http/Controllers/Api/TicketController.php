@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\TicketRequest;
+use App\Http\Resources\TicketResource;
 use App\Models\Ticket;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
@@ -13,8 +14,6 @@ class TicketController extends Controller
     use AuthorizesRequests;
     public function index(Request $request, Ticket $ticket)
     {
-        $this->authorize('view', $ticket);
-
         $tickets = request()->user()->tickets()->latest()->get();
 
         return response()->json([
@@ -40,11 +39,7 @@ class TicketController extends Controller
     public function show(Request $request, Ticket $ticket)
     {
         $this->authorize('view', $ticket);
-        return response()->json([
-            'success' => true,
-            'message' => 'Ticket retrieved successfully',
-            'ticket' => $ticket
-        ]);
+        return new TicketResource($ticket);
     }
 
     public function update(TicketRequest $request, Ticket $ticket)
