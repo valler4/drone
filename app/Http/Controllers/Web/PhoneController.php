@@ -21,7 +21,16 @@ class phoneController extends Controller
     {
         $user = request()->user();
         $newphone = session('temp_phone');
-        return view('edits.edit-phone.confirm-phone', compact('user', 'newphone'));
+        return view('edits.confirm', [
+            'user' => $user,
+            'newvalue' => $newphone,
+            'newvalue_label' => 'phone',
+            'title' => 'Verify Phone',
+            'actionRoute' => route('update-phone'),
+            'method' => 'PUT',
+            'resendRoute' => route('send-phone-otp'),
+            'resendMethod' => 'POST',
+        ]);
     }
 
     public function sendphone(PhoneRequest $request)

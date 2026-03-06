@@ -23,7 +23,16 @@ class EmailController extends Controller
     {
         $user = request()->user();
         $newemail = session('temp_email');
-        return view('edits.edit-email.confirm-email', compact('user', 'newemail'));
+        return view('edits.confirm', [
+            'user' => $user,
+            'newvalue' => $newemail,
+            'newvalue_label' => 'email',
+            'title' => 'Verify Email',
+            'actionRoute' => route('update-email'),
+            'method' => 'PUT',
+            'resendRoute' => route('send-email-otp'),
+            'resendMethod' => 'POST',
+        ]);
     }
 
 

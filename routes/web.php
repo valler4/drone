@@ -66,6 +66,10 @@ Route::get('/search', [SearchController::class, 'index'])
 
 // ?  //delete Route\\
 
+Route::get('delete-account', [UserController::class, 'showDeleteConfirm'])
+    ->middleware(['auth', 'throttle:view'])
+    ->name('delete-account.show');
+
 Route::delete('delete-account', [UserController::class, 'deleteAccount'])
     ->middleware('auth', 'throttle:delete-account')
     ->name('delete-account');

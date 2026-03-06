@@ -32,7 +32,7 @@ class GoogleController extends Controller
                 'google_id' => $googleUser->id,
                 'name' => $googleUser->name,
                 'email' => $googleUser->email,
-                'user_name' => rand(1000000, 9999999),
+                'user_name' => $googleUser->name . '_' . rand(1000000, 9999999),
                 'password' => null,
             ]);
         }

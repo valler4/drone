@@ -105,32 +105,11 @@
                             class="btn btn-ghost btn-xs text-primary underline opacity-0 group-hover:opacity-100 transition">edit</a>
                     </div>
 
-                    <a href="#confirm-popup" class="open-btn delete-button">Delete Account</a>
-
-                    <div id="confirm-popup" class="modal-overlay">
-                        <div class="modal-content">
-                            <h3>Are you sure?</h3>
-                            <p>Please enter your password to confirm.</p>
-
-                            <form action="{{ route('delete-account') }}" method="post">
-                                @csrf
-                                @method('delete')
-                                <input type="password" name="password" class="password-input"
-                                    placeholder="Enter Password" required autofocus>
-
-                                <div class="flex flex-col gap-2">
-                                    <button type="submit"
-                                        class="btn btn-error rounded-2xl text-white shadow-lg shadow-error/20">confirm & delete</button>
-                                    <a href="#" class="btn btn-ghost rounded-2xl dark:text-slate-300">Cancel</a>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                    @error('password')
-                        <div class="error-message">
-                            {{ $message }}
-                        </div>
-                    @enderror
+                    <form action="{{ route('delete-account') }}" method="post">
+                        @csrf
+                        @method('delete')
+                        <button type="submit" class="btn btn-error rounded-2xl text-white shadow-lg shadow-error/20">Delete Account</button>
+                    </form>
                 </div>
             </div>
             <div class="mt-16 pt-8 border-t border-base-300 flex flex-col md:flex-row gap-4">

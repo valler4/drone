@@ -16,13 +16,8 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware): void {
 
-        $middleware->web(append:[
-            EnsurePasswordIsSet::class,
-        ]);
-
         $middleware->alias([
             'admin' => CheckAdmin::class,
-            'ensure.password.set' => EnsurePasswordIsSet::class,
         ]);
 
     })
