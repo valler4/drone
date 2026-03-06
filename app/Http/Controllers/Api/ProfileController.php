@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProfileRequest;
-use App\Http\Resources\ProfileResource;
+use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -16,7 +16,7 @@ class ProfileController extends Controller
 
     public function edit(Request $request)
     {
-        return ProfileResource::collection(User::where('id', '=', Auth::id())->get());
+        return UserResource::collection(User::where('id', '=', Auth::id())->get());
     }
 
     public function show(Request $request, User $user)
@@ -28,7 +28,7 @@ class ProfileController extends Controller
 
         $user->friendship_info = $friendRequest ? $friendRequest->status : null;
 
-        return new ProfileResource($user);
+        return new UserResource($user);
     }
 
     public function sendFriendRequest(Request $request, User $user)
@@ -106,6 +106,6 @@ class ProfileController extends Controller
 
         $user->fill($data)->save();
 
-        return new ProfileResource($user);
+        return new UserResource($user);
     }
 }
