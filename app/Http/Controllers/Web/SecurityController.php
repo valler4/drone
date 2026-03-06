@@ -3,8 +3,7 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\passwordRequest;
-use App\Http\Requests\PinCodeRequest;
+use App\Http\Requests\securityRequest;
 use App\Traits\Logs;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -13,18 +12,10 @@ class SecurityController extends Controller
 {
     use Logs;
 
-    public function setPassword()
-    {
-        return view('edits/security/password_set');
-    }
-
-    public function passwordUpdate(Request $request)
+    public function updatePassword(securityRequest $request)
     {
         $user = $request->user();
-
-        $request->validate([
-            'new_password' => 'required|string|min:8|confirmed',
-        ]);
+        $data = $request->validated();
 
         $user->update([
             'password' => bcrypt($request->new_password),
@@ -39,25 +30,7 @@ class SecurityController extends Controller
         return redirect('/home')->with('success', 'Password updated successfully');
     }
 
-
-    public function updatePassword(passwordRequest $request)
-    {
-        $user = $request->user();
-        $data = $request->validated();
-
-        $user->update([
-            'password' => bcrypt($request->new_password),
-        ]);
-
-        auth::logout();
-
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
-
-        return redirect('/home')->with('success', 'Password updated successfully, please log in again');
-    }
-
-    public function updatePinCode(PinCodeRequest $request)
+    public function updatePinCode(securityRequest $request)
     {
         $user = $request->user();
         $data = $request->validated();

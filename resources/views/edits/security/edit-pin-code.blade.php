@@ -21,19 +21,6 @@
             @method('put')
 
             <div class="space-y-8">
-                <div class="form-control w-full">
-                    <label class="label">
-                        <span class="label-text font-bold text-xs uppercase tracking-wider">Confirm Current Password</span>
-                    </label>
-                    <input type="password" name="password"
-                        class="input bg-base-200 dark:bg-slate-900 border-none focus:ring-2 ring-primary rounded-2xl font-medium w-full"
-                        autofocus required />
-                    @error('password')
-                        <div class="mt-2">
-                            <span class="p-2 bg-error/10 text-error rounded-xl text-xs font-bold block italic">{{ $message }}</span>
-                        </div>
-                    @enderror
-                </div>
 
                 <div class="form-control w-full">
                     <label class="label">

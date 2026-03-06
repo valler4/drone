@@ -39,10 +39,6 @@ class GoogleController extends Controller
 
         Auth::login($user);
 
-        if (is_null($user->password)) {
-            return redirect()->route('password.set');
-        }
-
         return redirect()->route('home');
     }
 }

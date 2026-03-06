@@ -14,9 +14,7 @@ class userController extends Controller
     public function deleteAccount(Request $request)
     {
         $user = $request->user();
-        if (!Hash::check($request->password, $user->password)) {
-            return back()->withErrors(['password' => 'Password is incorrect']);
-        }
+
         $this->logActivity('delete account', '0', "id: {$user->id} user {$user->user_name} deleted account");
         $user->delete();
 

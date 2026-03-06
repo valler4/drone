@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class passwordRequest extends FormRequest
+class securityRequest extends FormRequest
 {
     public function authorize(): bool
     {
@@ -14,17 +14,19 @@ class passwordRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'password' => 'required|string|min:8|filled|current_password',
             'new_password' => 'required|string|min:8|filled|different:password|confirmed',
+            'pin_code' => 'required|digits_between:4,8|numeric',
         ];
         [
-            'password.required' => 'Password is required',
             'password.confirmed' => 'Password confirmation does not match',
-            'password.filled' => 'Password is required',
             'new_password.required' => 'New Password is required',
             'new_password.min' => 'New Password must be at least 8 characters',
             'new_password.filled' => 'New Password is required',
             'new_password.different' => 'New Password must be different from the current password',
+            'pin_code.required' => 'Pin Code is required',
+            'pin_code.filled' => 'Pin Code is required',
+            'pin_code.digits_between' => 'Pin Code must be 4 to 8 digits',
+            'pin_code.numeric' => 'Pin Code must be a number',
         ];
     }
 }
