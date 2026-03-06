@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\TicketController;
 use App\Http\Controllers\Api\ProfileController;
+use App\Http\Controllers\Api\SearchController;
 use App\Http\Controllers\Api\TransactionController;
 
 Route::name('api.')->group(function () {
@@ -25,6 +26,8 @@ Route::name('api.')->group(function () {
         Route::post('/profile', [ProfileController::class, 'update']);
 
         Route::apiResource('transactions', TransactionController::class)->except(['destroy', 'update']);
+
+        Route::get('/search', [SearchController::class, 'index']);
 
     });
 });
