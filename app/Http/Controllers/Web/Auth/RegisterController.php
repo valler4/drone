@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\auth;
+namespace App\Http\Controllers\Web\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\authRequest;
@@ -8,7 +8,7 @@ use App\Models\User;
 use App\Traits\Logs;
 use Illuminate\Support\Facades\auth;
 
-class register extends Controller
+class registerController extends Controller
 {
     use Logs;
 

@@ -1,23 +1,23 @@
 <?php
 
-use App\Http\Controllers\AdminController;
-use App\Http\Controllers\auth\GoogleController;
-use App\Http\Controllers\auth\Login;
-use App\Http\Controllers\auth\Logout;
-use App\Http\Controllers\auth\Register;
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\EmailController;
-use App\Http\Controllers\NotificationController;
-use App\Http\Controllers\PaymentController;
-use App\Http\Controllers\PhoneController;
-use App\Http\Controllers\ProductController;
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\PurchaseController;
-use App\Http\Controllers\SearchController;
-use App\Http\Controllers\SecurityController;
-use App\Http\Controllers\TicketController;
-use App\Http\Controllers\TransactionController;
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\Web\AdminController;
+use App\Http\Controllers\Web\Auth\GoogleController;
+use App\Http\Controllers\Web\Auth\LoginController;
+use App\Http\Controllers\Web\Auth\LogoutController;
+use App\Http\Controllers\Web\Auth\RegisterController;
+use App\Http\Controllers\Web\DashboardController;
+use App\Http\Controllers\Web\EmailController;
+use App\Http\Controllers\Web\NotificationController;
+use App\Http\Controllers\Web\PaymentController;
+use App\Http\Controllers\Web\PhoneController;
+use App\Http\Controllers\Web\ProductController;
+use App\Http\Controllers\Web\ProfileController;
+use App\Http\Controllers\Web\PurchaseController;
+use App\Http\Controllers\Web\SearchController;
+use App\Http\Controllers\Web\SecurityController;
+use App\Http\Controllers\Web\TicketController;
+use App\Http\Controllers\Web\TransactionController;
+use App\Http\Controllers\Web\UserController;
 use App\Livewire\Chat;
 use Illuminate\Support\Facades\Route;
 
@@ -27,7 +27,7 @@ Route::view('login', 'auth.login')
     ->middleware(['guest', 'throttle:AuthView'])
     ->name('login');
 
-Route::post('login', Login::class)
+Route::post('login', LoginController::class)
     ->middleware(['guest', 'throttle:login']);
 
 // ? **google auth Routes**
@@ -43,12 +43,12 @@ Route::view('/register', 'auth.register')
     ->middleware(['guest', 'throttle:AuthView'])
     ->name('register');
 
-Route::post('register', Register::class)
+Route::post('register', RegisterController::class)
     ->middleware(['guest', 'throttle:register']);
 
 // ? **logout**
 
-Route::post('/logout', Logout::class)
+Route::post('/logout', LogoutController::class)
     ->middleware(['auth', 'throttle:logout'])
     ->name('logout');
 

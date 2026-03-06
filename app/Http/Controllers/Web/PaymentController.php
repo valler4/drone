@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Web;
 
+use App\Http\Controllers\Controller;
 use App\Interfaces\PaymentGatewayInterface;
 use App\Models\deposit;
 use App\Notifications\DepositSuccessful;

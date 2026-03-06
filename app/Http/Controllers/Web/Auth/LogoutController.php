@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\auth;
+namespace App\Http\Controllers\Web\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Traits\Logs;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class logout extends Controller
+class logoutController extends Controller
 {
     use Logs;
 
