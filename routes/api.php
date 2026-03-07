@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\PaymentController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\TicketController;
 use App\Http\Controllers\Api\ProfileController;
@@ -43,5 +44,12 @@ Route::name('api.')->group(function () {
         Route::get('/products/mine', [ProductController::class, 'mine']);
         Route::patch('/products/{product}/close', [ProductController::class, 'close']);
         Route::patch('/products/{product}/open', [ProductController::class, 'open']);
+
+        Route::post('/payment/create', [PaymentController::class, 'createPayment']);
+        Route::get('/payment/capture', [PaymentController::class, 'capturePayment']);
+
+
+
+
         });
 });
