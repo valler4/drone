@@ -13,7 +13,7 @@
                 Back to settings
             </a>
             <h1 class="text-4xl font-black tracking-tighter">Pin Security</h1>
-            <p class="mt-2">Your PIN code adds an extra layer of protection for sensitive actions.</p>
+            <p class="mt-2">Your PIN code is useless brother</p>
         </header>
 
         <form action="{{ route('profile.updatePinCode') }}" method="post" id="pinForm" class="space-y-10">

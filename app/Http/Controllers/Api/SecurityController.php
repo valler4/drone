@@ -1,13 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Web;
+namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\passwordRequest;
 use App\Http\Requests\PinCodeRequest;
 use App\Traits\Logs;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
 class SecurityController extends Controller
@@ -23,12 +21,12 @@ class SecurityController extends Controller
             'password' => Hash::make($request->new_password),
         ]);
 
-        auth::logout();
+        $user->tokens()->delete();
 
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
-
-        return redirect('/home')->with('success', 'Password updated successfully. Please login again.');
+        return response()->json([
+            'success' => true,
+            'message' => 'Password updated successfully. Please login again.',
+        ], 200);
     }
 
     public function updatePinCode(PinCodeRequest $request)
@@ -40,6 +38,9 @@ class SecurityController extends Controller
             'pin_code' => Hash::make($request->pin_code),
         ]);
 
-        return redirect('/home')->with('success', 'pin code updated successfully');
+        return response()->json([
+            'success' => true,
+            'message' => 'Pin code updated successfully',
+        ], 200);
     }
 }

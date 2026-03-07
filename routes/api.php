@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\TicketController;
 use App\Http\Controllers\Api\ProfileController;
 use App\Http\Controllers\Api\PurchaseController;
 use App\Http\Controllers\Api\SearchController;
+use App\Http\Controllers\Api\SecurityController;
 use App\Http\Controllers\Api\TransactionController;
 
 Route::name('api.')->group(function () {
@@ -18,6 +19,10 @@ Route::name('api.')->group(function () {
 
     Route::middleware('auth:sanctum')->group(function () {
         Route::post('/logout', [AuthController::class, 'logout']);
+
+        Route::post('/password/update', [SecurityController::class, 'updatePassword']);
+
+        Route::post('/pin-code/update', [SecurityController::class, 'updatePinCode']);
 
         Route::apiResource('tickets', TicketController::class);
         Route::patch('/tickets/{ticket}', [TicketController::class, 'close']);

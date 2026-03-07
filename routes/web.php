@@ -114,14 +114,6 @@ Route::put('edit.password', [SecurityController::class, 'updatePassword'])
     ->middleware('auth', 'throttle:password')
     ->name('password.update');
 
-Route::get('set-password', [SecurityController::class, 'setPassword'])
-    ->middleware(['auth', 'throttle:view'])
-    ->name('password.set');
-
-Route::put('set-password', [SecurityController::class, 'passwordUpdate'])
-    ->middleware('auth', 'throttle:password')
-    ->name('password.setPassword');
-
 // ? **pin code Routes**
 
 Route::view('edit.pin-code', 'edits/security/edit-pin-code')
