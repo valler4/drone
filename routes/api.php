@@ -34,5 +34,9 @@ Route::name('api.')->group(function () {
 
         Route::post('/purchase/{product}', [PurchaseController::class, 'purchase']);
 
-    });
+        Route::apiResource('products', ProductController::class);
+        Route::get('/products/mine', [ProductController::class, 'mine']);
+        Route::patch('/products/{product}/close', [ProductController::class, 'close']);
+        Route::patch('/products/{product}/open', [ProductController::class, 'open']);
+        });
 });
