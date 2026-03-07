@@ -12,6 +12,7 @@ Route::name('api.')->group(function () {
 
     Route::post('/register', [AuthController::class, 'register']);
     Route::post('/login', [AuthController::class, 'login']);
+    Route::post('/GoogleCallback', [AuthController::class, 'HandelGoogleCallback']);
 
     Route::middleware('auth:sanctum')->group(function () {
         Route::post('/logout', [AuthController::class, 'logout']);
@@ -28,6 +29,7 @@ Route::name('api.')->group(function () {
         Route::apiResource('transactions', TransactionController::class)->except(['destroy', 'update']);
 
         Route::get('/search', [SearchController::class, 'index']);
+
 
     });
 });

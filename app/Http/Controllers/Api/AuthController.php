@@ -9,6 +9,7 @@ use App\Models\User;
 use App\Traits\Logs;
 use Illuminate\Support\Facades\auth;
 use Illuminate\Support\Facades\Hash;
+use Laravel\Socialite\Facades\Socialite;
 
 class AuthController extends Controller
 {
@@ -29,7 +30,7 @@ class AuthController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => 'Registration successful! Welcome to the home page '.$user->name,
+            'message' => 'Registration successful! Welcome to the home page ' . $user->name,
             'access_token' => $token,
             'token_type' => 'Bearer',
             'user' => $user,
@@ -40,42 +41,40 @@ class AuthController extends Controller
         $user->save();
 
         $this->logActivity('new account', 'welcome to drone', "id: {$user->id} user {$user->user_name} registered");
-
     }
 
     public function login(Request $request)
     {
 
-    $request->validate([
-        'email' => 'required|email',
-        'password' => 'required',
-    ]);
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
 
-    $user = User::where('email', $request->email)->first();
+        $user = User::where('email', $request->email)->first();
 
-    if (!$user || !Hash::check($request->password, $user->password)){
+        if (!$user || !Hash::check($request->password, $user->password)) {
+            return response()->json([
+                'message' => 'Invalid email or password',
+            ], 401);
+        }
+
+        $user->tokens()->delete();
+
+        $token = $user->createToken('auth_token')->plainTextToken;
+
         return response()->json([
-            'message' => 'Invalid email or password',
-        ], 401);
-    }
+            'success' => true,
+            'message' => 'Login successful! Welcome to the home page ' . $user->name,
+            'access_token' => $token,
+            'token_type' => 'Bearer',
+            'user' => $user,
+        ], 200);
 
-    $user->tokens()->delete();
+        $user->last_login = now();
+        $user->save();
 
-    $token = $user->createToken('auth_token')->plainTextToken;
-
-    return response()->json([
-        'success' => true,
-        'message' => 'Login successful! Welcome to the home page '.$user->name,
-        'access_token' => $token,
-        'token_type' => 'Bearer',
-        'user' => $user,
-    ], 200);
-
-    $user->last_login = now();
-    $user->save();
-
-    $this->logActivity('login', 'logged in', "id: {$user->id} user {$user->user_name} logged in");
-
+        $this->logActivity('login', 'logged in', "id: {$user->id} user {$user->user_name} logged in");
     }
 
     public function logout(Request $request)
@@ -89,5 +88,57 @@ class AuthController extends Controller
         ], 200);
 
         $this->logActivity('logout', 'logged out', "id: {$user->id} user {$user->user_name} logged out");
+    }
+
+    public function HandelGoogleCallback()
+    {
+        $googletoken = request()->input('token');
+
+        if (!$googletoken) {
+            return response()->json([
+                'message' => 'Google token is required',
+            ], 400);
+        }
+        try {
+
+            $googleUser = Socialite::driver('google')->stateless()->userFromToken($googletoken);
+
+            $user = User::where('google_id', $googleUser->id)
+                ->orWhere('email', $googleUser->email)
+                ->first();
+
+            if ($user) {
+                $user->update([
+                    'google_id' => $googleUser->id,
+                    'name' => $googleUser->name,
+                ]);
+            } else {
+                $user = User::create([
+                    'google_id' => $googleUser->id,
+                    'name' => $googleUser->name,
+                    'email' => $googleUser->email,
+                    'user_name' => $googleUser->name . '_' . rand(1000000, 9999999),
+                    'password' => null,
+                ]);
+            }
+
+            $token = $user->createTOken('auth_token')->plainTextToken;
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Login successful! Welcome to the home page ' . $user->name,
+                'access_token' => $token,
+                'token_type' => 'Bearer',
+                'user' => $user,
+            ], 200);
+        } catch (\Throwable $th) {
+
+            return response()->json([
+                'success' => false,
+                'message' => 'Invalid Google token',
+            ], 401);
+        }
+
+        return redirect()->route('home');
     }
 }
