@@ -212,13 +212,13 @@ Route::post('transaction/store', [TransactionController::class, 'store'])
 
 // ? **deposit Route**
 
-Route::view('payment_method', 'payment/method')
+Route::view('payment_data', 'payment/Data')
     ->middleware(['auth', 'throttle:view'])
-    ->name('payment_method');
+    ->name('payment_data');
 
-Route::post('payment_method', [PaymentController::class, 'PaymentMethod'])
+Route::post('payment_data', [PaymentController::class, 'PaymentData'])
     ->middleware(['auth', 'throttle:view'])
-    ->name('payment_method.post');
+    ->name('payment_data.post');
 
 // ? **payment Route**
 

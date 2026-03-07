@@ -21,8 +21,8 @@ class paypal_service extends Base_Payment_Service implements PaymentGatewayInter
         $response = $this->provider->createOrder([
             'intent' => 'CAPTURE',
             'application_context' => [
-                'return_url' => route('payment.capture', ['payment_method' => 'paypal']),
-                'cancel_url' => route('deposit', ['payment_method' => 'paypal', 'amount' => $paymentAmount]),
+                'return_url' => route('payment.capture', ['payment_Data' => 'paypal']),
+                'cancel_url' => route('deposit', ['payment_Data' => 'paypal', 'amount' => $paymentAmount]),
             ],
             'purchase_units' => [
                 [

@@ -14,9 +14,9 @@ class PaymentServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->app->bind(PaymentGatewayInterface::class, function ($app) {
-            $method = request()->input('payment_method');
+            $Data = request()->input('payment_Data');
 
-            return PaymentFactory::make($method);
+            return PaymentFactory::make($Data);
         });
     }
 

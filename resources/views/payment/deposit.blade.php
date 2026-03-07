@@ -1,5 +1,5 @@
 <x-layout>
-    <x-slot:title>Pay with {{ '0' }}</x-slot:title>
+    <x-slot:title>Deposit</x-slot:title>
 
     <div class="flex items-center justify-center min-h-[60vh]">
         <div
@@ -30,7 +30,7 @@
             <form action="{{ route('payment.create') }}" method="POST">
                 @csrf
                 <input type="hidden" name="amount" value="{{ request('amount') }}">
-                <input type="hidden" name="payment_method" value="{{ request('payment_method') }}">
+                <input type="hidden" name="payment_Data" value="{{ request('payment_Data') }}">
                 <button type="submit" class="btn btn-primary w-full rounded-2xl shadow-lg shadow-primary/20">
                     دفع
                 </button>

@@ -8,7 +8,7 @@
                 <p class="text-sm text-gray-500 mt-2">حدد المبلغ وطريقة الدفع</p>
             </div>
 
-            <form action="{{ route('payment_method.post') }}" method="POST" class="space-y-6">
+            <form action="{{ route('payment_data.post') }}" method="POST" class="space-y-6">
                 @csrf
 
                 <div>
@@ -20,7 +20,7 @@
 
                 <div>
                     <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">طريقة الدفع</label>
-                    <flux:radio.group name="payment_method" variant="cards" class="flex gap-4">
+                    <flux:radio.group name="payment_Data" variant="cards" class="flex gap-4">
                         <flux:radio label="PayPal" value="paypal" />
                         <flux:radio label="Stripe" value="stripe" />
                     </flux:radio.group>
@@ -28,7 +28,7 @@
 
                 <button type="submit"
                     class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-xl shadow-lg transition-all transform hover:scale-[1.02]">
-                    تأكيد والدفع الآن
+                    continue
                 </button>
             </form>
         </div>

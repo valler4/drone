@@ -16,16 +16,16 @@ class PaymentController extends Controller
 
     protected $paymentService;
 
-    public function PaymentMethod(Request $request)
+    public function PaymentData(Request $request)
     {
         $request->validate([
-            'payment_method' => 'required|in:paypal,stripe',
+            'payment_Data' => 'required|in:paypal,stripe',
             'amount' => 'required|numeric|min:1',
         ]);
-        $payment_method = $request->input('payment_method');
+        $payment_Data = $request->input('payment_Data');
         $amount = $request->input('amount');
 
-        return redirect()->route('deposit', ['amount' => $amount, 'payment_method' => $payment_method])->with('success', 'دلوقتي هات فلوسك');
+        return redirect()->route('deposit', ['amount' => $amount, 'payment_Data' => $payment_Data])->with('success', 'now give me the money');
     }
 
     public function __construct(PaymentGatewayInterface $paymentService)
@@ -37,7 +37,7 @@ class PaymentController extends Controller
     {
         $amount = $request->input('amount');
         if (!$amount) {
-            return redirect()->route('deposit')->with('error', 'المبلغ غير موجود');
+            return redirect()->route('deposit')->with('error', 'Amount is required');
         }
         $result = $this->paymentService->createPayment($amount);
 
@@ -45,7 +45,7 @@ class PaymentController extends Controller
             return redirect()->away($result['url']);
         }
 
-        return redirect()->route('deposit')->with('error', 'فشل انشاء طلب الدفع');
+        return redirect()->route('deposit')->with('error', 'Failed to create payment request');
     }
 
     public function capturePayment(Request $request)
@@ -56,9 +56,9 @@ class PaymentController extends Controller
 
             $amount = $result['amount'];
             $paymentId = $result['id'];
-            $payment_method = $request->input('payment_method');
+            $payment_Data = $request->input('payment_Data');
 
-            DB::transaction(function () use ($request, $result, $amount, $paymentId, $payment_method) {
+            DB::transaction(function () use ($request, $result, $amount, $paymentId, $payment_Data) {
                 $user = $request->user();
 
                 $user->notify(new DepositSuccessful($amount, $paymentId));
@@ -69,15 +69,15 @@ class PaymentController extends Controller
                     'payment_id' => $result['id'],
                     'currency' => $result['currency'],
                     'status' => $result['status'],
-                    'method' => $payment_method,
+                    'method' => $payment_Data,
                     'amount' => $amount,
                     'type' => 'deposit',
                 ]);
             });
 
-            return redirect()->route('dashboard')->with('success', 'تم شحن الرصيد بنجاح!');
+            return redirect()->route('dashboard')->with('success', 'the payment was successful');
         }
 
-        return redirect()->route('deposit')->with('error', 'فشل السرقة');
+        return redirect()->route('deposit')->with('error', 'Failed to capture payment');
     }
 }

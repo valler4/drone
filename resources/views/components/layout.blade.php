@@ -129,7 +129,7 @@
                 <flux:navlist>
 
                     <flux:navlist.item as="button" type="submit" icon="banknotes" class="text-red-500 w-full"
-                        href="{{ route('payment_method') }}">
+                        href="{{ route('payment_data') }}">
                         buy coins
                     </flux:navlist.item>
 
