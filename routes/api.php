@@ -1,8 +1,11 @@
 <?php
 
+use App\Http\Controllers\Api\AdminController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\DashboardController;
+use App\Http\Controllers\Api\NotificationController;
 use App\Http\Controllers\Api\PaymentController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\TicketController;
@@ -53,6 +56,6 @@ Route::name('api.')->group(function () {
 
         Route::get('/notifications', [NotificationController::class, 'index']);
 
-
+        Route::get('/admin/dashboard', [AdminController::class, 'index']);
         });
 });
