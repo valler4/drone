@@ -48,6 +48,8 @@ Route::name('api.')->group(function () {
         Route::post('/payment/create', [PaymentController::class, 'createPayment']);
         Route::get('/payment/capture', [PaymentController::class, 'capturePayment']);
 
+        Route::get('/dashboard', [DashboardController::class, 'dashboard']);
+        Route::get('/dashboard/logs', [DashboardController::class, 'logDashboard']);
 
 
 
