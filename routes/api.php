@@ -56,6 +56,6 @@ Route::name('api.')->group(function () {
 
         Route::get('/notifications', [NotificationController::class, 'index']);
 
-        Route::get('/admin/dashboard', [AdminController::class, 'index']);
+        Route::get('/admin/dashboard', [AdminController::class, 'index'])->middleware('admin');
         });
 });

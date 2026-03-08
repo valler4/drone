@@ -12,11 +12,16 @@ class CheckAdmin
     public function handle(Request $request, Closure $next): Response
     {
 
-        if (auth::check() && auth()->user()->IsAdmin()) {
+        if (auth::check() && $request->user()->is_admin) {
             return $next($request);
         }
 
-        return redirect()->route('home')->with('error', 'You do not have permission to access this page.');
+        if ($request->expectsJson()) {
+            return response()->json([
+                'message' => 'Unauthorized. Admin access required.'
+            ], 403);
+        }
 
+        return redirect()->route('home')->with('error', 'You do not have permission to access this page.');
     }
 }
