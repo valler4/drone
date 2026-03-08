@@ -51,6 +51,7 @@ Route::name('api.')->group(function () {
         Route::get('/dashboard', [DashboardController::class, 'dashboard']);
         Route::get('/dashboard/logs', [DashboardController::class, 'logDashboard']);
 
+        Route::get('/notifications', [NotificationController::class, 'index']);
 
 
         });

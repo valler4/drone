@@ -7,7 +7,7 @@
 <div class="p-6 bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700 mt-4">
     <h2 class="text-gray-600 dark:text-gray-300 text-sm font-medium">رصيدك الحالي</h2>
     <p class="text-3xl font-bold text-white dark:text-white mt-1">
-        ${{ number_format(auth()->user()->balance, 2) }}
+        ${{ $money ?? '0.00' }}
     </p>
 </div>
 
