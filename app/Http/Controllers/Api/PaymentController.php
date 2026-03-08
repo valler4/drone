@@ -16,23 +16,6 @@ class PaymentController extends Controller
 
     protected $paymentService;
 
-    // public function PaymentData(Request $request)
-    // {
-    //     $request->validate([
-    //         'payment_Data' => 'required|in:paypal,stripe',
-    //         'amount' => 'required|numeric|min:1',
-    //     ]);
-    //     $payment_Data = $request->input('payment_Data');
-    //     $amount = $request->input('amount');
-
-    //     return response()->json([
-    //         'success' => true,
-    //         'message' => 'Payment Data and amount received successfully',
-    //         'payment_Data' => $payment_Data,
-    //         'amount' => $amount,
-    //     ], 200);
-    // }
-
     public function __construct(PaymentGatewayInterface $paymentService)
     {
         $this->paymentService = $paymentService;
@@ -40,6 +23,12 @@ class PaymentController extends Controller
 
     public function createPayment(Request $request)
     {
+        $request->validate([
+            'payment_Data' => 'required|in:paypal,stripe',
+            'amount' => 'required|numeric|min:1',
+        ]);
+        $payment_Data = $request->input('payment_Data');
+
         $amount = $request->input('amount');
         if (!$amount) {
             return response()->json([
