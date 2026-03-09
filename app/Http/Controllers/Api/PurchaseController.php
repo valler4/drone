@@ -19,16 +19,28 @@ class PurchaseController extends Controller
         $quantity = $request->input('quantity', 1);
 
         if ($buyer->id == $seller->id) {
-            return redirect()->back()->with('error', 'You cannot buy your own product');
+            return response()->json([
+                'success' => false,
+                'message' => 'You cannot buy your own product!'
+            ], 400);
         }
         if ($product->price > $buyer->balance) {
-            return redirect()->back()->with('error', 'You do not have enough balance to buy this product');
+            return response()->json([
+                'success' => false,
+                'message' => 'You do not have enough balance to buy this product!'
+            ], 400);
         }
         if ($product->status == 'close') {
-            return redirect()->back()->with('error', 'This product is closed');
+            return response()->json([
+                'success' => false,
+                'message' => 'This product is closed!'
+            ], 400);
         }
         if ($product->quantity <= 0) {
-            return redirect()->back()->with('error', 'This product is out of stock');
+            return response()->json([
+                'success' => false,
+                'message' => 'This product is out of stock!'
+            ], 400);
         }
 
         DB::transaction(function () use ($buyer, $seller, $product, $quantity) {
