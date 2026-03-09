@@ -19,13 +19,13 @@ class PaymentController extends Controller
     public function PaymentData(Request $request)
     {
         $request->validate([
-            'payment_Data' => 'required|in:paypal,stripe',
+            'payment_data' => 'required|in:paypal,stripe',
             'amount' => 'required|numeric|min:1',
         ]);
-        $payment_Data = $request->input('payment_Data');
+        $payment_data = $request->input('payment_data');
         $amount = $request->input('amount');
 
-        return redirect()->route('deposit', ['amount' => $amount, 'payment_Data' => $payment_Data])->with('success', 'now give me the money');
+        return redirect()->route('deposit', ['amount' => $amount, 'payment_data' => $payment_data])->with('success', 'now give me the money');
     }
 
     public function __construct(PaymentGatewayInterface $paymentService)
@@ -56,9 +56,9 @@ class PaymentController extends Controller
 
             $amount = $result['amount'];
             $paymentId = $result['id'];
-            $payment_Data = $request->input('payment_Data');
+            $payment_data = $request->input('payment_data');
 
-            DB::transaction(function () use ($request, $result, $amount, $paymentId, $payment_Data) {
+            DB::transaction(function () use ($request, $result, $amount, $paymentId, $payment_data) {
                 $user = $request->user();
 
                 $user->notify(new DepositSuccessful($amount, $paymentId));
@@ -69,7 +69,7 @@ class PaymentController extends Controller
                     'payment_id' => $result['id'],
                     'currency' => $result['currency'],
                     'status' => $result['status'],
-                    'method' => $payment_Data,
+                    'method' => $payment_data,
                     'amount' => $amount,
                     'type' => 'deposit',
                 ]);
