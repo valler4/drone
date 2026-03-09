@@ -11,17 +11,15 @@ class ProductResource extends JsonResource
     {
         return [
             'id' => $this->id,
+            'user_id' => $this->user_id,
             'name' => $this->name,
             'description' => $this->description,
             'price' => $this->price,
             'quantity' => $this->quantity,
             'status' => $this->status,
             'product_image' => $this->product_image ? asset('storage/' . $this->product_image) : null,
-            'user' => [
-                'id' => $this->user->id,
-                'name' => $this->user->name,
-                'user_name' => $this->user->user_name,
-            ],
+            'created_at' => $this->created_at->format('Y-m-d H:i:s'),
+            'updated_at' => $this->updated_at->format('Y-m-d H:i:s'),
         ];
     }
 }
