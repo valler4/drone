@@ -21,7 +21,7 @@ class ProductController extends Controller
 
         return response()->json([
             'success' => true,
-            'products' => new ProductResource($products),
+            'products' => ProductResource::collection($products),
         ], 200);
     }
 
@@ -30,7 +30,7 @@ class ProductController extends Controller
         $products = request()->user()->products()->latest()->paginate(30);
         return response()->json([
             'success' => true,
-            'products' => new ProductResource($products),
+            'products' => ProductResource::collection($products),
         ], 200);
     }
 
