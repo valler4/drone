@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\authRequest;
+use App\Http\Resources\UserResource;
 use App\Models\User;
 use App\Traits\Logs;
 use Illuminate\Support\Facades\auth;
@@ -33,7 +34,7 @@ class AuthController extends Controller
             'message' => 'Registration successful! Welcome to the home page ' . $user->name,
             'access_token' => $token,
             'token_type' => 'Bearer',
-            'user' => $user,
+            'user' => new UserResource($user),
 
         ], 201);
 
@@ -68,7 +69,7 @@ class AuthController extends Controller
             'message' => 'Login successful! Welcome to the home page ' . $user->name,
             'access_token' => $token,
             'token_type' => 'Bearer',
-            'user' => $user,
+            'user' => new UserResource($user),
         ], 200);
 
         $user->last_login = now();
@@ -129,7 +130,7 @@ class AuthController extends Controller
                 'message' => 'Login successful! Welcome to the home page ' . $user->name,
                 'access_token' => $token,
                 'token_type' => 'Bearer',
-                'user' => $user,
+                'user' => new UserResource($user),
             ], 200);
         } catch (\Throwable $th) {
 
