@@ -15,7 +15,7 @@ use App\Http\Controllers\Api\SearchController;
 use App\Http\Controllers\Api\SecurityController;
 use App\Http\Controllers\Api\TransactionController;
 
-Route::name('api.')->group(function () {
+Route::name('api.')->prefix('/v1')->group(function () {
 
     Route::post('/register', [AuthController::class, 'register']);
     Route::post('/login', [AuthController::class, 'login']);
