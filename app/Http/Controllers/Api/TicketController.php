@@ -29,7 +29,7 @@ class TicketController extends Controller
             'success' => true,
             'message' => 'Ticket created successfully',
             'ticket' => $ticket
-        ]);
+        ], 201);
     }
 
     public function show(Request $request, Ticket $ticket)
@@ -48,7 +48,7 @@ class TicketController extends Controller
             'success' => true,
             'message' => 'Ticket updated successfully',
             'ticket' => $ticket
-        ]);
+        ], 200);
     }
 
     public function destroy(Request $request, Ticket $ticket)
@@ -60,7 +60,7 @@ class TicketController extends Controller
         return response()->json([
             'success' => true,
             'message' => 'Ticket deleted successfully'
-        ]);
+        ], 200);
     }
 
     public function close(Request $request, Ticket $ticket)
@@ -72,6 +72,6 @@ class TicketController extends Controller
         return response()->json([
             'success' => true,
             'message' => 'Ticket closed successfully'
-        ]);
+        ], 200);
     }
 }

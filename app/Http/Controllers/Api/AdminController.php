@@ -29,6 +29,6 @@ class AdminController extends Controller
             'total_purchases' => $totalPurchases,
             'total_tickets' => $totalTickets,
             'total_products' => $totalProducts,
-        ]);
+        ], 200);
     }
 }

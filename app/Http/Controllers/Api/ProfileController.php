@@ -60,7 +60,7 @@ class ProfileController extends Controller
         return response()->json([
             'success' => true,
             'message' => 'Friend request sent successfully!'
-        ]);
+        ], 200);
     }
 
     public function deleteFriendRequest(Request $request, User $user)
@@ -75,7 +75,7 @@ class ProfileController extends Controller
             return response()->json([
                 'success' => true,
                 'message' => 'Request canceled.'
-            ]);
+            ], 200);
         }
 
         return response()->json([

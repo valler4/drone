@@ -50,6 +50,6 @@ class SearchController extends Controller
             'products' => $products,
             'tickets' => $tickets,
             'users' => UserResource::collection($Users),
-        ]);
+        ], 200);
     }
 }

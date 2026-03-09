@@ -26,7 +26,7 @@ class TransactionController extends Controller
         return response()->json([
             'success' => true,
             'transactions' => TransactionResource::collection($transactions)
-        ]);
+        ], 200);
     }
 
     public function show(transaction $transaction)
@@ -35,7 +35,7 @@ class TransactionController extends Controller
         return response()->json([
             'success' => true,
             'transaction' => new TransactionResource($transaction)
-        ]);
+        ], 200);
     }
 
     public function store(TransRequest $request)
@@ -76,6 +76,6 @@ class TransactionController extends Controller
             'success' => true,
             'message' => 'Transaction successful',
             'transaction' => new TransactionResource($newTransaction)
-        ]);
+        ], 200);
     }
 }

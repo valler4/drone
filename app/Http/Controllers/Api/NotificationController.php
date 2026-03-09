@@ -13,6 +13,6 @@ class NotificationController extends Controller
         return response()->json([
             'success' => true,
             'data' => $unread,
-        ]);
+        ], 200);
     }
 }

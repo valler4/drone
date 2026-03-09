@@ -17,7 +17,7 @@ class DashboardController extends Controller
         return response()->json([
             'success' => true,
             'data' => $money,
-        ]);
+        ], 200);
     }
 
     public function logDashboard(Request $request)
@@ -27,6 +27,6 @@ class DashboardController extends Controller
         return response()->json([
             'success' => true,
             'data' => $userLogs,
-        ]);
+        ], 200);
     }
 }
