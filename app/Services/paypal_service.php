@@ -16,12 +16,14 @@ class paypal_service extends Base_Payment_Service implements PaymentGatewayInter
         $this->provider->getAccessToken();
     }
 
-    public function createPayment($paymentAmount)
+    public function createPayment($paymentAmount, $returnUrl = null)
     {
+        $url = $returnUrl ?? route('payment.capture', ['payment_data' => 'paypal', 'amount' => $paymentAmount]);
+
         $response = $this->provider->createOrder([
             'intent' => 'CAPTURE',
             'application_context' => [
-                'return_url' => route('payment.capture', ['payment_Data' => 'paypal']),
+                'return_url' => $url,
                 'cancel_url' => route('deposit', ['payment_Data' => 'paypal', 'amount' => $paymentAmount]),
             ],
             'purchase_units' => [

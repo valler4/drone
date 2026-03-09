@@ -4,7 +4,7 @@ namespace App\Interfaces;
 
 interface PaymentGatewayInterface
 {
-    public function createPayment($paymentAmount);
+    public function createPayment($paymentAmount, $returnUrl = null);
 
     public function capturePayment($request);
 }

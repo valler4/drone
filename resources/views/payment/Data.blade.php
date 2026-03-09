@@ -20,7 +20,7 @@
 
                 <div>
                     <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">طريقة الدفع</label>
-                    <flux:radio.group name="payment_Data" variant="cards" class="flex gap-4">
+                    <flux:radio.group name="payment_data" variant="cards" class="flex gap-4">
                         <flux:radio label="PayPal" value="paypal" />
                         <flux:radio label="Stripe" value="stripe" />
                     </flux:radio.group>

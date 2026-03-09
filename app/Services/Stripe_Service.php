@@ -13,8 +13,10 @@ class Stripe_Service extends Base_Payment_Service implements PaymentGatewayInter
         Stripe::setApiKey(config('payment.stripe.secret'));
     }
 
-    public function createPayment($amount)
+    public function createPayment($amount, $returnUrl = null)
     {
+        $url = $returnUrl ?? route('payment.capture', ['payment_data' => 'stripe', 'amount' => $amount]);
+
         $session = Session::create([
             'payment_method_types' => ['card'],
             'line_items' => [[
@@ -28,7 +30,7 @@ class Stripe_Service extends Base_Payment_Service implements PaymentGatewayInter
                 'quantity' => 1,
             ]],
             'mode' => 'payment',
-            'success_url' => route('payment.capture', ['payment_Data' => 'stripe', 'amount' => $amount]) . '&session_id={CHECKOUT_SESSION_ID}',
+            'success_url' => $url . '&session_id={CHECKOUT_SESSION_ID}',
             'cancel_url' => route('deposit'),
         ]);
         $result = [

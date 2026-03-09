@@ -30,7 +30,7 @@
             <form action="{{ route('payment.create') }}" method="POST">
                 @csrf
                 <input type="hidden" name="amount" value="{{ request('amount') }}">
-                <input type="hidden" name="payment_Data" value="{{ request('payment_Data') }}">
+                <input type="hidden" name="payment_data" value="{{ request('payment_data') }}">
                 <button type="submit" class="btn btn-primary w-full rounded-2xl shadow-lg shadow-primary/20">
                     دفع
                 </button>
