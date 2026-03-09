@@ -19,6 +19,9 @@ use App\Policies\TicketPolicy;
 use App\Policies\TransactionPolicy;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Cache\RateLimiting\Limit;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\RateLimiter;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -42,6 +45,12 @@ class AppServiceProvider extends ServiceProvider
         Deposit::observe(DepositObserver::class);
         Product::observe(ProductObserver::class);
         Purchase::observe(PurchaseObserver::class);
+
+        Ratelimiter::for('api', function (Request $request) {
+            return $request->user()
+                ? Limit::perMinute(60)->by($request->user()->id)
+                : Limit::perMinute(30)->by($request->ip());
+        });
     }
 
     public function registerPolicies(): void
