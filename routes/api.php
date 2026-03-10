@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\AdminController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\ChatController;
 use App\Http\Controllers\Api\DashboardController;
 use App\Http\Controllers\Api\NotificationController;
 use App\Http\Controllers\Api\PaymentController;
@@ -54,6 +55,9 @@ Route::middleware(['throttle:api'])->name('api.')->prefix('/v1')->group(function
         Route::get('/dashboard/logs', [DashboardController::class, 'logDashboard']);
 
         Route::get('/notifications', [NotificationController::class, 'index']);
+
+        Route::get('/chat/messages/{receiver_id}', [ChatController::class, 'getMessages']);
+        Route::post('/chat/send', [ChatController::class, 'sendMessage']);
 
         Route::get('/admin/dashboard', [AdminController::class, 'index'])->middleware('admin');
     });
