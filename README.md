@@ -76,15 +76,6 @@ After running the seeder, use these accounts to explore the system:
 
 ---
 
-## 🧪 Testing
-
-Run the automated test suite (Unit & Feature) to ensure system stability:
-```bash
-vendor/bin/sail artisan test
-```
-
----
-
 ## 🤝 Contact & Feedback
 
 Feel free to explore the codebase. Contributions, feedback, and code reviews are always welcome!
