@@ -1,6 +1,10 @@
 *.log
 .DS_Store
 .env
+.cursor
+.github
+.postman
+.vscode
 0000000000000000000000000000000.todo
 .env.backup
 .env.production
