@@ -29,7 +29,6 @@ class PaymentController extends Controller
             'payment_data' => 'required|in:paypal,stripe',
             'amount' => 'required|numeric|min:1',
         ]);
-        $payment_data = $request->input('payment_data');
 
         $amount = $request->input('amount');
         if (!$amount) {
