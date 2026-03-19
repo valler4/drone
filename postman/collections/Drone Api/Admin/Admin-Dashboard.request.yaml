@@ -1,0 +1,7 @@
+$kind: http-request
+name: Admin/Dashboard
+url: "{{baseUrl}}v1/admin/dashboard"
+method: GET
+headers:
+  Accept: application/json
+order: 1000

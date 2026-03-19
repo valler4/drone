@@ -1,0 +1,25 @@
+$kind: http-request
+name: Products
+url: "{{baseUrl}}v1/products"
+method: POST
+headers:
+  Accept: application/json
+body:
+  type: formdata
+  content:
+    - type: text
+      key: name
+      value: ""
+    - type: text
+      key: description
+      value: ""
+    - type: text
+      key: price
+      value: ""
+    - type: text
+      key: quantity
+      value: ""
+    - type: text
+      key: status
+      value: ""
+order: 3000

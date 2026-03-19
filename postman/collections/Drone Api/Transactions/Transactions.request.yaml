@@ -1,0 +1,6 @@
+$kind: http-request
+url: "{{baseUrl}}v1/transactions"
+method: GET
+headers:
+  Accept: application/json
+order: 1000

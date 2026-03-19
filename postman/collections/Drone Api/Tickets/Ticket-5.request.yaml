@@ -1,0 +1,7 @@
+$kind: http-request
+name: Ticket/5
+url: "{{baseUrl}}v1/tickets/5"
+method: DELETE
+headers:
+  Accept: application/json
+order: 6000

@@ -1,0 +1,10 @@
+$kind: http-request
+name: Purchase/5
+url: "{{baseUrl}}v1/purchase/5"
+method: POST
+headers:
+  Accept: application/json
+body:
+  type: formdata
+  content: []
+order: 1000

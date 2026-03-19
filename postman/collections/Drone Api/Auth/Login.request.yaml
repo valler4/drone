@@ -1,0 +1,15 @@
+$kind: http-request
+url: "{{baseUrl}}v1/login"
+method: POST
+headers:
+  Accept: application/json
+body:
+  type: formdata
+  content:
+    - type: text
+      key: email
+      value: ""
+    - type: text
+      key: password
+      value: ""
+order: 1000

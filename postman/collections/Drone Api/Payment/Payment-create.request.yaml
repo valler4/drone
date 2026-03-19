@@ -1,0 +1,16 @@
+$kind: http-request
+name: Payment/create
+url: "{{baseUrl}}v1/payment/create"
+method: POST
+headers:
+  Accept: application/json
+body:
+  type: formdata
+  content:
+    - type: text
+      key: payment_data
+      value: ""
+    - type: text
+      key: amount
+      value: ""
+order: 1000

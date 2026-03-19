@@ -1,0 +1,25 @@
+$kind: http-request
+name: Products/5
+url: "{{baseUrl}}v1/products/2"
+method: PATCH
+headers:
+  Accept: application/json
+body:
+  type: formdata
+  content:
+    - type: text
+      key: name
+      value: ""
+    - type: text
+      key: description
+      value: ""
+    - type: text
+      key: price
+      value: ""
+    - type: text
+      key: quantity
+      value: ""
+    - type: text
+      key: status
+      value: ""
+order: 6000

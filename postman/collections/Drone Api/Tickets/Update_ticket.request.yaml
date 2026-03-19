@@ -1,0 +1,12 @@
+$kind: http-request
+url: "{{baseUrl}}v1/tickets/5?title=&subject="
+method: PUT
+headers:
+  Accept: application/json
+queryParams:
+  title: ""
+  subject: ""
+body:
+  type: formdata
+  content: []
+order: 4000

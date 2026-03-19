@@ -1,0 +1,7 @@
+$kind: http-request
+name: Products/5
+url: "{{baseUrl}}v1/products/5"
+method: DELETE
+headers:
+  Accept: application/json
+order: 5000

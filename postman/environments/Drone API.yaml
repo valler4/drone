@@ -1,0 +1,10 @@
+name: Drone API
+values:
+  - key: base_url
+    value: 'http://localhost/api/v1'
+    enabled: true
+    type: default
+  - key: token
+    value: ''
+    enabled: true
+    type: secret

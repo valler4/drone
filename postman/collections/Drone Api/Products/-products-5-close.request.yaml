@@ -1,0 +1,10 @@
+$kind: http-request
+name: /products/5/close
+url: "{{baseUrl}}v1/products/5/close"
+method: PATCH
+headers:
+  Accept: application/json
+body:
+  type: formdata
+  content: []
+order: 8000

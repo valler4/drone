@@ -1,0 +1,16 @@
+$kind: http-request
+name: Transactions
+url: "{{baseUrl}}v1/transactions"
+method: POST
+headers:
+  Accept: application/json
+body:
+  type: formdata
+  content:
+    - type: text
+      key: receiver_id
+      value: ""
+    - type: text
+      key: amount
+      value: ""
+order: 2000

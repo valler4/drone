@@ -1,0 +1,14 @@
+$kind: http-request
+name: /payment/capture
+url: "{{baseUrl}}v1/payment/capture?payment_data=&amount=&session_id="
+method: GET
+headers:
+  Accept: application/json
+queryParams:
+  payment_data: ""
+  amount: ""
+  session_id: ""
+body:
+  type: formdata
+  content: []
+order: 2000

@@ -1,0 +1,15 @@
+$kind: http-request
+url: "{{baseUrl}}v1/profile"
+method: POST
+headers:
+  Accept: application/json
+body:
+  type: formdata
+  content:
+    - type: text
+      key: name
+      value: ""
+    - type: text
+      key: user_name
+      value: ""
+order: 1000

@@ -1,0 +1,10 @@
+$kind: http-request
+name: Transaction/5
+url: "{{baseUrl}}v1/transactions/5"
+method: GET
+headers:
+  Accept: application/json
+body:
+  type: formdata
+  content: []
+order: 3000

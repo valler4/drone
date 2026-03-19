@@ -1,0 +1,7 @@
+$kind: http-request
+name: Products/5
+url: "{{baseUrl}}v1/products/2"
+method: GET
+headers:
+  Accept: application/json
+order: 4000

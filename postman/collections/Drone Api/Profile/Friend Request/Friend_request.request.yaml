@@ -1,0 +1,9 @@
+$kind: http-request
+url: "{{baseUrl}}v1/profile/friend_request/5"
+method: DELETE
+headers:
+  Accept: application/json
+body:
+  type: formdata
+  content: []
+order: 1000

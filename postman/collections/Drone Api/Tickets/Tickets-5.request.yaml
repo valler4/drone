@@ -1,0 +1,10 @@
+$kind: http-request
+name: Tickets/5
+url: "{{baseUrl}}v1/tickets/5"
+method: GET
+headers:
+  Accept: application/json
+body:
+  type: formdata
+  content: []
+order: 3000

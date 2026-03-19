@@ -1,0 +1,6 @@
+$kind: http-request
+url: "{{baseUrl}}v1/tickets/5"
+method: PATCH
+headers:
+  Accept: application/json
+order: 5000
