@@ -48,3 +48,4 @@ vendor/bin/sail artisan test
 
 ---
 *Feel free to explore the codebase. Contributions, feedback, and code reviews are always welcome!*
+```
