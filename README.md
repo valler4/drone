@@ -22,16 +22,22 @@ This repository contains a robust Laravel application providing a comprehensive 
 3. **Initialize App:**
    ```bash
    vendor/bin/sail composer install
-   vendor/bin/sail artisan migrate --seed
    vendor/bin/sail artisan key:generate
+   vendor/bin/sail artisan migrate --seed
 
-Run tests:
-```bash
-vendor/bin/sail artisan test
-```
+
+## 🔐 Default Credentials (Testing)
+After running `php artisan migrate --seed`, you can use these accounts to explore the system:
+
+|  **Role**  | **Email** |**Password**|
+|    :---    |   :---    |    :---    |
+|  **Admin** | `admin@gmail.com` | `password` |
+| **User 1** | `user1@gmail.com` | `password` |
+| **User 2** | `user2@gmail.com` | `password` |
+
+*Note: The admin account is already linked to the `admin` role and can access protected dashboard routes.*
 
 ## 📂 Repository Layout & Important Files
-
 - `routes/` — Route definitions:
     - `api.php` — Core RESTful endpoints.
     - `web.php` — Web interface testing routes.
@@ -43,9 +49,10 @@ vendor/bin/sail artisan test
 - `postman/` — Ready-to-use Postman collections organized by feature to explore the API.
 
 ## 🔒 Security and Authorization
-- **Policies** (`app/Policies`) protect sensitive resources like products and transactions.
-- **Middleware** (`app/Http/Middleware`) handles request throttling and protects admin-only routes.
-
+- **Authentication (Sanctum):** Uses **Laravel Sanctum** for secure, token-based authentication across all API endpoints.
+- **Access Control (Policies):** Fine-grained authorization using **Policies** (`app/Policies`) to protect resources like products, tickets, and transactions.
+- **Route Protection:** Custom **Middleware** handles request throttling (to prevent brute-force) and restricts admin-only areas.
+- **Data Integrity:** Database-level protection with specialized **Observers** to ensure all transactions and logs are recorded accurately.
 ---
 *Feel free to explore the codebase. Contributions, feedback, and code reviews are always welcome!*
 ```

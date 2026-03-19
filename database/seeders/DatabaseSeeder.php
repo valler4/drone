@@ -50,28 +50,28 @@ DB::disableQueryLog();
 
         $admin = User::create([
             'id' => 1,
-            'name' => 'a',
-            'user_name' => 'a',
-            'email' => 'a@g',
-            'password' => Hash::make('aaaaaaaa'),
+            'name' => 'admin',
+            'user_name' => 'admin',
+            'email' => 'admin@gmail.com',
+            'password' => Hash::make('password'),
             'balance' => 1000.00,
         ]);
 
         User::create([
             'id' => 2,
-            'name' => 's',
-            'user_name' => 's',
-            'email' => 's@g',
-            'password' => Hash::make('ssssssss'),
+            'name' => 'user1',
+            'user_name' => 'user1',
+            'email' => 'user1@gmail.com',
+            'password' => Hash::make('password'),
             'balance' => 1000.00,
         ]);
 
         User::create([
             'id' => 3,
-            'name' => 'd',
-            'user_name' => 'd',
-            'email' => 'd@g',
-            'password' => Hash::make('dddddddd'),
+            'name' => 'user2',
+            'user_name' => 'user2',
+            'email' => 'user2@gmail.com',
+            'password' => Hash::make('password'),
             'google_id' => '117118237498013368078',
             'balance' => 1000.00,
         ]);
