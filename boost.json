@@ -1,12 +1,13 @@
 {
     "agents": [
-        "claude_code",
         "copilot",
         "cursor",
+        "gemini",
         "opencode"
     ],
     "editors": [
         "cursor",
+        "gemini",
         "opencode",
         "vscode"
     ],

@@ -1,4 +1,5 @@
 $kind: collection
+name: Drone Api
 variables:
   baseUrl: ""
   token: ""

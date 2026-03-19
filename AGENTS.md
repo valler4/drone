@@ -9,14 +9,20 @@ The Laravel Boost guidelines are specifically curated by Laravel maintainers for
 This application is a Laravel application and its main Laravel ecosystems package & versions are below. You are an expert with them all. Ensure you abide by these specific packages & versions.
 
 - php - 8.5.2
+- laravel/cashier (CASHIER) - v16
 - laravel/framework (LARAVEL) - v12
 - laravel/prompts (PROMPTS) - v0
+- laravel/reverb (REVERB) - v1
+- laravel/sanctum (SANCTUM) - v4
+- laravel/scout (SCOUT) - v10
+- laravel/socialite (SOCIALITE) - v5
 - livewire/flux (FLUXUI_FREE) - v2
 - livewire/livewire (LIVEWIRE) - v4
 - laravel/mcp (MCP) - v0
 - laravel/pint (PINT) - v1
 - laravel/sail (SAIL) - v1
 - phpunit/phpunit (PHPUNIT) - v11
+- laravel-echo (ECHO) - v2
 - tailwindcss (TAILWINDCSS) - v4
 
 ## Conventions
