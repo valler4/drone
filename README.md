@@ -34,6 +34,7 @@ This repository contains a robust **Laravel 12** application providing a compreh
 2.  **Start Services:** Run Docker containers:
     ```bash
     vendor/bin/sail up -d
+    vendor/bin/sail artisan reverb:start
     ```
 3.  **Initialize App:**
     ```bash
